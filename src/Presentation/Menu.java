@@ -6,10 +6,14 @@ import java.util.Scanner;
 
 public class Menu {
 
+    private Scanner scanner;
+
     public Menu() {
+        scanner = new Scanner(System.in);
     }
+
     public String askString(){
-        Scanner scanner = new Scanner(System.in);
+        scanner = new Scanner(System.in);
         String string;
 
         string = scanner.nextLine();
@@ -18,7 +22,7 @@ public class Menu {
     }
 
     public int askInt(){
-        Scanner scanner = new Scanner(System.in);
+        scanner = new Scanner(System.in);
         int integer = 0;
 
         if (scanner.hasNextInt()) {
@@ -120,7 +124,7 @@ public class Menu {
         print("Choose an option: ");
     }
 
-    public void teamInfo(String teamName, ArrayList<String> characterNameList, int combatPlayed, int combatWon, int KoDone, int KoReceived, int winrate){
+    public void teamInfo(String teamName, ArrayList<String> characterNameList, int combatPlayed, int combatWon, int koDone, int koReceived, int winrate){
         print("\tTeam name: " + teamName + "\n");
         for (int i = 0; i < characterNameList.size(); i++) {
             int j = i+1;
@@ -130,8 +134,8 @@ public class Menu {
         print("\n\tCombats played:\t" + combatPlayed);
         print("\tCombats won:\t" + combatWon);
         print("\tWin rate:\t\t" + winrate + "%");
-        print("\tKo's done:\t\t" + KoDone);
-        print("\tKo's received:\t" + KoReceived);
+        print("\tKo's done:\t\t" + koDone);
+        print("\tKo's received:\t" + koReceived);
     }
 
     public void deleteTeam(){

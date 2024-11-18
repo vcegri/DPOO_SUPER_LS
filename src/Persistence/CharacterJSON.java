@@ -23,14 +23,14 @@ public class CharacterJSON {
         return resultCharacters;
     }
 
-    public void saveCharacters(ArrayList<Character> characterList) {
+    /*public void saveCharacters(ArrayList<Character> characterList) {
         try (FileWriter writer = new FileWriter(FILE_PATH)) {
             Gson gson = new Gson();
             gson.toJson(characterList.toArray(), writer);
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     public boolean fileOK(){
         File characterFile = new File(FILE_PATH);
