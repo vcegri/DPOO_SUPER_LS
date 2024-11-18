@@ -23,7 +23,7 @@ public class Controller {
         int option;
         boolean characterFileOk = false;
         boolean itemFileOk = false;
-        boolean startProgram = false;
+        boolean startProgram;
 
         menu.initialMenu();
        startProgram =  startProgram(characterFileOk, itemFileOk);
@@ -126,7 +126,6 @@ public class Controller {
 
     public void createTeam(){
         int teamSize = 4;
-        ArrayList<String> characterNameList = new ArrayList<>();
         ArrayList<Integer> characterIdList = new ArrayList<>();
 
         menu.createTeam();
@@ -139,7 +138,6 @@ public class Controller {
             menu.print("Please enter name or id for character #1: ");
             for (int i = 0; i < teamSize; i++) {
                 String characterName = menu.askString();
-                characterNameList.add(characterName);
                 int j = i +1;
                 menu.print("Game strategy for character #" + j + "?");
                 menu.print("\t1) Balanced");
@@ -152,10 +150,10 @@ public class Controller {
         }
     }
     public void listTeamList(){
-        ArrayList<String> teamNameList = new ArrayList<>();
+        ArrayList<String> teamNameList;
         ArrayList<Integer> memberIdList = new ArrayList<>();
-        ArrayList<String> memberNameList = new ArrayList<>();
-        ArrayList<Integer> statList = new ArrayList<>();
+        ArrayList<String> memberNameList;
+        ArrayList<Integer> statList;
 
         teamNameList = teamManager.getNameOfTeams();
         menu.teamList(teamNameList);

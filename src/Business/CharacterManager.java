@@ -32,7 +32,7 @@ public class CharacterManager {
 
     public boolean comproveIfCharacterExist(String newName){
         boolean exist = false;
-        ArrayList<String> characterNameList = new ArrayList<>();
+        ArrayList<String> characterNameList;
 
         characterNameList = getNameOfCharacters(teamList);
         for (int i = 0; i < characterNameList.size(); i++) {

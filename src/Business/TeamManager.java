@@ -15,7 +15,7 @@ public class TeamManager {
 
     public ArrayList<String> searchTeamsOfCharacter(int character){
         ArrayList<String> teamNameList = new ArrayList<>();
-        ArrayList<Integer> memberList = new ArrayList<>();
+        ArrayList<Integer> memberList;
 
         for (int i = 0; i < teamList.size(); i++) {
             memberList = teamList.get(i).getMemberList();
@@ -30,7 +30,7 @@ public class TeamManager {
 
     public boolean comproveIfTeamExist(String newName){
         boolean exist = false;
-        ArrayList<String> teamNameList = new ArrayList<>();
+        ArrayList<String> teamNameList;
 
         teamNameList = getNameOfTeams(teamList);
         for (int i = 0; i < teamNameList.size(); i++) {
