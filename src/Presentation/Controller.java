@@ -97,6 +97,13 @@ public class Controller {
     }
     public void manageTeams(){
         menu.manageTeamsMenu();
+        int option = escollirOpcio(1, 4);
+        switch (option){
+            case 1 -> createTeam();
+            case 2 -> listTeamList();
+            case 3 -> deleteTeam();
+        }
+
     }
     public void listItems(){
         ArrayList<String> itemNameList;
@@ -116,4 +123,18 @@ public class Controller {
         menu.itemInfo(id, name, classe, power, durability);
     }
     public void simulateCombat(){}
+
+    public void createTeam(){
+        menu.createTeam();
+        String name = menu.askString();
+        boolean exist = teamManager.comproveIfTeamExist(name);
+        if (!exist){
+            menu.print("We are sorry " + name + " is taken.");
+        }
+        else {
+            menu.print("");
+        }
+    }
+    public void listTeamList(){}
+    public void deleteTeam(){}
 }
