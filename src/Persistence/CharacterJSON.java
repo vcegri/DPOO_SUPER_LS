@@ -10,36 +10,28 @@ public class CharacterJSON {
 
     private static final String FILE_PATH = "data/characters.json";
 
-    @Override
     public ArrayList<Character> readAll() throws FileNotFoundException {
         FileReader reader = new FileReader(FILE_PATH);
         Gson gson = new Gson();
         JsonArray elements = JsonParser.parseReader(reader).getAsJsonArray();
-        ArrayList<Character> resultProducts = new ArrayList<>();
+        ArrayList<Character> resultCharacters = new ArrayList<>();
 
         for (JsonElement jsonElement : elements) {
             Character character = gson.fromJson(jsonElement, Character.class);
-            resultProducts.add(character);
+            resultCharacters.add(character);
         }
-        return resultProducts;
+        return resultCharacters;
     }
 
-    @Override
-    public void saveShops(ArrayList<Character> shops) {
+    public void saveCharacters(ArrayList<Character> characterList) {
         try (FileWriter writer = new FileWriter(FILE_PATH)) {
             Gson gson = new Gson();
-            gson.toJson(shops.toArray(), writer);
+            gson.toJson(characterList.toArray(), writer);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void removeProduct(Character character,ArrayList<Character> characters) {
-        characters.remove(character);
-        saveShops(characters);
-    }
-
-    @Override
     public boolean fileOK(){
         File characterFile = new File(FILE_PATH);
         return characterFile.exists() && characterFile.isFile();
