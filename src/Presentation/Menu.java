@@ -6,14 +6,12 @@ import java.util.Scanner;
 
 public class Menu {
 
-    private Scanner scanner;
 
     public Menu() {
-        scanner = new Scanner(System.in);
     }
 
     public String askString(){
-        scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         String string;
 
         string = scanner.nextLine();
@@ -22,7 +20,7 @@ public class Menu {
     }
 
     public int askInt(){
-        scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         int integer = 0;
 
         if (scanner.hasNextInt()) {
