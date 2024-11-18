@@ -69,7 +69,7 @@ public class Controller {
                 menu.incorrectFile("charaters.json y items.json files");
             }
             else if (!characterFileOk){
-                menu.incorrectFile("character.json file");
+                menu.incorrectFile("characters.json file");
             }
             else {
                 menu.incorrectFile("items.json file");
