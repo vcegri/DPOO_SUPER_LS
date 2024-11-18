@@ -125,6 +125,10 @@ public class Controller {
     public void simulateCombat(){}
 
     public void createTeam(){
+        int teamSize = 4;
+        ArrayList<String> characterNameList = new ArrayList<>();
+        ArrayList<Integer> characterIdList = new ArrayList<>();
+
         menu.createTeam();
         String name = menu.askString();
         boolean exist = teamManager.comproveIfTeamExist(name);
@@ -132,9 +136,52 @@ public class Controller {
             menu.print("We are sorry " + name + " is taken.");
         }
         else {
-            menu.print("");
+            menu.print("Please enter name or id for character #1: ");
+            for (int i = 0; i < teamSize; i++) {
+                String characterName = menu.askString();
+                characterNameList.add(characterName);
+                int j = i +1;
+                menu.print("Game strategy for character #" + j + "?");
+                menu.print("\t1) Balanced");
+                escollirOpcio(1,1);
+                characterIdList.add(characterManager.getIdByName(characterName));
+            }
+            menu.print("Team " + name + " has been successfully created!");
+
+            teamManager.createTeam(name, characterIdList);
         }
     }
-    public void listTeamList(){}
-    public void deleteTeam(){}
+    public void listTeamList(){
+        ArrayList<String> teamNameList = new ArrayList<>();
+        ArrayList<Integer> memberIdList = new ArrayList<>();
+        ArrayList<String> memberNameList = new ArrayList<>();
+        ArrayList<Integer> statList = new ArrayList<>();
+
+        teamNameList = teamManager.getNameOfTeams();
+        menu.teamList(teamNameList);
+        int max = teamNameList.size();
+        int teamName = escollirOpcio(0, max);
+
+        String name = teamNameList.get(teamName);
+        teamManager.getIdListOfATeam(name);
+
+        memberNameList = characterManager.getNameById(memberIdList);
+
+        statList = statManager.getStatList(name);
+
+        menu.teamInfo(name, memberNameList, statList.get(0), statList.get(1), statList.get(2), statList.get(3), statList.get(4));
+    }
+    public void deleteTeam(){
+        menu.deleteTeam();
+        String name = menu.askString();
+        boolean exist = teamManager.comproveIfTeamExist(name);
+        if (exist){
+            menu.print("Are you sure you want to remove \"" + name + "\" ?");
+            String confirmation = menu.askString();
+            if (confirmation.equals("Yes")){
+                teamManager.deleteTeam(name);
+                menu.print("\"" + name + "\" has been removed from the system.");
+            }
+        }
+    }
 }

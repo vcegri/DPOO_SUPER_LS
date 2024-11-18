@@ -40,4 +40,22 @@ public class TeamManager {
         }
         return(exist);
     }
+
+    public void createTeam(String name, ArrayList<Integer> characterNameList){
+    }
+
+    public ArrayList<Integer> getIdListOfATeam(String name){
+        ArrayList<Integer> memberList = new ArrayList<>();
+
+        for (int i = 0; i < teamList.size(); i++) {
+            teamName = teamList.get(i).getName();
+            if (name.equals(teamName)){
+                memberList = teamList.get(i).getMemberList();
+            }
+        }
+
+        return (memberList);
+    }
+
+    public void deleteTeam(String name){}
 }

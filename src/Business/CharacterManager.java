@@ -54,4 +54,18 @@ public class CharacterManager {
 
         return(weight);
     }
+
+    public ArrayList<String> getNameById(ArrayList<Integer> idList){
+        ArrayList<String> nameList = new ArrayList<>();
+
+        for (int i = 0; i < characterList.size(); i++){
+            for (int j = 0; j < idList.size(); j++) {
+                if (characterList.get(i).getId() == idList.get(j)) {
+                    nameList.add(characterList.get(i).getName);
+                }
+            }
+        }
+
+        return(nameList);
+    }
 }

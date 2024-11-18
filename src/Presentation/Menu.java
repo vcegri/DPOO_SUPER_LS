@@ -120,7 +120,7 @@ public class Menu {
         print("Choose an option: ");
     }
 
-    public void teamInfo(String teamName, ArrayList<String> characterNameList, int combatPlayed, int combatWon, int winRate, int KoDone, int KoReceived){
+    public void teamInfo(String teamName, ArrayList<String> characterNameList, int combatPlayed, int combatWon, int KoDone, int KoReceived, int winrate){
         print("\tTeam name: " + teamName + "\n");
         for (int i = 0; i < characterNameList.size(); i++) {
             int j = i+1;
@@ -129,7 +129,7 @@ public class Menu {
         }
         print("\n\tCombats played:\t" + combatPlayed);
         print("\tCombats won:\t" + combatWon);
-        print("\tWin rate:\t\t" + winRate + "%");
+        print("\tWin rate:\t\t" + winrate + "%");
         print("\tKo's done:\t\t" + KoDone);
         print("\tKo's received:\t" + KoReceived);
     }
