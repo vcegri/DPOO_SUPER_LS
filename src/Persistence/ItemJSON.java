@@ -26,15 +26,6 @@ public class ItemJSON {
         return resultItems;
     }
 
-    public void saveItems(ArrayList<Item> itemList) {
-        try (FileWriter writer = new FileWriter(FILE_PATH)) {
-            Gson gson = new Gson();
-            gson.toJson(itemList.toArray(), writer);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public boolean fileOK(){
         File itemFile = new File(FILE_PATH);
         return itemFile.exists() && itemFile.isFile();
