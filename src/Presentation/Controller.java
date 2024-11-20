@@ -10,16 +10,18 @@ public class Controller {
     private final TeamManager teamManager;
     private final ItemManager itemManager;
     private final StatManager statManager;
+    private final CombatManager combatManager;
 
-    public Controller(Menu menu, CharacterManager characterManager, TeamManager teamManager, ItemManager itemManager, StatManager statManager) {
+    public Controller(Menu menu, CharacterManager characterManager, TeamManager teamManager, ItemManager itemManager, StatManager statManager, CombatManager combatManager) {
         this.menu = menu;
         this.characterManager = characterManager;
         this.teamManager = teamManager;
         this.itemManager = itemManager;
         this.statManager = statManager;
+        this.combatManager = combatManager;
     }
 
-    public void run() {
+    private void run() {
         int option;
         boolean characterFileOk = false;
         boolean itemFileOk = false;
@@ -28,11 +30,11 @@ public class Controller {
         menu.initialMenu();
        startProgram =  startProgram(characterFileOk, itemFileOk);
 
-        if (startProgram){
+        if (startProgram) {
             do {
                 menu.principalMenu();
                 option = selectOption(1, 5);
-                switch (option){
+                switch (option) {
                     case 1 -> listCharacters();
                     case 2 -> manageTeams();
                     case 3 -> listItems();
@@ -43,12 +45,12 @@ public class Controller {
         }
     }
 
-    public int selectOption(int min, int max){
+    private int selectOption(int min, int max) {
         int option;
         int flag = 1;
         do {
             option = menu.askInt();
-            if (option > max || option < min){
+            if (option > max || option < min) {
                 menu.invalidOption();
                 flag = 0;
             }
@@ -56,10 +58,10 @@ public class Controller {
         return(option);
     }
 
-    public boolean startProgram(boolean characterFileOk, boolean itemFileOk){
+    private boolean startProgram(boolean characterFileOk, boolean itemFileOk) {
         boolean startProgram;
 
-        if(characterFileOk && itemFileOk){
+        if(characterFileOk && itemFileOk) {
             menu.correctFile();
             startProgram = true;
         }
@@ -68,7 +70,7 @@ public class Controller {
             if (!characterFileOk && !itemFileOk) {
                 menu.incorrectFile("charaters.json y items.json files");
             }
-            else if (!characterFileOk){
+            else if (!characterFileOk) {
                 menu.incorrectFile("characters.json file");
             }
             else {
@@ -78,7 +80,7 @@ public class Controller {
         return (startProgram);
     }
 
-    public void listCharacters(){
+    private void listCharacters() {
         ArrayList<String> characterNameList;
         ArrayList<String> teamList;
 
@@ -95,17 +97,17 @@ public class Controller {
         teamList = teamManager.searchTeamsOfCharacter(id);
         menu.characterInfo(id, name, weight, teamList);
     }
-    public void manageTeams(){
+    private void manageTeams() {
         menu.manageTeamsMenu();
         int option = selectOption(1, 4);
-        switch (option){
+        switch (option) {
             case 1 -> createTeam();
             case 2 -> listTeams();
             case 3 -> deleteTeam();
         }
 
     }
-    public void listItems(){
+    private void listItems() {
         ArrayList<String> itemNameList;
 
         itemNameList = characterManager.getNameOfCharacters();
@@ -122,16 +124,16 @@ public class Controller {
         String classe = itemManager.getClasseByName(name);
         menu.itemInfo(id, name, classe, power, durability);
     }
-    public void simulateCombat(){}
+    private void simulateCombat() {}
 
-    public void createTeam(){
+    private void createTeam() {
         int teamSize = 4;
         ArrayList<Integer> characterIdList = new ArrayList<>();
 
         menu.createTeam();
         String name = menu.askString();
         boolean exist = teamManager.comproveIfTeamExist(name);
-        if (!exist){
+        if (!exist) {
             menu.print("We are sorry " + name + " is taken.");
         }
         else {
@@ -149,7 +151,7 @@ public class Controller {
             teamManager.createTeam(name, characterIdList);
         }
     }
-    public void listTeams() {
+    private void listTeams() {
         ArrayList<String> teamNameList;
         ArrayList<Integer> memberIdList = new ArrayList<>();
         ArrayList<String> memberNameList;
@@ -169,17 +171,19 @@ public class Controller {
 
         menu.teamInfo(name, memberNameList, statList.get(0), statList.get(1), statList.get(2), statList.get(3), statList.get(4));
     }
-    public void deleteTeam(){
+    private void deleteTeam() {
         menu.deleteTeam();
         String name = menu.askString();
         boolean exist = teamManager.comproveIfTeamExist(name);
-        if (exist){
+        if (exist) {
             menu.print("Are you sure you want to remove \"" + name + "\" ?");
             String confirmation = menu.askString();
-            if (confirmation.equals("Yes")){
+            if (confirmation.equals("Yes")) {
                 teamManager.deleteTeam(name);
                 menu.print("\"" + name + "\" has been removed from the system.");
             }
         }
     }
+    
+    private void pressKey() {}
 }

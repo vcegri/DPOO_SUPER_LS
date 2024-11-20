@@ -10,7 +10,7 @@ public class Menu {
     public Menu() {
     }
 
-    public String askString(){
+    public String askString() {
         Scanner scanner = new Scanner(System.in);
         String string;
 
@@ -19,7 +19,7 @@ public class Menu {
         return (string);
     }
 
-    public int askInt(){
+    public int askInt() {
         Scanner scanner = new Scanner(System.in);
         int integer = 0;
 
@@ -35,11 +35,11 @@ public class Menu {
         return (integer);
     }
 
-    public void print(String string){
+    public void print(String string) {
         System.out.println(string);
     }
 
-    public void initialMenu(){
+    public void initialMenu() {
         print("    / __   __   ___    ___     ___   ___   __    __   ");
         print("   | |__) /__\\ | | \\  | | \\   / __| / __|  \\ \\  / /   ");
         print("   | |   /    \\| | |  | |  \\  \\__ \\ \\__ \\   \\ \\/ /    ");
@@ -54,17 +54,17 @@ public class Menu {
         print("Verifying local files...");
     }
 
-    public void correctFile(){
+    public void correctFile() {
         print("Files OK.");
         print("Starting program...");
     }
 
-    public void incorrectFile(String file){
+    public void incorrectFile(String file) {
         print("Error: The " + file + "can't be accessed.");
         print("Shutting down...");
     }
 
-    public void principalMenu(){
+    public void principalMenu() {
         print("\n\t1) List Characters");
         print("\t2) Manage Teams");
         print("\t3) List Items");
@@ -73,11 +73,11 @@ public class Menu {
         print("Choose an option: ");
     }
 
-    public void invalidOption(){
+    public void invalidOption() {
         print("Invalid Option, please choose a correct one (you have the options above)");
     }
 
-    public void characterList(ArrayList<String> characterNameList){
+    public void characterList(ArrayList<String> characterNameList) {
         print("\n");
         for (int i = 0; i < characterNameList.size(); i++) {
             int j = i+1;
@@ -88,7 +88,7 @@ public class Menu {
         print("Choose an option: ");
     }
 
-    public void characterInfo(int characterId, String characterName, int characterWeight, ArrayList<String> characterTeamList){
+    public void characterInfo(int characterId, String characterName, int characterWeight, ArrayList<String> characterTeamList) {
         print("\n\tID:\t" + characterId);
         print("\tNAME:\t" + characterName);
         print("\tWEIGHT:\t" + characterWeight + "kg");
@@ -98,7 +98,7 @@ public class Menu {
         }
     }
 
-    public void manageTeamsMenu(){
+    public void manageTeamsMenu() {
         print("\nTeam management.");
         print("\t1) Create a Team");
         print("\t2) List Teams");
@@ -107,11 +107,11 @@ public class Menu {
         print("Choose an option: ");
     }
 
-    public void createTeam(){
+    public void createTeam() {
         print("\nPlease enter the team's name: ");
     }
 
-    public void teamList(ArrayList<String> teamNameList){
+    public void teamList(ArrayList<String> teamNameList) {
         print("\n");
         for (int i = 0; i < teamNameList.size(); i++) {
             int j = i+1;
@@ -122,7 +122,7 @@ public class Menu {
         print("Choose an option: ");
     }
 
-    public void teamInfo(String teamName, ArrayList<String> characterNameList, int combatPlayed, int combatWon, int koDone, int koReceived, int winrate){
+    public void teamInfo(String teamName, ArrayList<String> characterNameList, int combatPlayed, int combatWon, int koDone, int koReceived, int winrate) {
         print("\tTeam name: " + teamName + "\n");
         for (int i = 0; i < characterNameList.size(); i++) {
             int j = i+1;
@@ -136,11 +136,11 @@ public class Menu {
         print("\tKo's received:\t" + koReceived);
     }
 
-    public void deleteTeam(){
+    public void deleteTeam() {
         print("\n\tEnter the name of the team to remove: ");
     }
 
-    public void itemList(ArrayList<String> itemNameList){
+    public void itemList(ArrayList<String> itemNameList) {
         print("\n");
         for (int i = 0; i < itemNameList.size(); i++) {
             int j = i+1;
@@ -151,7 +151,7 @@ public class Menu {
         print("Choose an option: ");
     }
 
-    public void itemInfo(int itemID, String name, String classe, int power, int durability){
+    public void itemInfo(int itemID, String name, String classe, int power, int durability) {
         print("\n\tID:\t\t" + itemID);
         print("\tNAME:\t\t" + name);
         print("\n\tCLASS:\t\t" + classe);
@@ -159,7 +159,7 @@ public class Menu {
         print("\n\tDURABILITY:\t" + durability);
     }
 
-    public ArrayList<Integer> startCombat(ArrayList<String> teamNameList){
+    public ArrayList<Integer> startCombat(ArrayList<String> teamNameList) {
         ArrayList<Integer> teamFight = new ArrayList<>();
         print("\nStarting simulation...");
         print("\nLooking for available team...\n");
@@ -181,7 +181,7 @@ public class Menu {
         return (teamFight);
     }
 
-    public void memberTeamList(int teamNumber, String teamName, ArrayList<String> teamMemberNameList, ArrayList<String> teamWeaponList, ArrayList<String> teamArmorList){
+    public void memberTeamList(int teamNumber, String teamName, ArrayList<String> teamMemberNameList, ArrayList<String> teamWeaponList, ArrayList<String> teamArmorList) {
         print("\tTeam #" + teamNumber + " - " + teamName);
         for (int i = 0; i < teamMemberNameList.size(); i++) {
             String name = teamMemberNameList.get(i);
@@ -193,7 +193,7 @@ public class Menu {
         }
     }
 
-    public void roundinfo(int teamNumber, String teamName, ArrayList<String> teamMemberNameList, ArrayList<String> teamWeaponList, ArrayList<String> teamArmorList, ArrayList<String> damageTakenList){
+    public void roundinfo(int teamNumber, String teamName, ArrayList<String> teamMemberNameList, ArrayList<String> teamWeaponList, ArrayList<String> teamArmorList, ArrayList<String> damageTakenList) {
         print("\tTeam #" + teamNumber + " - " + teamName);
         for (int i = 0; i < teamMemberNameList.size(); i++) {
             String name = teamMemberNameList.get(i);
@@ -204,25 +204,25 @@ public class Menu {
         }
     }
 
-    public void combatAttack(String attacker, String defender, String weapon, double damage, double damageTaken){
+    public void combatAttack(String attacker, String defender, String weapon, double damage, double damageTaken) {
         print(attacker + "ATTACKS" + defender + "WITH" + weapon + "FOR" + damage + "DAMAGE!");
         print(defender + "RECEIVES" + damageTaken + "DAMAGE!");
     }
 
-    public void itemBreak(String memberName, String weaponName){
+    public void itemBreak(String memberName, String weaponName) {
         print("Oh no! " + memberName + "'s " + weaponName + "breaks!");
     }
 
-    public void charcterKO(String memberName){
+    public void charcterKO(String memberName) {
         print(memberName + "flies away! It's a KO!");
     }
 
-    public void endCombat(String winner){
+    public void endCombat(String winner) {
         print("--- END OF COMBAT ---\n");
         print("...and" + winner + "wins!\n");
     }
 
-    public void finalRound(int teamNumber, String teamName, ArrayList<String> teamMemberNameList, ArrayList<String> damageTakenList){
+    public void finalRound(int teamNumber, String teamName, ArrayList<String> teamMemberNameList, ArrayList<String> damageTakenList) {
         print("\tTeam #" + teamNumber + " - " + teamName);
         for (int i = 0; i < teamMemberNameList.size(); i++) {
             String name = teamMemberNameList.get(i);

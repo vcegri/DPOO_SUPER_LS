@@ -3,7 +3,7 @@ package Business;
 import java.util.ArrayList;
 
 public class CharacterManager {
-    public ArrayList<Integer> getIdOfCharacters(){
+    public ArrayList<Integer> getIdOfCharacters() {
         ArrayList<Integer> idList = new ArrayList<>();
 
         for (int i = 0; i < characterList.size(); i++) {
@@ -12,7 +12,7 @@ public class CharacterManager {
         return (idList);
     }
 
-    public ArrayList<String> getNameOfCharacters(){
+    public ArrayList<String> getNameOfCharacters() {
         ArrayList<String> nameList = new ArrayList<>();
 
         for (int i = 0; i < characterList.size(); i++) {
@@ -21,7 +21,7 @@ public class CharacterManager {
         return (nameList);
     }
 
-    public ArrayList<Integer> getWeightOfCharacters(){
+    public ArrayList<Integer> getWeightOfCharacters() {
         ArrayList<Integer> weightList = new ArrayList<>();
 
         for (int i = 0; i < characterList.size(); i++) {
@@ -30,13 +30,13 @@ public class CharacterManager {
         return (weightList);
     }
 
-    public boolean comproveIfCharacterExist(String newName){
+    public boolean comproveIfCharacterExist(String newName) {
         boolean exist = false;
         ArrayList<String> characterNameList;
 
         characterNameList = getNameOfCharacters(teamList);
         for (int i = 0; i < characterNameList.size(); i++) {
-            if (newName.equals(characterNameList.get(i))){
+            if (newName.equals(characterNameList.get(i))) {
                 exist = true;
             }
         }
@@ -55,10 +55,10 @@ public class CharacterManager {
         return(weight);
     }
 
-    public ArrayList<String> getNameById(ArrayList<Integer> idList){
+    public ArrayList<String> getNameById(ArrayList<Integer> idList) {
         ArrayList<String> nameList = new ArrayList<>();
 
-        for (int i = 0; i < characterList.size(); i++){
+        for (int i = 0; i < characterList.size(); i++) {
             for (int j = 0; j < idList.size(); j++) {
                 if (characterList.get(i).getId() == idList.get(j)) {
                     nameList.add(characterList.get(i).getName);

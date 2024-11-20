@@ -26,7 +26,7 @@ public class ItemJSON {
         return resultItems;
     }
 
-    public boolean fileOK(){
+    public boolean fileOK() {
         File itemFile = new File(FILE_PATH);
         return itemFile.exists() && itemFile.isFile();
     }

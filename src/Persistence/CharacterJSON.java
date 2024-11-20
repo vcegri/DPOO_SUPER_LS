@@ -23,7 +23,7 @@ public class CharacterJSON {
         return resultCharacters;
     }
 
-    public boolean fileOK(){
+    public boolean fileOK() {
         File characterFile = new File(FILE_PATH);
         return characterFile.exists() && characterFile.isFile();
     }
