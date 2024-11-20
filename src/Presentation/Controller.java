@@ -149,7 +149,7 @@ public class Controller {
             teamManager.createTeam(name, characterIdList);
         }
     }
-    public void listTeams(){
+    public void listTeams() {
         ArrayList<String> teamNameList;
         ArrayList<Integer> memberIdList = new ArrayList<>();
         ArrayList<String> memberNameList;
