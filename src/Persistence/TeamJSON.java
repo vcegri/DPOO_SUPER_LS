@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class TeamJSON {
     private static final String FILE_PATH = "data/teams.json";
 
+
     public ArrayList<Team> readAll() throws FileNotFoundException {
         FileReader reader = new FileReader(FILE_PATH);
         Gson gson = new Gson();
