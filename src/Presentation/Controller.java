@@ -149,6 +149,7 @@ public class Controller {
             menu.print("Team " + name + " has been successfully created!");
 
             teamManager.createTeam(name, characterIdList);
+            statManager.createStat(name);
         }
     }
     private void listTeams() {

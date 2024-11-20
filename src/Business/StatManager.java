@@ -12,6 +12,10 @@ public class StatManager {
         this.statJson = statJson;
     }
 
+    public void createStat(String name) {
+        Stat stat = new Stat(name);
+    }
+
     public ArrayList<Integer> getStatList(String name) {
         ArrayList<Integer> statInfoList = new ArrayList<>();
 

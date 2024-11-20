@@ -8,12 +8,12 @@ public class Stat {
     private final int KoDone;
     private final int KoReceived;
 
-    public Stat(String name, int gamesPlayed, int gamesWon, int koDone, int koReceived) {
+    public Stat(String name) {
         this.name = name;
-        this.gamesPlayed = gamesPlayed;
-        this.gamesWon = gamesWon;
-        KoDone = koDone;
-        KoReceived = koReceived;
+        this.gamesPlayed = 0;
+        this.gamesWon = 0;
+        KoDone = 0;
+        KoReceived = 0;
     }
 
     public String getName() {
