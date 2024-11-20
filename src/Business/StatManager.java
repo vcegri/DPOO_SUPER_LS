@@ -1,8 +1,17 @@
 package Business;
 
+import Persistence.StatJSON;
+
 import java.util.ArrayList;
 
 public class StatManager {
+    
+    private StatJSON statJson;
+
+    public StatManager(StatJSON statJson) {
+        this.statJson = statJson;
+    }
+
     public ArrayList<Integer> getStatList(String name) {
         ArrayList<Integer> statInfoList = new ArrayList<>();
 
@@ -18,6 +27,6 @@ public class StatManager {
             }
         }
 
-        return(statInfoList);
+        return (statInfoList);
     }
 }

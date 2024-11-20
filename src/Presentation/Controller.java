@@ -55,7 +55,7 @@ public class Controller {
                 flag = 0;
             }
         }while (flag != 1);
-        return(option);
+        return (option);
     }
 
     private boolean startProgram(boolean characterFileOk, boolean itemFileOk) {

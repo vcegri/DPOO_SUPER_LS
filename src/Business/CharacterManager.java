@@ -1,8 +1,17 @@
 package Business;
 
+import Persistence.CharacterJSON;
+
 import java.util.ArrayList;
 
 public class CharacterManager {
+    
+    private CharacterJSON characterJson;
+
+    public CharacterManager(CharacterJSON characterJson) {
+        this.characterJson = characterJson;
+    }
+
     public ArrayList<Integer> getIdOfCharacters() {
         ArrayList<Integer> idList = new ArrayList<>();
 
@@ -40,19 +49,19 @@ public class CharacterManager {
                 exist = true;
             }
         }
-        return(exist);
+        return (exist);
     }
 
     public int getIdByName(String name) {
         int id;
 
-        return(id);
+        return (id);
     }
 
     public int getWeightByName(String name) {
         int weight;
 
-        return(weight);
+        return (weight);
     }
 
     public ArrayList<String> getNameById(ArrayList<Integer> idList) {
@@ -66,6 +75,6 @@ public class CharacterManager {
             }
         }
 
-        return(nameList);
+        return (nameList);
     }
 }

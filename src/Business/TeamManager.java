@@ -1,8 +1,16 @@
 package Business;
 
+import Persistence.TeamJSON;
+
 import java.util.ArrayList;
 
 public class TeamManager {
+    
+    private TeamJSON teamJson;
+
+    public TeamManager(TeamJSON teamJson) {
+        this.teamJson = teamJson;
+    }
 
     public ArrayList<String> getNameOfTeams() {
         ArrayList<String> nameList = new ArrayList<>();
@@ -38,7 +46,7 @@ public class TeamManager {
                 exist = true;
             }
         }
-        return(exist);
+        return (exist);
     }
 
     public void createTeam(String name, ArrayList<Integer> characterNameList) {
