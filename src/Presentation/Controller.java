@@ -31,7 +31,7 @@ public class Controller {
         if (startProgram){
             do {
                 menu.principalMenu();
-                option = escollirOpcio(1, 5);
+                option = selectOption(1, 5);
                 switch (option){
                     case 1 -> listCharacters();
                     case 2 -> manageTeams();
@@ -43,7 +43,7 @@ public class Controller {
         }
     }
 
-    public int escollirOpcio(int min, int max){
+    public int selectOption(int min, int max){
         int option;
         int flag = 1;
         do {
@@ -86,7 +86,7 @@ public class Controller {
         menu.characterList(characterNameList);
 
         int max = characterNameList.size();
-        int character = escollirOpcio(0, max);
+        int character = selectOption(0, max);
         character--;
 
         String name = characterNameList.get(character);
@@ -97,10 +97,10 @@ public class Controller {
     }
     public void manageTeams(){
         menu.manageTeamsMenu();
-        int option = escollirOpcio(1, 4);
+        int option = selectOption(1, 4);
         switch (option){
             case 1 -> createTeam();
-            case 2 -> listTeamList();
+            case 2 -> listTeams();
             case 3 -> deleteTeam();
         }
 
@@ -112,7 +112,7 @@ public class Controller {
         menu.characterList(itemNameList);
 
         int max = itemNameList.size();
-        int item = escollirOpcio(0, max);
+        int item = selectOption(0, max);
         item--;
 
         String name = itemNameList.get(item);
@@ -141,7 +141,7 @@ public class Controller {
                 int j = i +1;
                 menu.print("Game strategy for character #" + j + "?");
                 menu.print("\t1) Balanced");
-                escollirOpcio(1,1);
+                selectOption(1,1);
                 characterIdList.add(characterManager.getIdByName(characterName));
             }
             menu.print("Team " + name + " has been successfully created!");
@@ -149,7 +149,7 @@ public class Controller {
             teamManager.createTeam(name, characterIdList);
         }
     }
-    public void listTeamList(){
+    public void listTeams(){
         ArrayList<String> teamNameList;
         ArrayList<Integer> memberIdList = new ArrayList<>();
         ArrayList<String> memberNameList;
@@ -158,7 +158,7 @@ public class Controller {
         teamNameList = teamManager.getNameOfTeams();
         menu.teamList(teamNameList);
         int max = teamNameList.size();
-        int teamName = escollirOpcio(0, max);
+        int teamName = selectOption(0, max);
 
         String name = teamNameList.get(teamName);
         teamManager.getIdListOfATeam(name);
