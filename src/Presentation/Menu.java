@@ -159,8 +159,7 @@ public class Menu {
         print("\n\tDURABILITY:\t" + durability);
     }
 
-    public ArrayList<Integer> startCombat(ArrayList<String> teamNameList) {
-        ArrayList<Integer> teamFight = new ArrayList<>();
+    public void startCombat(ArrayList<String> teamNameList) {
         print("\nStarting simulation...");
         print("\nLooking for available team...\n");
         for (int i = 0; i < teamNameList.size(); i++) {
@@ -168,17 +167,6 @@ public class Menu {
             String name = teamNameList.get(i);
             print("\t" + j + ") " + name);
         }
-        print("\nChoose team #1: ");
-        int max = teamNameList.size() + 1;
-        teamFight.add(escollirOpcio(1, max));
-
-        print("Choose team #2: ");
-        max = teamNameList.size() + 1;
-        teamFight.add(escollirOpcio(1, max));
-
-        print("Initializing teams...");
-
-        return (teamFight);
     }
 
     public void memberTeamList(int teamNumber, String teamName, ArrayList<String> teamMemberNameList, ArrayList<String> teamWeaponList, ArrayList<String> teamArmorList) {

@@ -4,6 +4,8 @@ import Business.*;
 
 import java.util.ArrayList;
 
+import java.io.IOException;
+
 public class Controller {
     private final Menu menu;
     private final CharacterManager characterManager;
@@ -124,7 +126,6 @@ public class Controller {
         String classe = itemManager.getClasseByName(name);
         menu.itemInfo(id, name, classe, power, durability);
     }
-    private void simulateCombat() {}
 
     private void createTeam() {
         int teamSize = 4;
@@ -185,6 +186,50 @@ public class Controller {
             }
         }
     }
+
+    private void simulateCombat() {
+        ArrayList<Team> teamFight;
+
+        teamFight = chooseTeamForCombat();
+        createCombat();
+
+
+    }
+
+    private ArrayList<Team> chooseTeamForCombat(){
+        ArrayList<String> teamNameList;
+        ArrayList<Team> teamFight = new ArrayList<>();
+        String teamName;
+        Team team;
+
+        teamNameList = teamManager.getNameOfTeams();
+        menu.startCombat(teamNameList);
+
+        menu.print("\nChoose team #1: ");
+        int max = teamNameList.size() + 1;
+        int option = selectOption(1, max);
+        teamName = teamNameList.get(option);
+        team = teamManager.getTeamByName(teamName);
+        teamFight.add(team);
+
+        menu.print("\nChoose team #2: ");
+        option = selectOption(1, max);
+        teamName = teamNameList.get(option);
+        team = teamManager.getTeamByName(teamName);
+        teamFight.add(team);
+
+        return teamFight;
+    }
+
+    private void createCombat(){
+        menu.print("Initializing teams...");
+
+
+
+        menu.print("Combat ready!");
+    }
     
-    private void pressKey() {}
+    private void pressKey() throws IOException {
+        System.in.read();
+    }
 }

@@ -25,14 +25,7 @@ public class TeamManager {
         ArrayList<String> teamNameList = new ArrayList<>();
         ArrayList<Integer> memberList;
 
-        for (int i = 0; i < teamList.size(); i++) {
-            memberList = teamList.get(i).getMemberList();
-            for (int j = 0; j < memberList.size(); j++) {
-                if (character == memberList.get(j)) {
-                    teamNameList.add(teamList.get(i).getName());
-                }
-            }
-        }
+
         return (teamNameList);
     }
 
@@ -49,7 +42,7 @@ public class TeamManager {
         return (exist);
     }
 
-    public void createTeam(String name, ArrayList<Integer> characterNameList) {
+    public void createTeam(String name, ArrayList<TeamMember> teamMemberList) {
     }
 
     public ArrayList<Integer> getIdListOfATeam(String name) {
@@ -66,4 +59,10 @@ public class TeamManager {
     }
 
     public void deleteTeam(String name) {}
+
+    public Team getTeamByName(String name){
+        Team team;
+
+        return team;
+    }
 }
