@@ -2,6 +2,7 @@ package Business;
 
 import Persistence.TeamJSON;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class TeamManager {
@@ -12,8 +13,9 @@ public class TeamManager {
         this.teamJson = teamJson;
     }
 
-    public ArrayList<String> getNameOfTeams() {
+    public ArrayList<String> getNameOfTeams() throws FileNotFoundException {
         ArrayList<String> nameList = new ArrayList<>();
+        ArrayList<Team> teamList = teamJson.readAll();
 
         for (int i = 0; i < teamList.size(); i++) {
             nameList.add(teamList.get(i).getName());
@@ -29,11 +31,11 @@ public class TeamManager {
         return (teamNameList);
     }
 
-    public boolean comproveIfTeamExist(String newName) {
+    public boolean comproveIfTeamExist(String newName) throws FileNotFoundException {
         boolean exist = false;
         ArrayList<String> teamNameList;
 
-        teamNameList = getNameOfTeams(teamList);
+        teamNameList = getNameOfTeams();
         for (int i = 0; i < teamNameList.size(); i++) {
             if (newName.equals(teamNameList.get(i))) {
                 exist = true;
@@ -45,11 +47,12 @@ public class TeamManager {
     public void createTeam(String name, ArrayList<TeamMember> teamMemberList) {
     }
 
-    public ArrayList<Integer> getIdListOfATeam(String name) {
+    public ArrayList<Integer> getIdListOfATeam(String name) throws FileNotFoundException {
         ArrayList<Integer> memberList = new ArrayList<>();
+        ArrayList<Team> teamList = teamJson.readAll();
 
         for (int i = 0; i < teamList.size(); i++) {
-            teamName = teamList.get(i).getName();
+            String teamName = teamList.get(i).getName();
             if (name.equals(teamName)) {
                 memberList = teamList.get(i).getMemberList();
             }
@@ -60,9 +63,16 @@ public class TeamManager {
 
     public void deleteTeam(String name) {}
 
-    public Team getTeamByName(String name){
-        Team team;
+    public Team getTeamByName(String name) throws FileNotFoundException {
+        ArrayList<Team> teamList = teamJson.readAll();
 
-        return team;
+        Team teamFound = null;
+        for (Team team : teamList) {
+            if (team.getName().equals(name)) {
+                teamFound = team;
+            }
+        }
+
+        return teamFound;
     }
 }

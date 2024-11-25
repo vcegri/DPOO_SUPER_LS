@@ -2,6 +2,7 @@ package Presentation;
 
 import Business.*;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import java.io.IOException;
@@ -127,7 +128,7 @@ public class Controller {
         menu.itemInfo(id, name, classe, power, durability);
     }
 
-    private void createTeam() {
+    private void createTeam() throws FileNotFoundException {
         int teamSize = 4;
         ArrayList<TeamMember> teamMemberList = new ArrayList<>();
 
@@ -154,7 +155,7 @@ public class Controller {
             statManager.createStat(name);
         }
     }
-    private void listTeams() {
+    private void listTeams() throws FileNotFoundException {
         ArrayList<String> teamNameList;
         ArrayList<Integer> memberIdList = new ArrayList<>();
         ArrayList<String> memberNameList;
@@ -174,7 +175,7 @@ public class Controller {
 
         menu.teamInfo(name, memberNameList, statList.get(0), statList.get(1), statList.get(2), statList.get(3), statList.get(4));
     }
-    private void deleteTeam() {
+    private void deleteTeam() throws FileNotFoundException {
         menu.deleteTeam();
         String name = menu.askString();
         boolean exist = teamManager.comproveIfTeamExist(name);
@@ -197,7 +198,7 @@ public class Controller {
 
     }
 
-    private ArrayList<Team> chooseTeamForCombat(){
+    private ArrayList<Team> chooseTeamForCombat() throws FileNotFoundException {
         ArrayList<String> teamNameList;
         ArrayList<Team> teamFight = new ArrayList<>();
         String teamName;
