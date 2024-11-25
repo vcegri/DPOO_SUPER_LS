@@ -94,11 +94,13 @@ public class Controller {
         int character = selectOption(0, max);
         character--;
 
-        String name = characterNameList.get(character);
-        long id = characterManager.getIdByName(name);
-        int weight = characterManager.getWeightByName(name);
-        teamList = teamManager.searchTeamsOfCharacter(id);
-        menu.characterInfo(id, name, weight, teamList);
+        if (character != -1) {
+            String name = characterNameList.get(character);
+            long id = characterManager.getIdByName(name);
+            int weight = characterManager.getWeightByName(name);
+            teamList = teamManager.searchTeamsOfCharacter(id);
+            menu.characterInfo(id, name, weight, teamList);
+        }
     }
     private void manageTeams() throws FileNotFoundException {
         menu.manageTeamsMenu();
@@ -112,20 +114,23 @@ public class Controller {
     }
     private void listItems() throws FileNotFoundException {
         ArrayList<String> itemNameList;
+        ArrayList<Item> itemList;
 
-        itemNameList = characterManager.getNameOfCharacters();
-        menu.characterList(itemNameList);
+        itemNameList = itemManager.getNameOfItems();
+        menu.itemList(itemNameList);
 
         int max = itemNameList.size();
         int item = selectOption(0, max);
         item--;
 
-        String name = itemNameList.get(item);
-        long id = itemManager.getIdByName(name);
-        int power = itemManager.getPowerByName(name);
-        int durability = itemManager.getDurabilityByName(name);
-        String classe = itemManager.getClasseByName(name);
-        menu.itemInfo(id, name, classe, power, durability);
+        if (item != -1) {
+            String name = itemNameList.get(item);
+            long id = itemManager.getIdByName(name);
+            int power = itemManager.getPowerByName(name);
+            int durability = itemManager.getDurabilityByName(name);
+            String classe = itemManager.getClasseByName(name);
+            menu.itemInfo(id, name, classe, power, durability);
+        }
     }
 
     private void createTeam() throws FileNotFoundException {
@@ -166,14 +171,12 @@ public class Controller {
         int max = teamNameList.size();
         int teamName = selectOption(0, max);
 
-        String name = teamNameList.get(teamName);
-        teamManager.getIdListOfATeam(name);
-
-        memberNameList = characterManager.getNameById(memberIdList);
-
-        statList = statManager.getStatList(name);
-
-        menu.teamInfo(name, memberNameList, statList.get(0), statList.get(1), statList.get(2), statList.get(3), statList.get(4));
+        if (teamName != 0) {
+            String name = teamNameList.get(teamName);
+            memberNameList = characterManager.getNameById(memberIdList);
+            statList = statManager.getStatList(name);
+            menu.teamInfo(name, memberNameList, statList.get(0), statList.get(1), statList.get(2), statList.get(3), statList.get(4));
+        }
     }
     private void deleteTeam() throws FileNotFoundException {
         menu.deleteTeam();

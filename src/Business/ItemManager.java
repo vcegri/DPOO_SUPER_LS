@@ -75,4 +75,18 @@ public class ItemManager {
     public boolean fileOK(){
         return itemJson.fileOK();
     }
+
+    public ArrayList<Item> readAllItems() throws FileNotFoundException {
+        return itemJson.readAll();
+    }
+
+    public ArrayList<String> getNameOfItems() throws FileNotFoundException {
+        ArrayList<String> nameList = new ArrayList<>();
+        ArrayList<Item> itemList = itemJson.readAll();
+
+        for (int i = 0; i < itemList.size(); i++) {
+            nameList.add(itemList.get(i).getName());
+        }
+        return (nameList);
+    }
 }

@@ -23,10 +23,17 @@ public class TeamManager {
         return (nameList);
     }
 
-    public ArrayList<String> searchTeamsOfCharacter(long character) {
+    public ArrayList<String> searchTeamsOfCharacter(long character) throws FileNotFoundException {
         ArrayList<String> teamNameList = new ArrayList<>();
-        ArrayList<Integer> memberList;
+        ArrayList<Team> teamList = teamJson.readAll();
 
+        for (int i = 0; i < teamList.size(); i++){
+            for (int j = 0; j < 4; j++) {
+                if (teamList.get(i).getMemberList().get(j).getId() == character){
+                    teamNameList.add(teamList.get(i).getName());
+                }
+            }
+        }
 
         return (teamNameList);
     }
@@ -47,14 +54,16 @@ public class TeamManager {
     public void createTeam(String name, ArrayList<TeamMember> teamMemberList) {
     }
 
-    public ArrayList<Integer> getIdListOfATeam(String name) throws FileNotFoundException {
-        ArrayList<Integer> memberList = new ArrayList<>();
+    public ArrayList<Long> getIdListOfATeam(String name) throws FileNotFoundException {
+        ArrayList<Long> memberList = new ArrayList<>();
         ArrayList<Team> teamList = teamJson.readAll();
 
         for (int i = 0; i < teamList.size(); i++) {
             String teamName = teamList.get(i).getName();
             if (name.equals(teamName)) {
-                memberList = teamList.get(i).getMemberList();
+                for (int j = 0; j < 4; j++) {
+                    memberList.add(teamList.get(i).getMemberList().get(j).getId());
+                }
             }
         }
 

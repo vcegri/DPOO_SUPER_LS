@@ -89,10 +89,10 @@ public class Menu {
     }
 
     public void characterInfo(long characterId, String characterName, int characterWeight, ArrayList<String> characterTeamList) {
-        print("\n\tID:\t" + characterId);
-        print("\tNAME:\t" + characterName);
-        print("\tWEIGHT:\t" + characterWeight + "kg");
-        print("\tTEAMS:");
+        print("\n\tID: " + characterId);
+        print("\tNAME: " + characterName);
+        print("\tWEIGHT: " + characterWeight + "kg");
+        print("\tTEAMS: ");
         for (String team : characterTeamList) {
             print("\t\t - " + team);
         }
@@ -152,11 +152,11 @@ public class Menu {
     }
 
     public void itemInfo(long itemID, String name, String classe, int power, int durability) {
-        print("\n\tID:\t\t" + itemID);
-        print("\tNAME:\t\t" + name);
-        print("\n\tCLASS:\t\t" + classe);
-        print("\n\tPOWER:\t\t" + power);
-        print("\n\tDURABILITY:\t" + durability);
+        print("\n\tID: " + itemID);
+        print("\tNAME: " + name);
+        print("\tCLASS: " + classe);
+        print("\tPOWER: " + power);
+        print("\tDURABILITY: " + durability);
     }
 
     public void startCombat(ArrayList<String> teamNameList) {

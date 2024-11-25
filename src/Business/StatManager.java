@@ -28,7 +28,13 @@ public class StatManager {
                 statInfoList.add(stat.getGamesWon());
                 statInfoList.add(stat.getKoDone());
                 statInfoList.add(stat.getKoReceived());
-                int winrate =  ((stat.getGamesWon()/stat.getGamesPlayed())*100);
+                int winrate;
+                if (stat.getGamesPlayed() != 0) {
+                    winrate = ((stat.getGamesWon() / stat.getGamesPlayed()) * 100);
+                }
+                else {
+                    winrate = 0;
+                }
                 statInfoList.add(winrate);
             }
         }

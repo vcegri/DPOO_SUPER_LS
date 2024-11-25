@@ -64,7 +64,6 @@ public class CharacterManager {
             String characterName = characterList.get(i).getName();
             if (characterName.equals(name)){
                 id = characterList.get(i).getId();
-                System.out.println(id);
             }
         }
 
