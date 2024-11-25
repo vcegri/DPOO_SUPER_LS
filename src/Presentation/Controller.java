@@ -26,12 +26,10 @@ public class Controller {
 
     private void run() throws FileNotFoundException {
         int option;
-        boolean characterFileOk = false;
-        boolean itemFileOk = false;
         boolean startProgram;
 
         menu.initialMenu();
-       startProgram =  startProgram(characterFileOk, itemFileOk);
+        startProgram =  startProgram();
 
         if (startProgram) {
             do {
@@ -61,8 +59,10 @@ public class Controller {
         return (option);
     }
 
-    private boolean startProgram(boolean characterFileOk, boolean itemFileOk) {
+    private boolean startProgram() {
         boolean startProgram;
+        boolean characterFileOk = characterManager.fileOK();
+        boolean itemFileOk = itemManager.fileOK();
 
         if(characterFileOk && itemFileOk) {
             menu.correctFile();

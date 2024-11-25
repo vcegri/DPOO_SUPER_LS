@@ -71,4 +71,8 @@ public class ItemManager {
 
         return (classe);
     }
+
+    public boolean fileOK(){
+        return itemJson.fileOK();
+    }
 }

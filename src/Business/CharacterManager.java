@@ -98,4 +98,8 @@ public class CharacterManager {
 
         return (nameList);
     }
+
+    public boolean fileOK(){
+        return characterJson.fileOK();
+    }
 }
