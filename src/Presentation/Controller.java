@@ -24,7 +24,7 @@ public class Controller {
         this.combatManager = combatManager;
     }
 
-    private void run() throws FileNotFoundException {
+    public void run() throws FileNotFoundException {
         int option;
         boolean startProgram;
 
