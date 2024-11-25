@@ -48,16 +48,7 @@ public class Menu {
     }
 
     public void initialMenu() {
-        println("    / __   __   ___    ___     ___   ___   __    __   ");
-        println("   | |__) /__\\ | | \\  | | \\   / __| / __|  \\ \\  / /   ");
-        println("   | |   /    \\| | |  | |  \\  \\__ \\ \\__ \\   \\ \\/ /    ");
-        println("   |_|  /__/\\__\\_| |__|_| \\_\\ |___/ |___/    \\__/     ");
-        println("                                                     ");
-        println("      /\\      ___     ___   __    __   __   __       ");
-        println("     /  \\    / _ \\   | | \\  | |  | |  | |\\  | |       ");
-        println("    / /\\ \\  / / \\ \\  | |  \\ | |  | |  | | \\ | |       ");
-        println("   / /__\\ \\/ /   \\ \\ | | \\  | |__| |  | |  \\| |       ");
-        println("  /_/    \\_/    |_| |_|  \\_|____/    |_|   |_|        ");
+        println("SuperLs,Bro");
         println("\nWelcome to Super LS, Bro! Simulator.\n");
         println("Verifying local files...");
     }
