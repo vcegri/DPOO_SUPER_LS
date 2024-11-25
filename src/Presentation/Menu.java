@@ -48,7 +48,11 @@ public class Menu {
     }
 
     public void initialMenu() {
-        println("SuperLs,Bro");
+        System.out.println("   ___                      _    ___     ___         _   ");
+        System.out.println("  / __|_  _ _ __  ___ _ _  | |  / __|   | _ )_ _ ___| |");
+        System.out.println("  \\__ \\ || | '_ \\/ -_) '_| | |__\\__ \\_  | _ \\ '_/ _ \\_|");
+        System.out.println("  |___/\\_,_| .__/\\___|_|   |____|___( ) |___/_| \\___(_)");
+        System.out.println("           |_|                      |/");
         println("\nWelcome to Super LS, Bro! Simulator.\n");
         println("Verifying local files...");
     }
