@@ -2,6 +2,7 @@ package Business;
 
 import Persistence.StatJSON;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class StatManager {
@@ -16,8 +17,9 @@ public class StatManager {
         Stat stat = new Stat(name);
     }
 
-    public ArrayList<Integer> getStatList(String name) {
+    public ArrayList<Integer> getStatList(String name) throws FileNotFoundException {
         ArrayList<Integer> statInfoList = new ArrayList<>();
+        ArrayList<Stat> statList = statJson.readAll();
 
         for (int i = 0; i < statList.size(); i++) {
             Stat stat = statList.get(i);

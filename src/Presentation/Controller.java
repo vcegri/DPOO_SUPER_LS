@@ -24,7 +24,7 @@ public class Controller {
         this.combatManager = combatManager;
     }
 
-    private void run() {
+    private void run() throws FileNotFoundException {
         int option;
         boolean characterFileOk = false;
         boolean itemFileOk = false;
@@ -83,7 +83,7 @@ public class Controller {
         return (startProgram);
     }
 
-    private void listCharacters() {
+    private void listCharacters() throws FileNotFoundException {
         ArrayList<String> characterNameList;
         ArrayList<String> teamList;
 
@@ -100,7 +100,7 @@ public class Controller {
         teamList = teamManager.searchTeamsOfCharacter(id);
         menu.characterInfo(id, name, weight, teamList);
     }
-    private void manageTeams() {
+    private void manageTeams() throws FileNotFoundException {
         menu.manageTeamsMenu();
         int option = selectOption(1, 4);
         switch (option) {
@@ -110,7 +110,7 @@ public class Controller {
         }
 
     }
-    private void listItems() {
+    private void listItems() throws FileNotFoundException {
         ArrayList<String> itemNameList;
 
         itemNameList = characterManager.getNameOfCharacters();
@@ -189,7 +189,7 @@ public class Controller {
         }
     }
 
-    private void simulateCombat() {
+    private void simulateCombat() throws FileNotFoundException {
         ArrayList<Team> teamFight;
 
         teamFight = chooseTeamForCombat();
