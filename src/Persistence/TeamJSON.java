@@ -30,14 +30,9 @@ public class TeamJSON {
     public void saveTeams(ArrayList<Team> teamList) {
         try (FileWriter writer = new FileWriter(FILE_PATH)) {
             Gson gson = new Gson();
-            gson.toJson(teamList.toArray(), writer);
+            gson.toJson(teamList, writer);
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void deleteCharacter(Team team, ArrayList<Team> teamList) {
-        teamList.remove(team);
-        saveTeams(teamList);
     }
 }

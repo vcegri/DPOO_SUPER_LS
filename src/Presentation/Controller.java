@@ -145,19 +145,29 @@ public class Controller {
         menu.createTeam();
         String name = menu.askString();
         boolean exist = teamManager.comproveIfTeamExist(name);
-        if (!exist) {
+        if (exist) {
             menu.println("We are sorry " + name + " is taken.");
         }
         else {
-            menu.print("Please enter name or id for character #1: ");
             for (int i = 0; i < teamSize; i++) {
-                String characterName = menu.askString();
                 int j = i +1;
-                menu.println("Game strategy for character #" + j + "?");
-                menu.println("\t1) Balanced");
-                selectOption(1,1);
-                TeamMember teamMember = new TeamMember(characterManager.getIdByName(characterName), "Balanced");
-                teamMemberList.add(teamMember);
+                menu.print("Please enter name or id for character #" + j + ": ");
+                String characterName = menu.askString();
+
+                try {
+                    long num = Long.parseLong(characterName);
+                    menu.println("Game strategy for character #" + j + "?");
+                    menu.println("\t1) Balanced");
+                    selectOption(1,1);
+                    TeamMember teamMember = new TeamMember(num, "Balanced");
+                    teamMemberList.add(teamMember);
+                } catch (NumberFormatException e) {
+                    menu.println("Game strategy for character #" + j + "?");
+                    menu.println("\t1) Balanced");
+                    selectOption(1,1);
+                    TeamMember teamMember = new TeamMember(characterManager.getIdByName(characterName), "Balanced");
+                    teamMemberList.add(teamMember);
+                }
             }
             menu.println("Team " + name + " has been successfully created!");
 
@@ -177,6 +187,7 @@ public class Controller {
         int teamName = selectOption(0, max);
 
         if (teamName != 0) {
+            teamName--;
             String name = teamNameList.get(teamName);
             memberNameList = characterManager.getNameById(memberIdList);
             statList = statManager.getStatList(name);
@@ -189,7 +200,7 @@ public class Controller {
         String name = menu.askString();
         boolean exist = teamManager.comproveIfTeamExist(name);
         if (exist) {
-            menu.print("Are you sure you want to remove \"" + name + "\" ?");
+            menu.print("Are you sure you want to remove \"" + name + "\"?");
             String confirmation = menu.askString();
             if (confirmation.equals("Yes")) {
                 teamManager.deleteTeam(name);

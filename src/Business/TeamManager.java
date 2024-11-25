@@ -47,12 +47,17 @@ public class TeamManager {
         for (int i = 0; i < teamNameList.size(); i++) {
             if (newName.equals(teamNameList.get(i))) {
                 exist = true;
+                i = teamNameList.size();
             }
         }
         return (exist);
     }
 
-    public void createTeam(String name, ArrayList<TeamMember> teamMemberList) {
+    public void createTeam(String name, ArrayList<TeamMember> teamMemberList) throws FileNotFoundException {
+        ArrayList<Team> teamList = teamJson.readAll();
+        Team team = new Team(name, teamMemberList);
+        teamList.add(team);
+        teamJson.saveTeams(teamList);
     }
 
     public ArrayList<Long> getIdListOfATeam(String name) throws FileNotFoundException {
@@ -71,15 +76,29 @@ public class TeamManager {
         return (memberList);
     }
 
-    public void deleteTeam(String name) {}
+    public void deleteTeam(String name) throws FileNotFoundException {
+        ArrayList<Team> teamList = teamJson.readAll();
+
+        Team teamFound = null;
+        for (int i = 0; i < teamList.size(); i++) {
+            if (teamList.get(i).getName().equals(name)) {
+                teamFound = teamList.get(i);
+                i = teamList.size();
+            }
+        }
+
+        teamList.remove(teamFound);
+        teamJson.saveTeams(teamList);
+    }
 
     public Team getTeamByName(String name) throws FileNotFoundException {
         ArrayList<Team> teamList = teamJson.readAll();
 
         Team teamFound = null;
-        for (Team team : teamList) {
-            if (team.getName().equals(name)) {
-                teamFound = team;
+        for (int i = 0; i < teamList.size(); i++) {
+            if (teamList.get(i).getName().equals(name)) {
+                teamFound = teamList.get(i);
+                i = teamList.size();
             }
         }
 
