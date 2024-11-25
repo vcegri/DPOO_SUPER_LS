@@ -88,7 +88,7 @@ public class Menu {
         print("Choose an option: ");
     }
 
-    public void characterInfo(int characterId, String characterName, int characterWeight, ArrayList<String> characterTeamList) {
+    public void characterInfo(long characterId, String characterName, int characterWeight, ArrayList<String> characterTeamList) {
         print("\n\tID:\t" + characterId);
         print("\tNAME:\t" + characterName);
         print("\tWEIGHT:\t" + characterWeight + "kg");
@@ -151,7 +151,7 @@ public class Menu {
         print("Choose an option: ");
     }
 
-    public void itemInfo(int itemID, String name, String classe, int power, int durability) {
+    public void itemInfo(long itemID, String name, String classe, int power, int durability) {
         print("\n\tID:\t\t" + itemID);
         print("\tNAME:\t\t" + name);
         print("\n\tCLASS:\t\t" + classe);

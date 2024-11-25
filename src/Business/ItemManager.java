@@ -13,8 +13,8 @@ public class ItemManager {
         this.itemJson = itemJson;
     }
 
-    public int getIdByName(String name) throws FileNotFoundException {
-        int id = 0;
+    public Long getIdByName(String name) throws FileNotFoundException {
+        long id = 0;
         ArrayList<Item> itemList = itemJson.readAll();
 
         for (int i = 0; i < itemList.size(); i++) {

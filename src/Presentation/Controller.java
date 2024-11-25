@@ -95,7 +95,7 @@ public class Controller {
         character--;
 
         String name = characterNameList.get(character);
-        int id = characterManager.getIdByName(name);
+        long id = characterManager.getIdByName(name);
         int weight = characterManager.getWeightByName(name);
         teamList = teamManager.searchTeamsOfCharacter(id);
         menu.characterInfo(id, name, weight, teamList);
@@ -121,7 +121,7 @@ public class Controller {
         item--;
 
         String name = itemNameList.get(item);
-        int id = itemManager.getIdByName(name);
+        long id = itemManager.getIdByName(name);
         int power = itemManager.getPowerByName(name);
         int durability = itemManager.getDurabilityByName(name);
         String classe = itemManager.getClasseByName(name);

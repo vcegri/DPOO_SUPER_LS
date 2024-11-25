@@ -2,7 +2,7 @@ package Business;
 
 public class Item {
 
-    private final int id;
+    private final long id;
     private final String name;
     private final int power;
     private final int durability;
@@ -16,7 +16,7 @@ public class Item {
         this.classe = classe;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

@@ -1,7 +1,7 @@
 package Business;
 
 public class Character {
-    private final int id;
+    private final long id;
     private final String name;
     private final int weight;
 
@@ -11,7 +11,7 @@ public class Character {
         this.weight = weight;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

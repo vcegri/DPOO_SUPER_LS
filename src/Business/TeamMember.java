@@ -1,15 +1,15 @@
 package Business;
 
 public class TeamMember {
-    private int id;
+    private long id;
     private String strategy;
 
-    public TeamMember(int id, String strategy) {
+    public TeamMember(long id, String strategy) {
         this.id = id;
         this.strategy = strategy;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

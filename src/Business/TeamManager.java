@@ -23,7 +23,7 @@ public class TeamManager {
         return (nameList);
     }
 
-    public ArrayList<String> searchTeamsOfCharacter(int character) {
+    public ArrayList<String> searchTeamsOfCharacter(long character) {
         ArrayList<String> teamNameList = new ArrayList<>();
         ArrayList<Integer> memberList;
 

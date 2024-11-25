@@ -13,8 +13,8 @@ public class CharacterManager {
         this.characterJson = characterJson;
     }
 
-    public ArrayList<Integer> getIdOfCharacters() throws FileNotFoundException {
-        ArrayList<Integer> idList = new ArrayList<>();
+    public ArrayList<Long> getIdOfCharacters() throws FileNotFoundException {
+        ArrayList<Long> idList = new ArrayList<>();
         ArrayList<Character> characterList = characterJson.readAll();
 
         for (int i = 0; i < characterList.size(); i++) {
@@ -33,8 +33,8 @@ public class CharacterManager {
         return (nameList);
     }
 
-    public ArrayList<Integer> getWeightOfCharacters() throws FileNotFoundException {
-        ArrayList<Integer> weightList = new ArrayList<>();
+    public ArrayList<Long> getWeightOfCharacters() throws FileNotFoundException {
+        ArrayList<Long> weightList = new ArrayList<>();
         ArrayList<Character> characterList = characterJson.readAll();
 
         for (int i = 0; i < characterList.size(); i++) {
@@ -56,14 +56,15 @@ public class CharacterManager {
         return (exist);
     }
 
-    public int getIdByName(String name) throws FileNotFoundException {
-        int id = 0;
+    public long getIdByName(String name) throws FileNotFoundException {
+        long id = 0;
         ArrayList<Character> characterList = characterJson.readAll();
 
         for (int i = 0; i < characterList.size(); i++) {
             String characterName = characterList.get(i).getName();
             if (characterName.equals(name)){
                 id = characterList.get(i).getId();
+                System.out.println(id);
             }
         }
 
