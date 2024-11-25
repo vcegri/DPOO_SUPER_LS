@@ -129,7 +129,7 @@ public class Controller {
 
     private void createTeam() {
         int teamSize = 4;
-        ArrayList<Integer> characterIdList = new ArrayList<>();
+        ArrayList<TeamMember> teamMemberList = new ArrayList<>();
 
         menu.createTeam();
         String name = menu.askString();
@@ -145,11 +145,12 @@ public class Controller {
                 menu.print("Game strategy for character #" + j + "?");
                 menu.print("\t1) Balanced");
                 selectOption(1,1);
-                characterIdList.add(characterManager.getIdByName(characterName));
+                TeamMember teamMember = new TeamMember(characterManager.getIdByName(characterName), "Balanced");
+                teamMemberList.add(teamMember);
             }
             menu.print("Team " + name + " has been successfully created!");
 
-            teamManager.createTeam(name, characterIdList);
+            teamManager.createTeam(name, teamMemberList);
             statManager.createStat(name);
         }
     }
@@ -230,6 +231,7 @@ public class Controller {
     }
     
     private void pressKey() throws IOException {
+        menu.print("<Press any key to continue...>");
         System.in.read();
     }
 }
