@@ -23,14 +23,15 @@ public class TeamManager {
         return (nameList);
     }
 
-    public ArrayList<String> searchTeamsOfCharacter(long character) throws FileNotFoundException {
+    public ArrayList<String> searchTeamsOfCharacter(long idCharacter) throws FileNotFoundException {
         ArrayList<String> teamNameList = new ArrayList<>();
         ArrayList<Team> teamList = teamJson.readAll();
 
         for (int i = 0; i < teamList.size(); i++){
             for (int j = 0; j < 4; j++) {
-                if (teamList.get(i).getMemberList().get(j).getId() == character){
+                if (teamList.get(i).getMemberList().get(j).getId() == idCharacter){
                     teamNameList.add(teamList.get(i).getName());
+                    j = 4;
                 }
             }
         }

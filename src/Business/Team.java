@@ -5,11 +5,11 @@ import java.util.ArrayList;
 public class Team {
 
     private final String name;
-    private final ArrayList<TeamMember> memberList;
+    private final ArrayList<TeamMember> members;
 
     public Team(String name, ArrayList<TeamMember> memberList) {
         this.name = name;
-        this.memberList = memberList;
+        this.members = memberList;
     }
 
     public String getName() {
@@ -17,6 +17,6 @@ public class Team {
     }
 
     public ArrayList<TeamMember> getMemberList() {
-        return memberList;
+        return members;
     }
 }

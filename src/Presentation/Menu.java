@@ -22,88 +22,96 @@ public class Menu {
     public int askInt() {
         Scanner scanner = new Scanner(System.in);
         int integer = 0;
+        int flag;
 
-        if (scanner.hasNextInt()) {
-            integer = scanner.nextInt();
-            scanner.nextLine();
-        } else {
-            scanner.nextLine();
-            print("Yoy may write an integer");
-            System.out.print("\nPlease choose one option: ");
-        }
+        do {
+            if (scanner.hasNextInt()) {
+                integer = scanner.nextInt();
+                scanner.nextLine();
+                flag = 1;
+            } else {
+                scanner.nextLine();
+                println("Yoy may write an integer");
+                flag = 0;
+            }
+        }while (flag !=1);
 
         return (integer);
     }
 
-    public void print(String string) {
+    public void println(String string) {
         System.out.println(string);
     }
 
+    public void print(String string) {
+        System.out.print(string);
+    }
+
     public void initialMenu() {
-        print("    / __   __   ___    ___     ___   ___   __    __   ");
-        print("   | |__) /__\\ | | \\  | | \\   / __| / __|  \\ \\  / /   ");
-        print("   | |   /    \\| | |  | |  \\  \\__ \\ \\__ \\   \\ \\/ /    ");
-        print("   |_|  /__/\\__\\_| |__|_| \\_\\ |___/ |___/    \\__/     ");
-        print("                                                     ");
-        print("      /\\      ___     ___   __    __   __   __       ");
-        print("     /  \\    / _ \\   | | \\  | |  | |  | |\\  | |       ");
-        print("    / /\\ \\  / / \\ \\  | |  \\ | |  | |  | | \\ | |       ");
-        print("   / /__\\ \\/ /   \\ \\ | | \\  | |__| |  | |  \\| |       ");
-        print("  /_/    \\_/    |_| |_|  \\_|____/    |_|   |_|        ");
-        print("\nWelcome to Super LS, Bro! Simulator.\n");
-        print("Verifying local files...");
+        println("    / __   __   ___    ___     ___   ___   __    __   ");
+        println("   | |__) /__\\ | | \\  | | \\   / __| / __|  \\ \\  / /   ");
+        println("   | |   /    \\| | |  | |  \\  \\__ \\ \\__ \\   \\ \\/ /    ");
+        println("   |_|  /__/\\__\\_| |__|_| \\_\\ |___/ |___/    \\__/     ");
+        println("                                                     ");
+        println("      /\\      ___     ___   __    __   __   __       ");
+        println("     /  \\    / _ \\   | | \\  | |  | |  | |\\  | |       ");
+        println("    / /\\ \\  / / \\ \\  | |  \\ | |  | |  | | \\ | |       ");
+        println("   / /__\\ \\/ /   \\ \\ | | \\  | |__| |  | |  \\| |       ");
+        println("  /_/    \\_/    |_| |_|  \\_|____/    |_|   |_|        ");
+        println("\nWelcome to Super LS, Bro! Simulator.\n");
+        println("Verifying local files...");
     }
 
     public void correctFile() {
-        print("Files OK.");
-        print("Starting program...");
+        println("Files OK.");
+        println("Starting program...");
     }
 
     public void incorrectFile(String file) {
-        print("Error: The " + file + "can't be accessed.");
-        print("Shutting down...");
+        println("Error: The " + file + "can't be accessed.");
+        println("Shutting down...");
     }
 
     public void principalMenu() {
-        print("\n\t1) List Characters");
-        print("\t2) Manage Teams");
-        print("\t3) List Items");
-        print("\t4) Simulate Combat\n");
-        print("\t5) Exit\n");
+        println("\n\t1) List Characters");
+        println("\t2) Manage Teams");
+        println("\t3) List Items");
+        println("\t4) Simulate Combat\n");
+        println("\t5) Exit\n");
         print("Choose an option: ");
     }
 
     public void invalidOption() {
-        print("Invalid Option, please choose a correct one (you have the options above)");
+        println("Invalid Option, please choose a correct one (you have the options above)");
     }
 
     public void characterList(ArrayList<String> characterNameList) {
-        print("\n");
+        println("\n");
         for (int i = 0; i < characterNameList.size(); i++) {
             int j = i+1;
             String name = characterNameList.get(i);
-            print("\t" + j + ") " + name);
+            println("\t" + j + ") " + name);
         }
-        print("\n\t0) Back");
+        println("\n\t0) Back");
         print("Choose an option: ");
     }
 
     public void characterInfo(long characterId, String characterName, int characterWeight, ArrayList<String> characterTeamList) {
-        print("\n\tID: " + characterId);
-        print("\tNAME: " + characterName);
-        print("\tWEIGHT: " + characterWeight + "kg");
-        print("\tTEAMS: ");
+        println("\n\tID: " + characterId);
+        println("\tNAME: " + characterName);
+        println("\tWEIGHT: " + characterWeight + "kg");
+        println("\tTEAMS: ");
         for (String team : characterTeamList) {
-            print("\t\t - " + team);
+            println("\t\t - " + team);
         }
     }
 
     public void manageTeamsMenu() {
-        print("\nTeam management.");
-        print("\t1) Create a Team");
-        print("\t2) List Teams");
-        print("\t3) Delete Team\n");
-        print("\t4) Back\n");
+        println("\nTeam management.");
+        println("\t1) Create a Team");
+        println("\t2) List Teams");
+        println("\t3) Delete Team\n");
+        println("\t4) Back\n");
         print("Choose an option: ");
     }
 
@@ -112,110 +120,110 @@ public class Menu {
     }
 
     public void teamList(ArrayList<String> teamNameList) {
-        print("\n");
+        println("\n");
         for (int i = 0; i < teamNameList.size(); i++) {
             int j = i+1;
             String name = teamNameList.get(i);
-            print("\t" + j + ") " + name);
+            println("\t" + j + ") " + name);
         }
-        print("\n\t0) Back");
+        println("\n\t0) Back");
         print("Choose an option: ");
     }
 
     public void teamInfo(String teamName, ArrayList<String> characterNameList, int combatPlayed, int combatWon, int koDone, int koReceived, int winrate) {
-        print("\tTeam name: " + teamName + "\n");
+        println("\tTeam name: " + teamName + "\n");
         for (int i = 0; i < characterNameList.size(); i++) {
             int j = i+1;
             String name = characterNameList.get(i);
-            print("\tCharacter #" + j + ": " + name + "\t\t(BALANCED)");
+            println("\tCharacter #" + j + ": " + name + "\t\t(BALANCED)");
         }
-        print("\n\tCombats played:\t" + combatPlayed);
-        print("\tCombats won:\t" + combatWon);
-        print("\tWin rate:\t\t" + winrate + "%");
-        print("\tKo's done:\t\t" + koDone);
-        print("\tKo's received:\t" + koReceived);
+        println("\n\tCombats played:\t" + combatPlayed);
+        println("\tCombats won:\t" + combatWon);
+        println("\tWin rate:\t\t" + winrate + "%");
+        println("\tKo's done:\t\t" + koDone);
+        println("\tKo's received:\t" + koReceived);
     }
 
     public void deleteTeam() {
-        print("\n\tEnter the name of the team to remove: ");
+        println("\n\tEnter the name of the team to remove: ");
     }
 
     public void itemList(ArrayList<String> itemNameList) {
-        print("\n");
+        println("\n");
         for (int i = 0; i < itemNameList.size(); i++) {
             int j = i+1;
             String name = itemNameList.get(i);
-            print("\t" + j + ") " + name);
+            println("\t" + j + ") " + name);
         }
-        print("\n\t0) Back");
+        println("\n\t0) Back");
         print("Choose an option: ");
     }
 
     public void itemInfo(long itemID, String name, String classe, int power, int durability) {
-        print("\n\tID: " + itemID);
-        print("\tNAME: " + name);
-        print("\tCLASS: " + classe);
-        print("\tPOWER: " + power);
-        print("\tDURABILITY: " + durability);
+        println("\n\tID: " + itemID);
+        println("\tNAME: " + name);
+        println("\tCLASS: " + classe);
+        println("\tPOWER: " + power);
+        println("\tDURABILITY: " + durability);
     }
 
     public void startCombat(ArrayList<String> teamNameList) {
-        print("\nStarting simulation...");
-        print("\nLooking for available team...\n");
+        println("\nStarting simulation...");
+        println("\nLooking for available team...\n");
         for (int i = 0; i < teamNameList.size(); i++) {
             int j = i+1;
             String name = teamNameList.get(i);
-            print("\t" + j + ") " + name);
+            println("\t" + j + ") " + name);
         }
     }
 
     public void memberTeamList(int teamNumber, String teamName, ArrayList<String> teamMemberNameList, ArrayList<String> teamWeaponList, ArrayList<String> teamArmorList) {
-        print("\tTeam #" + teamNumber + " - " + teamName);
+        println("\tTeam #" + teamNumber + " - " + teamName);
         for (int i = 0; i < teamMemberNameList.size(); i++) {
             String name = teamMemberNameList.get(i);
             String weapon = teamWeaponList.get(i);
             String armor = teamArmorList.get(i);
-            print("\t- " + name);
-            print("\t\tWeapon: " + weapon);
-            print("\t\tArmor: " + armor);
+            println("\t- " + name);
+            println("\t\tWeapon: " + weapon);
+            println("\t\tArmor: " + armor);
         }
     }
 
     public void roundinfo(int teamNumber, String teamName, ArrayList<String> teamMemberNameList, ArrayList<String> teamWeaponList, ArrayList<String> teamArmorList, ArrayList<String> damageTakenList) {
-        print("\tTeam #" + teamNumber + " - " + teamName);
+        println("\tTeam #" + teamNumber + " - " + teamName);
         for (int i = 0; i < teamMemberNameList.size(); i++) {
             String name = teamMemberNameList.get(i);
             String weapon = teamWeaponList.get(i);
             String armor = teamArmorList.get(i);
             String damageTaken = damageTakenList.get(i);
-            print("\t- " + name + "(" + damageTaken + ") " + weapon + " - " + armor);
+            println("\t- " + name + "(" + damageTaken + ") " + weapon + " - " + armor);
         }
     }
 
     public void combatAttack(String attacker, String defender, String weapon, double damage, double damageTaken) {
-        print(attacker + "ATTACKS" + defender + "WITH" + weapon + "FOR" + damage + "DAMAGE!");
-        print(defender + "RECEIVES" + damageTaken + "DAMAGE!");
+        println(attacker + "ATTACKS" + defender + "WITH" + weapon + "FOR" + damage + "DAMAGE!");
+        println(defender + "RECEIVES" + damageTaken + "DAMAGE!");
     }
 
     public void itemBreak(String memberName, String weaponName) {
-        print("Oh no! " + memberName + "'s " + weaponName + "breaks!");
+        println("Oh no! " + memberName + "'s " + weaponName + "breaks!");
     }
 
     public void charcterKO(String memberName) {
-        print(memberName + "flies away! It's a KO!");
+        println(memberName + "flies away! It's a KO!");
     }
 
     public void endCombat(String winner) {
-        print("--- END OF COMBAT ---\n");
-        print("...and" + winner + "wins!\n");
+        println("--- END OF COMBAT ---\n");
+        println("...and" + winner + "wins!\n");
     }
 
     public void finalRound(int teamNumber, String teamName, ArrayList<String> teamMemberNameList, ArrayList<String> damageTakenList) {
-        print("\tTeam #" + teamNumber + " - " + teamName);
+        println("\tTeam #" + teamNumber + " - " + teamName);
         for (int i = 0; i < teamMemberNameList.size(); i++) {
             String name = teamMemberNameList.get(i);
             String damageTaken = damageTakenList.get(i);
-            print("\t- " + name + "(" + damageTaken + ")");
+            println("\t- " + name + "(" + damageTaken + ")");
         }
     }
 }

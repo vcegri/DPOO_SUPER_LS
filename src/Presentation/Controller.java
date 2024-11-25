@@ -24,7 +24,7 @@ public class Controller {
         this.combatManager = combatManager;
     }
 
-    public void run() throws FileNotFoundException {
+    public void run() throws IOException {
         int option;
         boolean startProgram;
 
@@ -42,18 +42,21 @@ public class Controller {
                     case 4 -> simulateCombat();
                 }
             } while (option != 5);
-            menu.print("See you soon!");
+            menu.println("See you soon!");
         }
     }
 
     private int selectOption(int min, int max) {
         int option;
-        int flag = 1;
+        int flag;
         do {
             option = menu.askInt();
             if (option > max || option < min) {
                 menu.invalidOption();
                 flag = 0;
+            }
+            else {
+                flag = 1;
             }
         }while (flag != 1);
         return (option);
@@ -83,7 +86,7 @@ public class Controller {
         return (startProgram);
     }
 
-    private void listCharacters() throws FileNotFoundException {
+    private void listCharacters() throws IOException {
         ArrayList<String> characterNameList;
         ArrayList<String> teamList;
 
@@ -100,6 +103,7 @@ public class Controller {
             int weight = characterManager.getWeightByName(name);
             teamList = teamManager.searchTeamsOfCharacter(id);
             menu.characterInfo(id, name, weight, teamList);
+            pressKey();
         }
     }
     private void manageTeams() throws FileNotFoundException {
@@ -112,7 +116,7 @@ public class Controller {
         }
 
     }
-    private void listItems() throws FileNotFoundException {
+    private void listItems() throws IOException {
         ArrayList<String> itemNameList;
         ArrayList<Item> itemList;
 
@@ -130,6 +134,7 @@ public class Controller {
             int durability = itemManager.getDurabilityByName(name);
             String classe = itemManager.getClasseByName(name);
             menu.itemInfo(id, name, classe, power, durability);
+            pressKey();
         }
     }
 
@@ -141,20 +146,20 @@ public class Controller {
         String name = menu.askString();
         boolean exist = teamManager.comproveIfTeamExist(name);
         if (!exist) {
-            menu.print("We are sorry " + name + " is taken.");
+            menu.println("We are sorry " + name + " is taken.");
         }
         else {
             menu.print("Please enter name or id for character #1: ");
             for (int i = 0; i < teamSize; i++) {
                 String characterName = menu.askString();
                 int j = i +1;
-                menu.print("Game strategy for character #" + j + "?");
-                menu.print("\t1) Balanced");
+                menu.println("Game strategy for character #" + j + "?");
+                menu.println("\t1) Balanced");
                 selectOption(1,1);
                 TeamMember teamMember = new TeamMember(characterManager.getIdByName(characterName), "Balanced");
                 teamMemberList.add(teamMember);
             }
-            menu.print("Team " + name + " has been successfully created!");
+            menu.println("Team " + name + " has been successfully created!");
 
             teamManager.createTeam(name, teamMemberList);
             statManager.createStat(name);
@@ -176,6 +181,7 @@ public class Controller {
             memberNameList = characterManager.getNameById(memberIdList);
             statList = statManager.getStatList(name);
             menu.teamInfo(name, memberNameList, statList.get(0), statList.get(1), statList.get(2), statList.get(3), statList.get(4));
+            pressKey();
         }
     }
     private void deleteTeam() throws FileNotFoundException {
@@ -187,7 +193,7 @@ public class Controller {
             String confirmation = menu.askString();
             if (confirmation.equals("Yes")) {
                 teamManager.deleteTeam(name);
-                menu.print("\"" + name + "\" has been removed from the system.");
+                menu.println("\"" + name + "\" has been removed from the system.");
             }
         }
     }
@@ -227,15 +233,15 @@ public class Controller {
     }
 
     private void createCombat(){
-        menu.print("Initializing teams...");
+        menu.println("Initializing teams...");
 
 
 
-        menu.print("Combat ready!");
+        menu.println("Combat ready!");
     }
     
-    private void pressKey() throws IOException {
-        menu.print("<Press any key to continue...>");
-        System.in.read();
+    private void pressKey() {
+        menu.print("<Press enter to continue...>");
+        menu.askString();
     }
 }

@@ -7,6 +7,7 @@ import Presentation.Controller;
 import Presentation.Menu;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Main {
     /**
@@ -14,7 +15,7 @@ public class Main {
      *
      * @param args arguments de la línia de comandaments (no utilitzats).
      */
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
 
         Menu menu = new Menu();
         CharacterJSON characterJson = new CharacterJSON();

@@ -3,17 +3,17 @@ package Business;
 public class Stat {
 
     private final String name;
-    private final int gamesPlayed;
-    private final int gamesWon;
-    private final int KoDone;
-    private final int KoReceived;
+    private final int games_played;
+    private final int games_won;
+    private final int KO_done;
+    private final int KO_received;
 
     public Stat(String name) {
         this.name = name;
-        this.gamesPlayed = 0;
-        this.gamesWon = 0;
-        KoDone = 0;
-        KoReceived = 0;
+        this.games_played = 0;
+        this.games_won = 0;
+        this.KO_done = 0;
+        this.KO_received = 0;
     }
 
     public String getName() {
@@ -21,18 +21,18 @@ public class Stat {
     }
 
     public int getGamesPlayed() {
-        return gamesPlayed;
+        return games_played;
     }
 
     public int getGamesWon() {
-        return gamesWon;
+        return games_won;
     }
 
     public int getKoDone() {
-        return KoDone;
+        return KO_done;
     }
 
     public int getKoReceived() {
-        return KoReceived;
+        return KO_received;
     }
 }
