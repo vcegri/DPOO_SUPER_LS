@@ -28,7 +28,17 @@ public class CombatManager {
         return exist;
     }
 
-    public void setRandomItem() {}
+    public Item setRandomArmor() {
+        Item armor = null;
+
+        return armor;
+    }
+
+    public Item setRandomWeapon() {
+        Item weapon = null;
+
+        return weapon;
+    }
 
     public boolean checkKnockOut(double damage) {
         boolean knocked = false;

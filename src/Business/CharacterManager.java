@@ -97,7 +97,7 @@ public class CharacterManager {
         return (weight);
     }
 
-    public ArrayList<String> getNameById(ArrayList<Integer> idList) throws FileNotFoundException {
+    public ArrayList<String> getNameById(ArrayList<Long> idList) throws FileNotFoundException {
         ArrayList<String> nameList = new ArrayList<>();
         ArrayList<Character> characterList = characterJson.readAll();
 

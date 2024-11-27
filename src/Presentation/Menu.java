@@ -122,7 +122,6 @@ public class Menu {
             println("\t" + j + ") " + name);
         }
         println("\n\t0) Back");
-        print("Choose an option: ");
     }
 
     public void teamInfo(String teamName, ArrayList<String> characterNameList, int combatPlayed, int combatWon, int koDone, int koReceived, int winrate) {
@@ -162,17 +161,8 @@ public class Menu {
         println("\tDURABILITY: " + durability);
     }
 
-    public void startCombat(ArrayList<String> teamNameList) {
-        println("\nStarting simulation...");
-        println("\nLooking for available team...\n");
-        for (int i = 0; i < teamNameList.size(); i++) {
-            int j = i+1;
-            String name = teamNameList.get(i);
-            println("\t" + j + ") " + name);
-        }
-    }
-
-    public void memberTeamList(int teamNumber, String teamName, ArrayList<String> teamMemberNameList, ArrayList<String> teamWeaponList, ArrayList<String> teamArmorList) {
+    public void showTeamInfoForCombat(int teamNumber, String teamName, ArrayList<String> teamMemberNameList, ArrayList<String> teamWeaponList, ArrayList<String> teamArmorList) {
+        println("Initializing teams...\n");
         println("\tTeam #" + teamNumber + " - " + teamName);
         for (int i = 0; i < teamMemberNameList.size(); i++) {
             String name = teamMemberNameList.get(i);
