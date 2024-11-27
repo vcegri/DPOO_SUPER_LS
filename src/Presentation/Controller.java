@@ -241,7 +241,6 @@ public class Controller {
         existTeam = chooseTeam();
         if (existTeam){
             executeCombat();
-            endCombat();
         }
     }
     private boolean chooseTeam() throws FileNotFoundException {
@@ -322,26 +321,34 @@ public class Controller {
         int teamNumber = 1;
         int roundNum = 1;
         int i = 0;
+        boolean ko;
         ArrayList<String> nameList;
         ArrayList<Long> idList = new ArrayList<>();
         ArrayList<String> weaponList;
         ArrayList<String> armorList;
         ArrayList<Double> damageList;
         ArrayList<Team> teamList;
+        ArrayList<Boolean> koList = new ArrayList<>();
 
         teamList = combatManager.getCombat().getTeamList();
         do {
             for (Team team : teamList) {
                 for (i = 0; i < teamList.get(teamNumber).getMemberList().size(); i++) {
                    idList.add(teamList.get(teamNumber).getMemberList().get(i).getId());
+                   if (teamNumber == 0){
+                       koList.add(combatManager.getCombat().getCombatMemberList().get(i).isKo());
+                   }
+                   else {
+                       int j = i +4;
+                       koList.add(combatManager.getCombat().getCombatMemberList().get(j).isKo());
+                   }
                 }
                 nameList = characterManager.getNameById(idList);
                 weaponList = combatManager.getWeaponList();
                 armorList = combatManager.getArmorList();
                 damageList = combatManager.getDamageList();
-                menu.roundinfo(roundNum, teamNumber, teamList.get(teamNumber).getName(), nameList, weaponList, armorList, damageList);
+                menu.roundinfo(roundNum, teamNumber, teamList.get(teamNumber).getName(), nameList, weaponList, armorList, damageList, koList);
                 teamNumber++;
-
             }
             roundNum++;
         } while (!endCombat());
@@ -350,17 +357,18 @@ public class Controller {
         newWeapon();
     }
 
-    private void atack(){
-
-    }
+    private void atack(){}
 
     private void defend(){}
 
-    private void newWeapon(){
-        Item weapon = combatManager.setRandomWeapon();
+    private void newWeapon() {
     }
+
     private boolean endCombat(){
         boolean combatEnded = false;
+
+
+
         return combatEnded;
     }
 

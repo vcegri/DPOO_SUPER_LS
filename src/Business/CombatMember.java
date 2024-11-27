@@ -7,6 +7,7 @@ public class CombatMember {
     private double damage;
     private final Item weapon;
     private final Item armor;
+    private boolean ko;
 
     public CombatMember(Character character, String strategy, Item weapon, Item armor) {
         this.character = character;
@@ -34,6 +35,10 @@ public class CombatMember {
 
     public Item getArmor() {
         return armor;
+    }
+
+    public boolean isKo() {
+        return ko;
     }
 
     public void updateDamage(double newDamage) {
