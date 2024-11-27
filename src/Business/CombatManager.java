@@ -93,13 +93,22 @@ public class CombatManager {
     }
 
 
-    public void updateStats() {
-        for (int i = 0; i < combat.getTeamList().size(); i++){
-            combat.getTeamList().get(i);
+    public void updateStatsAttacker(CombatMember combatMember) {
+        for (int i = 0; i < combat.getCombatMemberList().size(); i++){
+            if (combat.getCombatMemberList().get(i).getCharacter().getName().equals(combatMember.getCharacter().getName())) {
+                this.combat.getCombatMemberList().get(i).getWeapon().updateDurability();
+            }
         }
     }
 
-    public void endCombat() {}
+    public void updateStatsDefender(CombatMember combatMember, double damage) {
+        for (int i = 0; i < combat.getCombatMemberList().size(); i++){
+            if (combat.getCombatMemberList().get(i).getCharacter().getName().equals(combatMember.getCharacter().getName())) {
+                this.combat.getCombatMemberList().get(i).getArmor().updateDurability();
+                this.combat.getCombatMemberList().get(i).updateDamage(damage);
+            }
+        }
+    }
 
     public void setCombat(ArrayList<Team> teamFight, ArrayList<Item> weaponList, ArrayList<Item> armorList, ArrayList<Character> characterList) {
         int teamSize = 4;

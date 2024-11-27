@@ -4,7 +4,7 @@ public class CombatMember {
 
     private final Character character;
     private final String strategy;
-    private final double damage;
+    private double damage;
     private final Item weapon;
     private final Item armor;
 
@@ -34,5 +34,9 @@ public class CombatMember {
 
     public Item getArmor() {
         return armor;
+    }
+
+    public void updateDamage(double newDamage) {
+        this.damage = this.damage + newDamage;
     }
 }

@@ -5,7 +5,7 @@ public class Item {
     private final long id;
     private final String name;
     private final int power;
-    private final int durability;
+    private int durability;
     private final String classe;
 
     public Item(int id, String name, int power, int durability, String classe) {
@@ -34,5 +34,9 @@ public class Item {
 
     public String getClasse() {
         return classe;
+    }
+
+    public void updateDurability() {
+        this.durability--;
     }
 }

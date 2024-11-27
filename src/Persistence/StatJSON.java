@@ -28,7 +28,7 @@ public class StatJSON {
         return resultStats;
     }
 
-    public void saveTeams(ArrayList<Stat> statList) {
+    public void saveStatList(ArrayList<Stat> statList) {
         try (FileWriter writer = new FileWriter(FILE_PATH)) {
             Gson gson = new Gson();
             gson.toJson(statList.toArray(), writer);
@@ -37,8 +37,8 @@ public class StatJSON {
         }
     }
 
-    public void deleteCharacter(Stat stat, ArrayList<Stat> statList) {
+    public void deleteStat(Stat stat, ArrayList<Stat> statList) {
         statList.remove(stat);
-        saveTeams(statList);
+        saveStatList(statList);
     }
 }

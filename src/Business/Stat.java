@@ -16,6 +16,14 @@ public class Stat {
         this.KO_received = 0;
     }
 
+    public Stat(String name, int games_played, int games_won, int KO_done, int KO_received) {
+        this.name = name;
+        this.games_played = games_played;
+        this.games_won = games_won;
+        this.KO_done = KO_done;
+        this.KO_received = KO_received;
+    }
+
     public String getName() {
         return name;
     }
