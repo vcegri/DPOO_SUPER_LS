@@ -55,4 +55,13 @@ public class CombatManager {
     public void updateStats() {}
 
     public void endCombat() {}
+
+    public void setCombat(ArrayList<Team> teamFight, ArrayList<Item> weaponList, ArrayList<Item> armorList, ArrayList<Character> characterList) {
+        int teamSize = 4;
+
+        for (int i = 0; i < teamSize; i++){
+            combat.createCombatMember(characterList.get(i), "Balanced", weaponList.get(i), armorList.get(i));
+        }
+        combat.setTeamList(teamFight);
+    }
 }

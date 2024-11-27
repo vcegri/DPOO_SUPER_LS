@@ -3,8 +3,8 @@ package Business;
 import java.util.ArrayList;
 
 public class Combat {
-    private final ArrayList<CombatMember> combatMemberList;
-    private final ArrayList<Team> teamList;
+    private ArrayList<CombatMember> combatMemberList;
+    private ArrayList<Team> teamList;
 
     public Combat() {
         this.combatMemberList = new ArrayList<>();
@@ -17,5 +17,14 @@ public class Combat {
 
     public ArrayList<Team> getTeamList() {
         return teamList;
+    }
+
+    public void setTeamList(ArrayList<Team> teamList) {
+        this.teamList = teamList;
+    }
+
+    public void createCombatMember(Character character,String strategy, Item weapon, Item armor) {
+        CombatMember combatMember = new CombatMember(character,strategy, weapon, armor);
+        combatMemberList.add(combatMember);
     }
 }

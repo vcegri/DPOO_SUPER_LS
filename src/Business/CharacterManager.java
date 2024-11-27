@@ -114,6 +114,12 @@ public class CharacterManager {
         return (nameList);
     }
 
+    public ArrayList<Character> getCharacterListByIdList(){
+        ArrayList<Character> characterList = new ArrayList<>();
+
+        return characterList;
+    }
+
     public boolean fileOK(){
         return characterJson.fileOK();
     }

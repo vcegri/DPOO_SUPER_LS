@@ -1,6 +1,7 @@
 package Presentation;
 
 import Business.*;
+import Business.Character;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -299,17 +300,22 @@ public class Controller {
         ArrayList<Long> teamMemberIdList = new ArrayList<>();
         ArrayList<String> armorNameList = new ArrayList<>();
         ArrayList<String> weaponNameList = new ArrayList<>();
+        ArrayList<Item> weaponList = new ArrayList<>();
+        ArrayList<Item> armorList = new ArrayList<>();
+        ArrayList<Character> characterList;
 
         for (int i = 0; i < teamSize; i++){
             teamMemberIdList.add(teamFight.get(numTeam).getMemberList().get(i).getId());
-            Item weapon = combatManager.setRandomWeapon();
-            weaponNameList.add(weapon.getName());
-            Item armor = combatManager.setRandomArmor();
-            armorNameList.add(armor.getName());
+            weaponList.add(combatManager.setRandomWeapon());
+            weaponNameList.add(weaponList.get(i).getName());
+            armorList.add(combatManager.setRandomArmor());
+            armorNameList.add(armorList.get(i).getName());
             teamMemberNameList = characterManager.getNameById(teamMemberIdList);
         }
         int showNumTeam = numTeam + 1;
         menu.showTeamInfoForCombat(showNumTeam, teamFight.get(numTeam).getName(), teamMemberNameList, weaponNameList, armorNameList);
+        characterList = characterManager.getCharacterListByIdList();
+        combatManager.setCombat(teamFight, weaponList, armorList, characterList);
 
     }
     private void executeCombat(){
