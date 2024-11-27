@@ -39,4 +39,28 @@ public class StatManager {
 
         return (statInfoList);
     }
+
+    public void updateStats(boolean winner, String teamName) throws FileNotFoundException {
+        ArrayList<Stat> statList = statJson.readAll();
+        int gamesPlayed, gamesWon, KO_done, KO_received;
+
+        for (int i = 0; i < statJson.readAll().size(); i++){
+            if (statList.get(i).getName().equals(teamName)){
+                if (winner){
+                    gamesPlayed =  statList.get(i).getGamesPlayed();
+                    gamesPlayed++;
+                    gamesWon = statList.get(i).getGamesWon();
+                    gamesWon++;
+                    KO_done = statList.get(i).getKoDone();
+                    KO_done++;
+                    KO_received = statList.get(i).getKoReceived();
+                    KO_received++;
+                    statList.remove(i);
+                    Stat stat = new Stat(teamName, gamesPlayed, gamesWon, KO_done, KO_received);
+                    statList.add(stat);
+                    statJson.saveStatList(statList);
+                }
+            }
+        }
+    }
 }
