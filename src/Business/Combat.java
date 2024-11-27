@@ -25,6 +25,11 @@ public class Combat {
 
     public void createCombatMember(Character character,String strategy, Item weapon, Item armor) {
         CombatMember combatMember = new CombatMember(character,strategy, weapon, armor);
-        combatMemberList.add(combatMember);
+        this.combatMemberList.add(combatMember);
+    }
+
+    public void endCombat() {
+        this.teamList.clear();
+        this.combatMemberList.clear();
     }
 }
