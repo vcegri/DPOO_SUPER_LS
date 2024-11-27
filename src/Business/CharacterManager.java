@@ -43,13 +43,26 @@ public class CharacterManager {
         return (weightList);
     }
 
-    public boolean comproveIfCharacterExist(String newName) throws FileNotFoundException {
+    public boolean comproveIfCharacterExistByName(String Name) throws FileNotFoundException {
         boolean exist = false;
         ArrayList<String> characterNameList;
 
         characterNameList = getNameOfCharacters();
         for (int i = 0; i < characterNameList.size(); i++) {
-            if (newName.equals(characterNameList.get(i))) {
+            if (Name.equals(characterNameList.get(i))) {
+                exist = true;
+            }
+        }
+        return (exist);
+    }
+
+    public boolean comproveIfCharacterExistById(long id) throws FileNotFoundException {
+        boolean exist = false;
+        ArrayList<Character> characterList;
+
+        characterList = characterJson.readAll();
+        for (int i = 0; i < characterList.size(); i++) {
+            if (id == characterList.get(i).getId()) {
                 exist = true;
             }
         }

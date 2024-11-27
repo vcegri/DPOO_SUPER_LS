@@ -153,27 +153,49 @@ public class Controller {
                 int j = i +1;
                 menu.print("Please enter name or id for character #" + j + ": ");
                 String characterName = menu.askString();
-
-                try {
-                    long num = Long.parseLong(characterName);
-                    menu.println("Game strategy for character #" + j + "?");
-                    menu.println("\t1) Balanced");
-                    selectOption(1,1);
-                    TeamMember teamMember = new TeamMember(num, "Balanced");
-                    teamMemberList.add(teamMember);
-                } catch (NumberFormatException e) {
-                    menu.println("Game strategy for character #" + j + "?");
-                    menu.println("\t1) Balanced");
-                    selectOption(1,1);
-                    TeamMember teamMember = new TeamMember(characterManager.getIdByName(characterName), "Balanced");
+                TeamMember teamMember = getTeamMember(characterName, j);
+                if (teamMember != null){
                     teamMemberList.add(teamMember);
                 }
+                else {
+                    menu.println("That character doesn't exist");
+                    i--;
+                }
+
             }
             menu.println("Team " + name + " has been successfully created!");
 
             teamManager.createTeam(name, teamMemberList);
             statManager.createStat(name);
         }
+    }
+
+    private TeamMember getTeamMember(String characterName, int j) throws FileNotFoundException {
+        boolean characterExist;
+        boolean isLong = false;
+        long id = 0;
+        TeamMember teamMember = null;
+        try {
+            id = Long.parseLong(characterName);
+            characterExist = characterManager.comproveIfCharacterExistById(id);
+            isLong = true;
+        } catch (NumberFormatException e) {
+            characterExist = characterManager.comproveIfCharacterExistByName(characterName);
+        }
+
+        if (characterExist){
+            menu.println("Game strategy for character #" + j + "?");
+            menu.println("\t1) Balanced");
+            selectOption(1,1);
+            if (isLong){
+                teamMember = new TeamMember(id, "Balanced");
+            }
+            else {
+                teamMember = new TeamMember(characterManager.getIdByName(characterName), "Balanced");
+            }
+        }
+
+        return teamMember;
     }
     private void listTeams() throws FileNotFoundException {
         ArrayList<String> teamNameList;
