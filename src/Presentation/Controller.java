@@ -234,26 +234,38 @@ public class Controller {
     }
 
     private void simulateCombat() throws FileNotFoundException {
-        chooseTeam();
-        executeCombat();
-        endCombat();
-    }
-    private void chooseTeam() throws FileNotFoundException {
-        ArrayList<Team> teamFight;
-        ArrayList<String> teamNames;
+        boolean existTeam;
 
         menu.println("Starting simulation...");
+        existTeam = chooseTeam();
+        if (existTeam){
+            executeCombat();
+            endCombat();
+        }
+    }
+    private boolean chooseTeam() throws FileNotFoundException {
+        ArrayList<Team> teamFight;
+        ArrayList<String> teamNames;
+        boolean existTeam;
+
         teamNames = teamManager.getNameOfTeams();
         menu.println("Looking for available teams...");
         if (!teamNames.isEmpty()){
             teamFight = chooseTeamForCombat();
-            showTeamInfoForCombat(teamFight);
+            int numTeam = 0;
+            showTeamInfoForCombat(numTeam, teamFight);
+            numTeam = 1;
+            showTeamInfoForCombat(numTeam, teamFight);
             menu.println("\nCombat ready!");
             pressEnter();
+            existTeam = true;
         }
         else {
             menu.println("There aren't teams to simulate the combat");
+            existTeam = false;
         }
+
+        return existTeam;
     }
 
     private ArrayList<Team> chooseTeamForCombat() throws FileNotFoundException {
@@ -281,7 +293,7 @@ public class Controller {
         return teamFight;
     }
 
-    private void showTeamInfoForCombat(ArrayList<Team> teamFight) throws FileNotFoundException {
+    private void showTeamInfoForCombat(int numTeam, ArrayList<Team> teamFight) throws FileNotFoundException {
         int teamSize = 4;
         ArrayList<String> teamMemberNameList = new ArrayList<>();
         ArrayList<Long> teamMemberIdList = new ArrayList<>();
@@ -289,14 +301,15 @@ public class Controller {
         ArrayList<String> weaponNameList = new ArrayList<>();
 
         for (int i = 0; i < teamSize; i++){
-            teamMemberIdList.add(teamFight.get(0).getMemberList().get(i).getId());
+            teamMemberIdList.add(teamFight.get(numTeam).getMemberList().get(i).getId());
             Item weapon = combatManager.setRandomWeapon();
             weaponNameList.add(weapon.getName());
             Item armor = combatManager.setRandomArmor();
             armorNameList.add(armor.getName());
             teamMemberNameList = characterManager.getNameById(teamMemberIdList);
         }
-        menu.showTeamInfoForCombat(1, teamFight.get(0).getName(), teamMemberNameList, weaponNameList, armorNameList);
+        int showNumTeam = numTeam + 1;
+        menu.showTeamInfoForCombat(showNumTeam, teamFight.get(numTeam).getName(), teamMemberNameList, weaponNameList, armorNameList);
 
     }
     private void executeCombat(){
