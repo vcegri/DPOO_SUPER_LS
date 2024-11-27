@@ -318,20 +318,49 @@ public class Controller {
         combatManager.setCombat(teamFight, weaponList, armorList, characterList);
 
     }
-    private void executeCombat(){
+    private void executeCombat(ArrayList<Team> teamList) throws FileNotFoundException {
+        int teamNumber = 1;
+        int roundNum = 1;
+        int i = 0;
+        ArrayList<String> nameList = new ArrayList<>();
+        ArrayList<Long> idList = new ArrayList<>();
+        ArrayList<String> weaponList;
+        ArrayList<String> armorList;
+        ArrayList<Double> damageList;
+
+        do {
+            for (Team team : teamList) {
+                for (i = 0; i < teamList.get(teamNumber).getMemberList().size(); i++) {
+                   idList.add(teamList.get(teamNumber).getMemberList().get(i).getId());
+                }
+                nameList = characterManager.getNameById(idList);
+                weaponList = combatManager.getWeaponList();
+                armorList = combatManager.getArmorList();
+                damageList = combatManager.getDamageList();
+                menu.roundinfo(roundNum, teamNumber, teamList.get(teamNumber).getName(), nameList, weaponList, armorList, damageList);
+                teamNumber++;
+
+            }
+            roundNum++;
+        } while (!endCombat());
         atack();
         defend();
         newWeapon();
     }
 
-    private void atack(){}
+    private void atack(){
+
+    }
 
     private void defend(){}
 
     private void newWeapon(){
         Item weapon = combatManager.setRandomWeapon();
     }
-    private void endCombat(){}
+    private boolean endCombat(){
+        boolean combatEnded = false;
+        return combatEnded;
+    }
 
     
     private void pressEnter() {

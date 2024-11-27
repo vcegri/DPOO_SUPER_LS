@@ -150,14 +150,15 @@ public class Menu {
         }
     }
 
-    public void roundinfo(int teamNumber, String teamName, ArrayList<String> teamMemberNameList, ArrayList<String> teamWeaponList, ArrayList<String> teamArmorList, ArrayList<String> damageTakenList) {
+    public void roundinfo(int roundNum, int teamNumber, String teamName, ArrayList<String> teamMemberNameList, ArrayList<String> teamWeaponList, ArrayList<String> teamArmorList, ArrayList<Double> damageTakenList) {
+        println("--- ROUND "+ roundNum +"! ---");
         println("\tTeam #" + teamNumber + " - " + teamName);
         for (int i = 0; i < teamMemberNameList.size(); i++) {
             String name = teamMemberNameList.get(i);
             String weapon = teamWeaponList.get(i);
             String armor = teamArmorList.get(i);
-            String damageTaken = damageTakenList.get(i);
-            println("\t- " + name + "(" + damageTaken + ") " + weapon + " - " + armor);
+            double damageTaken = damageTakenList.get(i);
+            println("\t- " + name + "(" + damageTaken + " %) " + weapon + " - " + armor);
         }
     }
 
