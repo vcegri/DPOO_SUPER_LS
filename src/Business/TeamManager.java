@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class TeamManager {
     
-    private TeamJSON teamJson;
+    private final TeamJSON teamJson;
 
     public TeamManager(TeamJSON teamJson) {
         this.teamJson = teamJson;
@@ -17,8 +17,8 @@ public class TeamManager {
         ArrayList<String> nameList = new ArrayList<>();
         ArrayList<Team> teamList = teamJson.readAll();
 
-        for (int i = 0; i < teamList.size(); i++) {
-            nameList.add(teamList.get(i).getName());
+        for (Team team : teamList) {
+            nameList.add(team.getName());
         }
         return (nameList);
     }
@@ -27,11 +27,11 @@ public class TeamManager {
         ArrayList<String> teamNameList = new ArrayList<>();
         ArrayList<Team> teamList = teamJson.readAll();
 
-        for (int i = 0; i < teamList.size(); i++){
+        for (Team team : teamList) {
             for (int j = 0; j < 4; j++) {
-                if (teamList.get(i).getMemberList().get(j).getId() == idCharacter){
-                    teamNameList.add(teamList.get(i).getName());
-                    j = 4;
+                if (team.getMemberList().get(j).getId() == idCharacter) {
+                    teamNameList.add(team.getName());
+                    break;
                 }
             }
         }
@@ -64,11 +64,11 @@ public class TeamManager {
         ArrayList<Long> memberList = new ArrayList<>();
         ArrayList<Team> teamList = teamJson.readAll();
 
-        for (int i = 0; i < teamList.size(); i++) {
-            String teamName = teamList.get(i).getName();
+        for (Team team : teamList) {
+            String teamName = team.getName();
             if (name.equals(teamName)) {
                 for (int j = 0; j < 4; j++) {
-                    memberList.add(teamList.get(i).getMemberList().get(j).getId());
+                    memberList.add(team.getMemberList().get(j).getId());
                 }
             }
         }

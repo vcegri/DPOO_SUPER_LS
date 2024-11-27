@@ -1,6 +1,5 @@
 package Persistence;
 
-import Business.Character;
 import Business.Team;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;

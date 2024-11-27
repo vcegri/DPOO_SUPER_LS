@@ -1,6 +1,4 @@
 package Presentation;
-import Business.Character;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -80,17 +78,6 @@ public class Menu {
         println("Invalid Option, please choose a correct one (you have the options above)");
     }
 
-    public void characterList(ArrayList<String> characterNameList) {
-        println("\n");
-        for (int i = 0; i < characterNameList.size(); i++) {
-            int j = i+1;
-            String name = characterNameList.get(i);
-            println("\t" + j + ") " + name);
-        }
-        println("\n\t0) Back");
-        print("Choose an option: ");
-    }
-
     public void characterInfo(long characterId, String characterName, int characterWeight, ArrayList<String> characterTeamList) {
         println("\n\tID: " + characterId);
         println("\tNAME: " + characterName);
@@ -114,11 +101,11 @@ public class Menu {
         print("\nPlease enter the team's name: ");
     }
 
-    public void teamList(ArrayList<String> teamNameList) {
+    public void printList(ArrayList<String> nameList) {
         println("\n");
-        for (int i = 0; i < teamNameList.size(); i++) {
+        for (int i = 0; i < nameList.size(); i++) {
             int j = i+1;
-            String name = teamNameList.get(i);
+            String name = nameList.get(i);
             println("\t" + j + ") " + name);
         }
         println("\n\t0) Back");
@@ -140,17 +127,6 @@ public class Menu {
 
     public void deleteTeam() {
         println("\n\tEnter the name of the team to remove: ");
-    }
-
-    public void itemList(ArrayList<String> itemNameList) {
-        println("\n");
-        for (int i = 0; i < itemNameList.size(); i++) {
-            int j = i+1;
-            String name = itemNameList.get(i);
-            println("\t" + j + ") " + name);
-        }
-        println("\n\t0) Back");
-        print("Choose an option: ");
     }
 
     public void itemInfo(long itemID, String name, String classe, int power, int durability) {

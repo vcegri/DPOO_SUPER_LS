@@ -6,7 +6,6 @@ import Persistence.TeamJSON;
 import Presentation.Controller;
 import Presentation.Menu;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Main {

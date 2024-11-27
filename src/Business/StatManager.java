@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class StatManager {
     
-    private StatJSON statJson;
+    private final StatJSON statJson;
 
     public StatManager(StatJSON statJson) {
         this.statJson = statJson;
@@ -21,8 +21,7 @@ public class StatManager {
         ArrayList<Integer> statInfoList = new ArrayList<>();
         ArrayList<Stat> statList = statJson.readAll();
 
-        for (int i = 0; i < statList.size(); i++) {
-            Stat stat = statList.get(i);
+        for (Stat stat : statList) {
             if (name.equals(stat.getName())) {
                 statInfoList.add(stat.getGamesPlayed());
                 statInfoList.add(stat.getGamesWon());
@@ -31,8 +30,7 @@ public class StatManager {
                 int winrate;
                 if (stat.getGamesPlayed() != 0) {
                     winrate = ((stat.getGamesWon() / stat.getGamesPlayed()) * 100);
-                }
-                else {
+                } else {
                     winrate = 0;
                 }
                 statInfoList.add(winrate);

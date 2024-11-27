@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class CombatManager {
 
-    private Combat combat;
+    private final Combat combat;
 
     public CombatManager(Combat combat) {
         this.combat = combat;

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class ItemManager {
     
-    private ItemJSON itemJson;
+    private final ItemJSON itemJson;
 
     public ItemManager(ItemJSON itemJson) {
         this.itemJson = itemJson;
@@ -17,10 +17,10 @@ public class ItemManager {
         long id = 0;
         ArrayList<Item> itemList = itemJson.readAll();
 
-        for (int i = 0; i < itemList.size(); i++) {
-            String characterName = itemList.get(i).getName();
-            if (characterName.equals(name)){
-                id = itemList.get(i).getId();
+        for (Item item : itemList) {
+            String characterName = item.getName();
+            if (characterName.equals(name)) {
+                id = item.getId();
             }
         }
 
@@ -32,10 +32,10 @@ public class ItemManager {
 
         ArrayList<Item> itemList = itemJson.readAll();
 
-        for (int i = 0; i < itemList.size(); i++) {
-            String characterName = itemList.get(i).getName();
-            if (characterName.equals(name)){
-                power = itemList.get(i).getPower();
+        for (Item item : itemList) {
+            String characterName = item.getName();
+            if (characterName.equals(name)) {
+                power = item.getPower();
             }
         }
 
@@ -47,10 +47,10 @@ public class ItemManager {
 
         ArrayList<Item> itemList = itemJson.readAll();
 
-        for (int i = 0; i < itemList.size(); i++) {
-            String characterName = itemList.get(i).getName();
-            if (characterName.equals(name)){
-                power = itemList.get(i).getDurability();
+        for (Item item : itemList) {
+            String characterName = item.getName();
+            if (characterName.equals(name)) {
+                power = item.getDurability();
             }
         }
 
@@ -62,10 +62,10 @@ public class ItemManager {
 
         ArrayList<Item> itemList = itemJson.readAll();
 
-        for (int i = 0; i < itemList.size(); i++) {
-            String characterName = itemList.get(i).getName();
-            if (characterName.equals(name)){
-                classe = itemList.get(i).getClasse();
+        for (Item item : itemList) {
+            String characterName = item.getName();
+            if (characterName.equals(name)) {
+                classe = item.getClasse();
             }
         }
 
@@ -84,8 +84,8 @@ public class ItemManager {
         ArrayList<String> nameList = new ArrayList<>();
         ArrayList<Item> itemList = itemJson.readAll();
 
-        for (int i = 0; i < itemList.size(); i++) {
-            nameList.add(itemList.get(i).getName());
+        for (Item item : itemList) {
+            nameList.add(item.getName());
         }
         return (nameList);
     }

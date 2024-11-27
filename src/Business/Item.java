@@ -1,7 +1,5 @@
 package Business;
 
-import com.google.gson.annotations.SerializedName;
-
 public class Item {
 
     private final long id;

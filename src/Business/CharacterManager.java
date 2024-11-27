@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class CharacterManager {
     
-    private CharacterJSON characterJson;
+    private final CharacterJSON characterJson;
 
     public CharacterManager(CharacterJSON characterJson) {
         this.characterJson = characterJson;
@@ -27,8 +27,8 @@ public class CharacterManager {
         ArrayList<String> nameList = new ArrayList<>();
         ArrayList<Character> characterList = characterJson.readAll();
 
-        for (int i = 0; i < characterList.size(); i++) {
-            nameList.add(characterList.get(i).getName());
+        for (Character character : characterList) {
+            nameList.add(character.getName());
         }
         return (nameList);
     }
@@ -37,8 +37,8 @@ public class CharacterManager {
         ArrayList<Long> weightList = new ArrayList<>();
         ArrayList<Character> characterList = characterJson.readAll();
 
-        for (int i = 0; i < characterList.size(); i++) {
-            weightList.add(characterList.get(i).getId());
+        for (Character character : characterList) {
+            weightList.add(character.getId());
         }
         return (weightList);
     }
@@ -48,9 +48,10 @@ public class CharacterManager {
         ArrayList<String> characterNameList;
 
         characterNameList = getNameOfCharacters();
-        for (int i = 0; i < characterNameList.size(); i++) {
-            if (Name.equals(characterNameList.get(i))) {
+        for (String string : characterNameList) {
+            if (Name.equals(string)) {
                 exist = true;
+                break;
             }
         }
         return (exist);
@@ -61,9 +62,10 @@ public class CharacterManager {
         ArrayList<Character> characterList;
 
         characterList = characterJson.readAll();
-        for (int i = 0; i < characterList.size(); i++) {
-            if (id == characterList.get(i).getId()) {
+        for (Character character : characterList) {
+            if (id == character.getId()) {
                 exist = true;
+                break;
             }
         }
         return (exist);
@@ -73,10 +75,10 @@ public class CharacterManager {
         long id = 0;
         ArrayList<Character> characterList = characterJson.readAll();
 
-        for (int i = 0; i < characterList.size(); i++) {
-            String characterName = characterList.get(i).getName();
-            if (characterName.equals(name)){
-                id = characterList.get(i).getId();
+        for (Character character : characterList) {
+            String characterName = character.getName();
+            if (characterName.equals(name)) {
+                id = character.getId();
             }
         }
 
@@ -87,10 +89,10 @@ public class CharacterManager {
         int weight = 0;
         ArrayList<Character> characterList = characterJson.readAll();
 
-        for (int i = 0; i < characterList.size(); i++) {
-            String characterName = characterList.get(i).getName();
-            if (characterName.equals(name)){
-                weight = characterList.get(i).getWeight();
+        for (Character character : characterList) {
+            String characterName = character.getName();
+            if (characterName.equals(name)) {
+                weight = character.getWeight();
             }
         }
 
@@ -101,10 +103,10 @@ public class CharacterManager {
         ArrayList<String> nameList = new ArrayList<>();
         ArrayList<Character> characterList = characterJson.readAll();
 
-        for (int i = 0; i < characterList.size(); i++) {
-            for (int j = 0; j < idList.size(); j++) {
-                if (characterList.get(i).getId() == idList.get(j)) {
-                    nameList.add(characterList.get(i).getName());
+        for (Character character : characterList) {
+            for (Long aLong : idList) {
+                if (character.getId() == aLong) {
+                    nameList.add(character.getName());
                 }
             }
         }

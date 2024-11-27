@@ -91,7 +91,8 @@ public class Controller {
         ArrayList<String> teamList;
 
         characterNameList = characterManager.getNameOfCharacters();
-        menu.characterList(characterNameList);
+        menu.printList(characterNameList);
+        menu.print("Choose an option: ");
 
         int max = characterNameList.size();
         int character = selectOption(0, max);
@@ -117,10 +118,11 @@ public class Controller {
 
     }
     private void listItems() throws IOException {
-        ArrayList<String> itemNameList;;
+        ArrayList<String> itemNameList;
 
         itemNameList = itemManager.getNameOfItems();
-        menu.itemList(itemNameList);
+        menu.printList(itemNameList);
+        menu.print("Choose an option: ");
 
         int max = itemNameList.size();
         int item = selectOption(0, max);
@@ -203,7 +205,7 @@ public class Controller {
         ArrayList<Integer> statList;
 
         teamNameList = teamManager.getNameOfTeams();
-        menu.teamList(teamNameList);
+        menu.printList(teamNameList);
         menu.print("Choose an option: ");
         int max = teamNameList.size();
         int teamName = selectOption(0, max);
@@ -261,7 +263,7 @@ public class Controller {
         Team team;
 
         teamNameList = teamManager.getNameOfTeams();
-        menu.teamList(teamNameList);
+        menu.printList(teamNameList);
 
         menu.print("\nChoose team #1: ");
         int max = teamNameList.size() + 1;

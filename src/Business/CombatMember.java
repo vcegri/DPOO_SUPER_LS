@@ -2,11 +2,11 @@ package Business;
 
 public class CombatMember {
 
-    private Character character;
-    private String strategy;
-    private double damage;
-    private Item weapon;
-    private Item armor;
+    private final Character character;
+    private final String strategy;
+    private final double damage;
+    private final Item weapon;
+    private final Item armor;
 
     public CombatMember(Character character, String strategy, Item weapon, Item armor) {
         this.character = character;

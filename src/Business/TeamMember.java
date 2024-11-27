@@ -1,8 +1,8 @@
 package Business;
 
 public class TeamMember {
-    private long id;
-    private String strategy;
+    private final long id;
+    private final String strategy;
 
     public TeamMember(long id, String strategy) {
         this.id = id;
