@@ -92,6 +92,7 @@ public class CombatManager {
         return finalDamage;
     }
 
+
     public void updateStats() {
         for (int i = 0; i < combat.getTeamList().size(); i++){
             combat.getTeamList().get(i);
