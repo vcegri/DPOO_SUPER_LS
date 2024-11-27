@@ -11,6 +11,10 @@ public class CombatManager {
         this.combat = combat;
     }
 
+    public Combat getCombat() {
+        return combat;
+    }
+
     public int simulateCombat(ArrayList<Team> teamList) {
         int winner = 0;
 

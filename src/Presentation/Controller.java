@@ -318,16 +318,18 @@ public class Controller {
         combatManager.setCombat(teamFight, weaponList, armorList, characterList);
 
     }
-    private void executeCombat(ArrayList<Team> teamList) throws FileNotFoundException {
+    private void executeCombat() throws FileNotFoundException {
         int teamNumber = 1;
         int roundNum = 1;
         int i = 0;
-        ArrayList<String> nameList = new ArrayList<>();
+        ArrayList<String> nameList;
         ArrayList<Long> idList = new ArrayList<>();
         ArrayList<String> weaponList;
         ArrayList<String> armorList;
         ArrayList<Double> damageList;
+        ArrayList<Team> teamList;
 
+        teamList = combatManager.getCombat().getTeamList();
         do {
             for (Team team : teamList) {
                 for (i = 0; i < teamList.get(teamNumber).getMemberList().size(); i++) {
