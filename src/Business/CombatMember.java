@@ -7,7 +7,7 @@ public class CombatMember {
     private double damage;
     private final Item weapon;
     private final Item armor;
-    private boolean ko;
+    private final boolean ko;
 
     public CombatMember(Character character, String strategy, Item weapon, Item armor) {
         this.character = character;
@@ -15,6 +15,7 @@ public class CombatMember {
         this.damage = 0;
         this.weapon = weapon;
         this.armor = armor;
+        this.ko = false;
     }
 
     public Character getCharacter() {

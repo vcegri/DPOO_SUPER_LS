@@ -1,7 +1,6 @@
 package Presentation;
 
 import Business.*;
-import Business.Character;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -14,7 +13,7 @@ public class Controller {
     private final TeamManager teamManager;
     private final ItemManager itemManager;
     private final StatManager statManager;
-    private final CombatManager combatManager;
+    private CombatManager combatManager;
 
     public Controller(Menu menu, CharacterManager characterManager, TeamManager teamManager, ItemManager itemManager, StatManager statManager, CombatManager combatManager) {
         this.menu = menu;
@@ -163,7 +162,6 @@ public class Controller {
                     menu.println("That character doesn't exist");
                     i--;
                 }
-
             }
             menu.println("Team " + name + " has been successfully created!");
 
@@ -221,16 +219,32 @@ public class Controller {
         }
     }
     private void deleteTeam() throws FileNotFoundException {
+        boolean correctConfirm = true;
+
         menu.deleteTeam();
         String name = menu.askString();
         boolean exist = teamManager.comproveIfTeamExist(name);
         if (exist) {
             menu.print("Are you sure you want to remove \"" + name + "\"?");
-            String confirmation = menu.askString();
-            if (confirmation.equals("Yes")) {
-                teamManager.deleteTeam(name);
-                menu.println("\"" + name + "\" has been removed from the system.");
-            }
+            do {
+                String confirmation = menu.askString();
+                if (confirmation.equals("Yes")) {
+                    teamManager.deleteTeam(name);
+                    menu.println("\"" + name + "\" has been removed from the system.");
+                }
+                else if (confirmation.equals("No")){
+                    menu.println("Ok, team " + name + "is not canceled");
+                    manageTeams();
+                }
+                else {
+                    menu.println("You might write 'Yes' or 'No'");
+                    correctConfirm = false;
+                }
+            }while (!correctConfirm);
+        }
+        else {
+            menu.println("Doesn't exist " + name + " team.");
+            manageTeams();
         }
     }
 
@@ -301,7 +315,6 @@ public class Controller {
         ArrayList<String> weaponNameList = new ArrayList<>();
         ArrayList<Item> weaponList = new ArrayList<>();
         ArrayList<Item> armorList = new ArrayList<>();
-        ArrayList<Character> characterList;
 
         for (int i = 0; i < teamSize; i++){
             teamMemberIdList.add(teamFight.get(numTeam).getMemberList().get(i).getId());
@@ -313,65 +326,118 @@ public class Controller {
         }
         int showNumTeam = numTeam + 1;
         menu.showTeamInfoForCombat(showNumTeam, teamFight.get(numTeam).getName(), teamMemberNameList, weaponNameList, armorNameList);
-        characterList = characterManager.getCharacterListByIdList();
-        combatManager.setCombat(teamFight, weaponList, armorList, characterList);
+
+        this.combatManager.setCombat(teamFight, weaponList, armorList, characterManager.getCharacterListByIdList());
 
     }
     private void executeCombat() throws FileNotFoundException {
-        int teamNumber = 1;
         int roundNum = 1;
-        int i = 0;
-        boolean ko;
+
+        do {
+            roundTeamInfo(roundNum);
+            executeAction();
+            brokenItems();
+            deadCombatMembers();
+            roundNum++;
+        } while (!endCombat());
+    }
+
+    private void roundTeamInfo(int roundNum) throws FileNotFoundException {
+        int teamNumber;
         ArrayList<String> nameList;
-        ArrayList<Long> idList = new ArrayList<>();
         ArrayList<String> weaponList;
         ArrayList<String> armorList;
         ArrayList<Double> damageList;
-        ArrayList<Team> teamList;
+        ArrayList<Long> idList = new ArrayList<>();
         ArrayList<Boolean> koList = new ArrayList<>();
+        ArrayList<Team> teamList = combatManager.getCombat().getTeamList();
 
-        teamList = combatManager.getCombat().getTeamList();
-        do {
-            for (Team team : teamList) {
-                for (i = 0; i < teamList.get(teamNumber).getMemberList().size(); i++) {
-                   idList.add(teamList.get(teamNumber).getMemberList().get(i).getId());
-                   if (teamNumber == 0){
-                       koList.add(combatManager.getCombat().getCombatMemberList().get(i).isKo());
-                   }
-                   else {
-                       int j = i +4;
-                       koList.add(combatManager.getCombat().getCombatMemberList().get(j).isKo());
-                   }
+        for (int k = 0; k < teamList.size(); k++) {
+            teamNumber = k +1;
+
+            for (int i = 0; i < teamList.get(i).getMemberList().size(); i++) {
+                idList.add(teamList.get(i).getMemberList().get(i).getId());
+                if (i == 0){
+                    koList.add(combatManager.getCombat().getCombatMemberList().get(i).isKo());
                 }
-                nameList = characterManager.getNameById(idList);
-                weaponList = combatManager.getWeaponList();
-                armorList = combatManager.getArmorList();
-                damageList = combatManager.getDamageList();
-                menu.roundinfo(roundNum, teamNumber, teamList.get(teamNumber).getName(), nameList, weaponList, armorList, damageList, koList);
-                teamNumber++;
+                else {
+                    int j = i +4;
+                    koList.add(combatManager.getCombat().getCombatMemberList().get(j).isKo());
+                }
             }
-            roundNum++;
-        } while (!endCombat());
-        atack();
-        defend();
-        newWeapon();
+            nameList = characterManager.getNameById(idList);
+            weaponList = combatManager.getWeaponList();
+            armorList = combatManager.getArmorList();
+            damageList = combatManager.getDamageList();
+
+            menu.roundinfo(roundNum, teamNumber, teamList.get(k).getName(), nameList, weaponList, armorList, damageList, koList);
+        }
+    }
+
+    private void executeAction(){
+        boolean hasWeapon = true;
+        boolean hasArmor = true;
+        boolean hasHighDamage = true;
+
+        for (int i = 0; i < combatManager.getCombat().getCombatMemberList().size(); i++){
+
+            hasWeapon = combatManager.hasWeapon(i);
+            hasArmor = combatManager.hasArmor(i);
+            hasHighDamage = combatManager.hasHighDamage(i);
+
+            if (!hasWeapon){
+                newWeapon();
+            }
+            else if (hasArmor){
+                if (hasHighDamage){
+                    defend();
+                }
+                else {
+                    atack();
+                }
+            }
+            else {
+                atack();
+            }
+        }
     }
 
     private void atack(){}
 
     private void defend(){}
 
-    private void newWeapon() {
-    }
+    private void newWeapon() {}
+
+    private void brokenItems(){}
+
+    private void deadCombatMembers(){}
 
     private boolean endCombat(){
         boolean combatEnded = false;
+        boolean teamOneFinish = true;
+        boolean teamTwoFinish = true;
 
+        for (int i = 0; i < 4; i++){
+            if (!combatManager.getCombat().getCombatMemberList().get(i).isKo()) {
+                teamOneFinish = false;
+                break;
+            }
+        }
 
+        for (int i = 0; i < 4; i++){
+            int j = i + 4;
+            if (!combatManager.getCombat().getCombatMemberList().get(j).isKo()) {
+                teamTwoFinish = false;
+                break;
+            }
+        }
+
+        if (teamOneFinish || teamTwoFinish){
+            combatEnded = true;
+        }
 
         return combatEnded;
     }
-
     
     private void pressEnter() {
         menu.print("<Press enter to continue...>");

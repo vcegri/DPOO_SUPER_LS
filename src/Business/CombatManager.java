@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class CombatManager {
 
-    private final Combat combat;
+    private Combat combat;
 
     public CombatManager(Combat combat) {
         this.combat = combat;
@@ -151,5 +151,35 @@ public class CombatManager {
         }
 
         return damageNameList;
+    }
+
+    public boolean hasWeapon(int i) {
+        boolean hasWeapon = false;
+
+        if (combat.getCombatMemberList().get(i).getWeapon() != null){
+            hasWeapon = true;
+        }
+
+        return hasWeapon;
+    }
+
+    public boolean hasArmor(int i) {
+        boolean hasArmor = false;
+
+        if (combat.getCombatMemberList().get(i).getArmor() != null){
+            hasArmor = true;
+        }
+
+        return hasArmor;
+    }
+
+    public boolean hasHighDamage(int i) {
+        boolean hasHighDamage = true;
+
+        if (combat.getCombatMemberList().get(i).getDamage() < 0.5){
+            hasHighDamage = false;
+        }
+
+        return hasHighDamage;
     }
 }
