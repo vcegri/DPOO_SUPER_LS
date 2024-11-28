@@ -375,9 +375,9 @@ public class Controller {
     }
 
     private void executeAction(){
-        boolean hasWeapon = true;
-        boolean hasArmor = true;
-        boolean hasHighDamage = true;
+        boolean hasWeapon;
+        boolean hasArmor;
+        boolean hasHighDamage;
 
         for (int i = 0; i < combatManager.getCombat().getCombatMemberList().size(); i++){
 
