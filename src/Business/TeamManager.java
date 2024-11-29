@@ -5,14 +5,30 @@ import Persistence.TeamJSON;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+/**
+ * Manages the interaction with team data, including retrieving team information,
+ * creating teams, deleting teams, and verifying the existence of a team.
+ */
 public class TeamManager {
-    
+
+    /** The TeamJSON instance used to read and save team data. */
     private final TeamJSON teamJson;
 
+    /**
+     * Constructs a TeamManager with the specified TeamJSON instance.
+     *
+     * @param teamJson the TeamJSON instance to interact with for team data
+     */
     public TeamManager(TeamJSON teamJson) {
         this.teamJson = teamJson;
     }
 
+    /**
+     * Retrieves a list of all team names.
+     *
+     * @return a list of names of all the teams
+     * @throws FileNotFoundException if the team data cannot be read from storage
+     */
     public ArrayList<String> getNameOfTeams() throws FileNotFoundException {
         ArrayList<String> nameList = new ArrayList<>();
         ArrayList<Team> teamList = teamJson.readAll();
@@ -20,9 +36,16 @@ public class TeamManager {
         for (Team team : teamList) {
             nameList.add(team.getName());
         }
-        return (nameList);
+        return nameList;
     }
 
+    /**
+     * Searches for teams that a specific character is a member of, based on the character's ID.
+     *
+     * @param idCharacter the ID of the character to search for
+     * @return a list of team names the character is a part of
+     * @throws FileNotFoundException if the team data cannot be read from storage
+     */
     public ArrayList<String> searchTeamsOfCharacter(long idCharacter) throws FileNotFoundException {
         ArrayList<String> teamNameList = new ArrayList<>();
         ArrayList<Team> teamList = teamJson.readAll();
@@ -36,23 +59,36 @@ public class TeamManager {
             }
         }
 
-        return (teamNameList);
+        return teamNameList;
     }
 
+    /**
+     * Verifies if a team with the specified name already exists.
+     *
+     * @param newName the name of the team to check for existence
+     * @return true if the team exists, false otherwise
+     * @throws FileNotFoundException if the team data cannot be read from storage
+     */
     public boolean comproveIfTeamExist(String newName) throws FileNotFoundException {
         boolean exist = false;
-        ArrayList<String> teamNameList;
+        ArrayList<String> teamNameList = getNameOfTeams();
 
-        teamNameList = getNameOfTeams();
-        for (int i = 0; i < teamNameList.size(); i++) {
-            if (newName.equals(teamNameList.get(i))) {
+        for (String teamName : teamNameList) {
+            if (newName.equals(teamName)) {
                 exist = true;
-                i = teamNameList.size();
+                break;
             }
         }
-        return (exist);
+        return exist;
     }
 
+    /**
+     * Creates a new team with the specified name and list of team members.
+     *
+     * @param name the name of the new team
+     * @param teamMemberList the list of team members
+     * @throws FileNotFoundException if the team data cannot be written to storage
+     */
     public void createTeam(String name, ArrayList<TeamMember> teamMemberList) throws FileNotFoundException {
         ArrayList<Team> teamList = teamJson.readAll();
         Team team = new Team(name, teamMemberList);
@@ -60,22 +96,34 @@ public class TeamManager {
         teamJson.saveTeams(teamList);
     }
 
+    /**
+     * Retrieves the list of member IDs for a team based on the team's name.
+     *
+     * @param name the name of the team whose members' IDs are to be retrieved
+     * @return a list of member IDs for the specified team
+     * @throws FileNotFoundException if the team data cannot be read from storage
+     */
     public ArrayList<Long> getIdListOfATeam(String name) throws FileNotFoundException {
         ArrayList<Long> memberList = new ArrayList<>();
         ArrayList<Team> teamList = teamJson.readAll();
 
         for (Team team : teamList) {
-            String teamName = team.getName();
-            if (name.equals(teamName)) {
+            if (name.equals(team.getName())) {
                 for (int j = 0; j < 4; j++) {
                     memberList.add(team.getMemberList().get(j).getId());
                 }
             }
         }
 
-        return (memberList);
+        return memberList;
     }
 
+    /**
+     * Deletes a team based on the team's name.
+     *
+     * @param name the name of the team to be deleted
+     * @throws FileNotFoundException if the team data cannot be read or written to storage
+     */
     public void deleteTeam(String name) throws FileNotFoundException {
         ArrayList<Team> teamList = teamJson.readAll();
 
@@ -83,22 +131,31 @@ public class TeamManager {
         for (int i = 0; i < teamList.size(); i++) {
             if (teamList.get(i).getName().equals(name)) {
                 teamFound = teamList.get(i);
-                i = teamList.size();
+                break;
             }
         }
 
-        teamList.remove(teamFound);
-        teamJson.saveTeams(teamList);
+        if (teamFound != null) {
+            teamList.remove(teamFound);
+            teamJson.saveTeams(teamList);
+        }
     }
 
+    /**
+     * Retrieves a team object by its name.
+     *
+     * @param name the name of the team to retrieve
+     * @return the Team object with the specified name
+     * @throws FileNotFoundException if the team data cannot be read from storage
+     */
     public Team getTeamByName(String name) throws FileNotFoundException {
         ArrayList<Team> teamList = teamJson.readAll();
 
         Team teamFound = null;
-        for (int i = 0; i < teamList.size(); i++) {
-            if (teamList.get(i).getName().equals(name)) {
-                teamFound = teamList.get(i);
-                i = teamList.size();
+        for (Team team : teamList) {
+            if (team.getName().equals(name)) {
+                teamFound = team;
+                break;
             }
         }
 
