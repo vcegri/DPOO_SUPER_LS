@@ -29,8 +29,12 @@ public class StatManager {
      *
      * @param name the name of the team for which to create statistics
      */
-    public void createStat(String name) {
+    public void createStat(String name) throws FileNotFoundException {
+        ArrayList<Stat> statList = statJson.readAll();
+
         Stat stat = new Stat(name);
+        statList.add(stat);
+        statJson.saveStatList(statList);
     }
 
     /**
@@ -88,7 +92,6 @@ public class StatManager {
                 KO_done = statList.get(i).getKoDone();
                 KO_received = statList.get(i).getKoReceived();
 
-                // Updating the stats
                 statList.remove(i);
                 Stat stat = new Stat(teamName, gamesPlayed, gamesWon, KO_done, KO_received);
                 statList.add(stat);
@@ -101,9 +104,9 @@ public class StatManager {
         ArrayList<Stat> statList = statJson.readAll();
 
         Stat statFound = null;
-        for (int i = 0; i < statList.size(); i++) {
-            if (statList.get(i).getName().equals(name)) {
-                statFound = statList.get(i);
+        for (Stat stat : statList) {
+            if (stat.getName().equals(name)) {
+                statFound = stat;
                 break;
             }
         }

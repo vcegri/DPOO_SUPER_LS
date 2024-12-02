@@ -128,9 +128,9 @@ public class TeamManager {
         ArrayList<Team> teamList = teamJson.readAll();
 
         Team teamFound = null;
-        for (int i = 0; i < teamList.size(); i++) {
-            if (teamList.get(i).getName().equals(name)) {
-                teamFound = teamList.get(i);
+        for (Team team : teamList) {
+            if (team.getName().equals(name)) {
+                teamFound = team;
                 break;
             }
         }
