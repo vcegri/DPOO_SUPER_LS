@@ -96,4 +96,21 @@ public class StatManager {
             }
         }
     }
+
+    public void deleteStat(String name) throws FileNotFoundException {
+        ArrayList<Stat> statList = statJson.readAll();
+
+        Stat statFound = null;
+        for (int i = 0; i < statList.size(); i++) {
+            if (statList.get(i).getName().equals(name)) {
+                statFound = statList.get(i);
+                break;
+            }
+        }
+
+        if (statFound != null) {
+            statList.remove(statFound);
+            statJson.saveStatList(statList);
+        }
+    }
 }

@@ -10,18 +10,18 @@ import java.io.*;
 import java.util.ArrayList;
 
 /**
- * Manages the reading and writing of team data from/to a JSON file.
+ * Is used to read and write team data at the teams.json file.
  */
 public class TeamJSON {
 
-    /** Path to the JSON file containing team data. */
+    /** Path to the teams.json file that contains all the team data. */
     private static final String FILE_PATH = "data/teams.json";
 
     /**
-     * Reads all team data from the JSON file and converts it into a list of Team objects.
+     * Reads all the team data at the teams.json file and converts it into a list of Teams.
      *
-     * @return a list of Team objects read from the JSON file
-     * @throws FileNotFoundException if the team data file is not found or cannot be accessed
+     * @return a list of all the Teams that the teams.json file contains
+     * @throws FileNotFoundException if the teams.json file is not found or can't be accessed
      */
     public ArrayList<Team> readAll() throws FileNotFoundException {
         FileReader reader = new FileReader(FILE_PATH);
@@ -37,9 +37,9 @@ public class TeamJSON {
     }
 
     /**
-     * Saves the updated list of teams back to the team data JSON file.
+     * Update the list of teams at the teams.json file.
      *
-     * @param teamList the list of Team objects to save to the file
+     * @param teamList the list of Teams to update
      */
     public void saveTeams(ArrayList<Team> teamList) {
         try (FileWriter writer = new FileWriter(FILE_PATH)) {

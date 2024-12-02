@@ -13,18 +13,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Manages the reading, writing, and deletion of stat data from/to a JSON file.
+ * Is used to read and write team data at the stats.json file.
  */
 public class StatJSON {
 
-    /** Path to the JSON file containing stat data. */
+    /** Path to the stats.json file that contains all the stat data. */
     private static final String FILE_PATH = "data/teams.json";
 
     /**
-     * Reads all stat data from the JSON file and converts it into a list of Stat objects.
+     * Reads all the stat data at the stats.json file and converts it into a list of Stats.
      *
-     * @return a list of Stat objects read from the JSON file
-     * @throws FileNotFoundException if the stat data file is not found or cannot be accessed
+     * @return a list of all the Stats that the stats.json file contains
+     * @throws FileNotFoundException if the stats.json file is not found or can't be accessed
      */
     public ArrayList<Stat> readAll() throws FileNotFoundException {
         FileReader reader = new FileReader(FILE_PATH);
@@ -40,9 +40,9 @@ public class StatJSON {
     }
 
     /**
-     * Saves the updated list of stats back to the stat data JSON file.
+     * Update the list of stats at the stats.json file.
      *
-     * @param statList the list of Stat objects to save to the file
+     * @param statList the list of Stats to update
      */
     public void saveStatList(ArrayList<Stat> statList) {
         try (FileWriter writer = new FileWriter(FILE_PATH)) {
@@ -53,14 +53,4 @@ public class StatJSON {
         }
     }
 
-    /**
-     * Deletes a specific stat from the list and updates the stat data file.
-     *
-     * @param stat the stat to delete
-     * @param statList the list of Stat objects to remove the stat from
-     */
-    public void deleteStat(Stat stat, ArrayList<Stat> statList) {
-        statList.remove(stat);
-        saveStatList(statList);
-    }
 }
