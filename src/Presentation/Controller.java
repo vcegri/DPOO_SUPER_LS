@@ -320,9 +320,9 @@ public class Controller {
 
         for (int i = 0; i < teamSize; i++){
             teamMemberIdList.add(teamFight.get(numTeam).getMemberList().get(i).getId());
-            weaponList.add(combatManager.setRandomWeapon());
+            weaponList.add(combatManager.setRandomWeapon(i));
             weaponNameList.add(weaponList.get(i).getName());
-            armorList.add(combatManager.setRandomArmor());
+            armorList.add(combatManager.setRandomArmor(i));
             armorNameList.add(armorList.get(i).getName());
             teamMemberNameList = characterManager.getNameById(teamMemberIdList);
         }
@@ -389,7 +389,7 @@ public class Controller {
             hasHighDamage = combatManager.hasHighDamage(i);
 
             if (!hasWeapon){
-                newWeapon();
+                newWeapon(i);
             }
             else if (hasArmor){
                 if (hasHighDamage){
@@ -430,15 +430,31 @@ public class Controller {
 
         menu.println(attackerName + "ATTACKS" + defenderName + "WITH" + weaponName + "FOR" + damage + "DAMAGE!");
         menu.println(defenderName + "RECEIVES" + finalDamage + "DAMAGE.");
+        defend(i);
+        this.combatManager.getCombat().getCombatMemberList().get(i).getWeapon().updateDurability();
+        this.combatManager.getCombat().getCombatMemberList().get(randomIndex).getArmor().updateDurability();
     }
 
     private void defend(int i){
         this.combatManager.getCombat().getCombatMemberList().get(i).isDefending();
     }
 
-    private void newWeapon() {}
+    private void newWeapon(int i) {
+        this.combatManager.setRandomWeapon(i);
+    }
 
-    private void brokenItems(){}
+    private void brokenItems(){
+        Combat combat = combatManager.getCombat();
+
+        for (int i = 0; i < combat.getCombatMemberList().size(); i++) {
+            if (combat.getCombatMemberList().get(i).getWeapon().getDurability() == 0) {
+                String characterName = combat.getCombatMemberList().get(i).getCharacter().getName();
+                String weaponName = combat.getCombatMemberList().get(i).getWeapon().getName();
+                menu.println("Oh no! " + characterName + "'s " + weaponName + "breaks!");
+            }
+        }
+        menu.println("");
+    }
 
     private void deadCombatMembers(){
         Combat combat = combatManager.getCombat();
@@ -448,6 +464,7 @@ public class Controller {
                 menu.println(combat.getCombatMemberList().get(i).getCharacter().getName() +  " flies away! It’s a KO!");
             }
         }
+        menu.println("");
     }
 
     private boolean endCombat(){
@@ -483,4 +500,5 @@ public class Controller {
     }
 }
 
-//defensa
+//defensa activar i desactivar
+//utilitzar items quan durabilitat

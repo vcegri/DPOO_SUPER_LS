@@ -72,7 +72,7 @@ public class CombatManager {
      *
      * @return a random Item representing armor
      */
-    public Item setRandomArmor() {
+    public Item setRandomArmor(int i) {
         Item armor = null;
 
         // Assign random armor
@@ -84,7 +84,7 @@ public class CombatManager {
      *
      * @return a random Item representing a weapon
      */
-    public Item setRandomWeapon() {
+    public Item setRandomWeapon(int i) {
         Item weapon = null;
 
         // Assign random weapon
