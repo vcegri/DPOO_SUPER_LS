@@ -1,18 +1,14 @@
 import Business.*;
-import Persistence.CharacterJSON;
-import Persistence.ItemJSON;
-import Persistence.StatJSON;
-import Persistence.TeamJSON;
-import Presentation.Controller;
-import Presentation.Menu;
+import Persistence.*;
+import Presentation.*;
 
 import java.io.IOException;
 
 public class Main {
     /**
-     * Inicia el programa configurant les clasess i el controlador.
+     * Stats the program and does the principals configurations.
      *
-     * @param args arguments de la línia de comandaments (no utilitzats).
+     * @param args arguments from the command line.
      */
     public static void main(String[] args) throws IOException {
 

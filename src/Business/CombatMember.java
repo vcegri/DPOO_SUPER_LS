@@ -21,7 +21,9 @@ public class CombatMember {
     private final Item armor;
 
     /** Indicates whether this combat member is knocked out (KO). */
-    private final boolean ko;
+    private boolean ko;
+
+    private boolean defending;
 
     /**
      * Constructs a new CombatMember with the specified character, strategy, weapon, and armor.
@@ -38,6 +40,7 @@ public class CombatMember {
         this.weapon = weapon;
         this.armor = armor;
         this.ko = false;
+        this.defending = false;
     }
 
     /**
@@ -94,6 +97,10 @@ public class CombatMember {
         return ko;
     }
 
+    public boolean isDefending() {
+        return defending;
+    }
+
     /**
      * Updates the total damage dealt by this combat member.
      *
@@ -102,4 +109,8 @@ public class CombatMember {
     public void updateDamage(double newDamage) {
         this.damage = this.damage + newDamage;
     }
+
+    public void setKo(){this.ko = !this.ko;}
+
+    public void setDefending(){this.defending = !this.defending;}
 }

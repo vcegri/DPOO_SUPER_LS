@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import java.io.IOException;
+import java.util.Random;
 
 public class Controller {
     private final Menu menu;
@@ -340,6 +341,7 @@ public class Controller {
             deadCombatMembers();
             roundNum++;
         } while (!endCombat());
+        this.combatManager.getCombat().endCombat();
     }
 
     private void roundTeamInfo(int roundNum) throws FileNotFoundException {
@@ -390,21 +392,48 @@ public class Controller {
             }
             else if (hasArmor){
                 if (hasHighDamage){
-                    defend();
+                    defend(i);
                 }
                 else {
-                    atack();
+                    atack(i);
                 }
             }
             else {
-                atack();
+                atack(i);
             }
         }
     }
 
-    private void atack(){}
+    private void atack(int i){
+        Combat combat = this.combatManager.getCombat();
+        Random random = new Random();
+        int randomIndex;
 
-    private void defend(){}
+        String  attackerName = combat.getCombatMemberList().get(i).getCharacter().getName();
+
+        if (i < 4) {
+            randomIndex = random.nextInt(4) + 4;
+        }
+        else {
+            randomIndex = random.nextInt(4);
+        }
+
+        String defenderName = combat.getCombatMemberList().get(randomIndex).getCharacter().getName();
+        String weaponName = combat.getCombatMemberList().get(randomIndex).getWeapon().getName();
+        double damage = combatManager.calculateDamage(combat.getCombatMemberList().get(i));
+        double finalDamage = combatManager.calculateReducedDamage(damage, combat.getCombatMemberList().get(randomIndex));
+
+        if (combat.getCombatMemberList().get(randomIndex).isDefending()){
+            finalDamage = finalDamage - combatManager.calculateDamageReduction(combat.getCombatMemberList().get(randomIndex));
+        }
+
+        menu.println(attackerName + "ATTACKS" + defenderName + "WITH" + weaponName + "FOR" + damage + "DAMAGE!");
+        menu.println(defenderName + "RECEIVES" + finalDamage + "DAMAGE.");
+    }
+
+    private void defend(int i){
+        this.combatManager.getCombat().getCombatMemberList().get(i).isDefending();
+    }
 
     private void newWeapon() {}
 
@@ -444,3 +473,5 @@ public class Controller {
         menu.askString();
     }
 }
+
+//defensa

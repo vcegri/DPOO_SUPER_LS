@@ -160,6 +160,14 @@ public class CombatManager {
         return finalDamage;
     }
 
+    public double calculateDamageReduction(CombatMember defender){
+        double damageReduction;
+
+        damageReduction = (defender.getCharacter().getWeight())/400;
+
+        return damageReduction;
+    }
+
     /**
      * Updates the stats of the attacker after their turn in combat, such as durability of the weapon.
      *
