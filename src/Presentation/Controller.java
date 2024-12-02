@@ -513,13 +513,10 @@ public class Controller {
     }
 
     private Integer checkWinner() {
-        boolean teamOneFinish = true;
-        boolean teamTwoFinish = true;
         int winner = 0;
 
         for (int i = 0; i < 4; i++){
             if (!combatManager.getCombat().getCombatMemberList().get(i).isKo()) {
-                teamOneFinish = false;
                 break;
             }
         }
@@ -527,7 +524,6 @@ public class Controller {
         for (int i = 0; i < 4; i++){
             int j = i + 4;
             if (!combatManager.getCombat().getCombatMemberList().get(j).isKo()) {
-                teamTwoFinish = false;
                 winner = 1;
                 break;
             }
