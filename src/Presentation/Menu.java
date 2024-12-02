@@ -320,12 +320,16 @@ public class Menu {
      * @param teamMemberNameList  the list of team member names
      * @param damageTakenList     the list of damage received by each team member
      */
-    public void finalRound(int teamNumber, String teamName, ArrayList<String> teamMemberNameList, ArrayList<String> damageTakenList) {
+    public void finalRound(int teamNumber, String teamName, ArrayList<String> teamMemberNameList, ArrayList<Double> damageTakenList, ArrayList<Boolean> koList) {
         println("\tTeam #" + teamNumber + " - " + teamName);
         for (int i = 0; i < teamMemberNameList.size(); i++) {
             String name = teamMemberNameList.get(i);
-            String damageTaken = damageTakenList.get(i);
-            println("\t- " + name + "(" + damageTaken + ")");
+            double damageTaken = damageTakenList.get(i);
+            if (!koList.get(i)) {
+                println("\t- " + name + "(" + damageTaken + " %) ");
+            } else {
+                println("\t- " + name + "(KO) ");
+            }
         }
     }
 }
