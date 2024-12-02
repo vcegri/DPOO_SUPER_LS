@@ -5,19 +5,19 @@ import java.util.Scanner;
 
 /**
  * Manages the presentation layer of the application by displaying menus and requesting user input.
- * This class provides various methods for displaying information and interacting with the user via the console.
+ * This class provides methods for displaying information and interacting with the user by the console.
  */
 public class Menu {
 
     /**
-     * Default constructor for Menu class.
+     * Constructor for Menu class.
      */
     public Menu() {}
 
     /**
-     * Prompts the user for a string input.
+     * Ask the user a string.
      *
-     * @return the string input from the user
+     * @return the string that the user provide.
      */
     public String askString() {
         Scanner scanner = new Scanner(System.in);
@@ -25,10 +25,10 @@ public class Menu {
     }
 
     /**
-     * Prompts the user for an integer input.
-     * If the user does not provide a valid integer, it will prompt again.
+     * Ask the user an integer.
+     * If the user doesn't provide a correct integer, it will ask again for a new integer.
      *
-     * @return the integer input from the user
+     * @return the integer the user provide
      */
     public int askInt() {
         Scanner scanner = new Scanner(System.in);
@@ -51,7 +51,7 @@ public class Menu {
     }
 
     /**
-     * Prints a message to the console.
+     * Prints a message with an enter.
      *
      * @param string the message to print
      */
@@ -60,7 +60,7 @@ public class Menu {
     }
 
     /**
-     * Prints a message to the console without a newline.
+     * Prints a message without an enter.
      *
      * @param string the message to print
      */
@@ -69,7 +69,7 @@ public class Menu {
     }
 
     /**
-     * Displays the initial welcome and file verification message.
+     * Show the initial welcome message and the file verification message.
      */
     public void initialMenu() {
         System.out.println("   ___                      _    ___     ___         _   ");
@@ -82,7 +82,7 @@ public class Menu {
     }
 
     /**
-     * Displays a message indicating the files are OK and the program is starting.
+     * Show a message indicating the files are okay and the program is starting.
      */
     public void correctFile() {
         println("Files OK.");
@@ -90,9 +90,9 @@ public class Menu {
     }
 
     /**
-     * Displays an error message if a file cannot be accessed.
+     * Show an error message if a file can't be accessed.
      *
-     * @param file the name of the file that could not be accessed
+     * @param file the name of the file
      */
     public void incorrectFile(String file) {
         println("Error: The " + file + " can't be accessed.");
@@ -100,7 +100,7 @@ public class Menu {
     }
 
     /**
-     * Displays the main menu with available options.
+     * Prints the main menu.
      */
     public void principalMenu() {
         println("\n\t1) List Characters");
@@ -112,19 +112,19 @@ public class Menu {
     }
 
     /**
-     * Displays a message indicating the user has selected an invalid option.
+     * Prints a message showing that the user provided an invalid option.
      */
     public void invalidOption() {
         println("Invalid Option, please choose a correct one (you have the options above)");
     }
 
     /**
-     * Displays the character's information.
+     * Prints the character information.
      *
-     * @param characterId      the character's ID
-     * @param characterName    the character's name
-     * @param characterWeight  the character's weight
-     * @param characterTeamList the list of teams the character is part of
+     * @param characterId      the character ID
+     * @param characterName    the character name
+     * @param characterWeight  the character weight
+     * @param characterTeamList ArrayList with all the teams that the character is part of
      */
     public void characterInfo(long characterId, String characterName, int characterWeight, ArrayList<String> characterTeamList) {
         println("\n\tID: " + characterId);
@@ -137,7 +137,7 @@ public class Menu {
     }
 
     /**
-     * Displays the menu for managing teams.
+     * Prints the menu of the managing teams option.
      */
     public void manageTeamsMenu() {
         println("\nTeam management.");
@@ -149,16 +149,16 @@ public class Menu {
     }
 
     /**
-     * Prompts the user to enter the name of a new team.
+     * Ask the user a name of a new team.
      */
     public void createTeam() {
         print("\nPlease enter the team's name: ");
     }
 
     /**
-     * Prints the list of names, providing an index for each entry.
+     * Prints the list of names, with an index for each name.
      *
-     * @param nameList the list of names to display
+     * @param nameList the list of the names
      */
     public void printList(ArrayList<String> nameList) {
         println("\n");
@@ -171,17 +171,17 @@ public class Menu {
     }
 
     /**
-     * Displays information about a team.
+     * Show information about a team.
      *
-     * @param teamName         the team's name
-     * @param characterNameList the list of character names in the team
-     * @param combatPlayed     the number of combats played by the team
-     * @param combatWon        the number of combats won by the team
-     * @param koDone           the number of KOs done by the team
-     * @param koReceived       the number of KOs received by the team
-     * @param winrate          the team's win rate percentage
+     * @param teamName         the team name
+     * @param characterNameList the list of all character names in the team
+     * @param combatPlayed     the number of combats played
+     * @param combatWon        the number of combats won
+     * @param koDone           the number of KOs done
+     * @param koReceived       the number of KOs received
+     * @param winRate          the team win rate
      */
-    public void teamInfo(String teamName, ArrayList<String> characterNameList, int combatPlayed, int combatWon, int koDone, int koReceived, int winrate) {
+    public void teamInfo(String teamName, ArrayList<String> characterNameList, int combatPlayed, int combatWon, int koDone, int koReceived, int winRate) {
         println("\tTeam name: " + teamName + "\n");
         for (int i = 0; i < characterNameList.size(); i++) {
             int j = i + 1;
@@ -190,26 +190,26 @@ public class Menu {
         }
         println("\n\tCombats played:\t" + combatPlayed);
         println("\tCombats won:\t" + combatWon);
-        println("\tWin rate:\t\t" + winrate + "%");
+        println("\tWin rate:\t\t" + winRate + "%");
         println("\tKo's done:\t\t" + koDone);
         println("\tKo's received:\t" + koReceived);
     }
 
     /**
-     * Prompts the user to enter the name of a team to delete.
+     * Ask the user a name to delete a team.
      */
     public void deleteTeam() {
         println("\n\tEnter the name of the team to remove: ");
     }
 
     /**
-     * Displays information about an item.
+     * Show information of an item.
      *
-     * @param itemID     the item's ID
-     * @param name       the item's name
-     * @param classe     the item's class
-     * @param power      the item's power
-     * @param durability the item's durability
+     * @param itemID     the item ID
+     * @param name       the item name
+     * @param classe     the item type
+     * @param power      the item power
+     * @param durability the item durability
      */
     public void itemInfo(long itemID, String name, String classe, int power, int durability) {
         println("\n\tID: " + itemID);
@@ -220,7 +220,7 @@ public class Menu {
     }
 
     /**
-     * Displays the information of teams for combat, including team members, weapons, and armor.
+     * Show the information of teams for combat.
      *
      * @param teamNumber        the team number
      * @param teamName          the team name
@@ -242,7 +242,7 @@ public class Menu {
     }
 
     /**
-     * Displays the details of a combat round, including each team's members and their status.
+     * Prints the details of a combat round.
      *
      * @param roundNum            the round number
      * @param teamNumber          the team number
@@ -250,8 +250,8 @@ public class Menu {
      * @param teamMemberNameList  the list of team member names
      * @param teamWeaponList      the list of team member weapons
      * @param teamArmorList       the list of team member armors
-     * @param damageTakenList     the list of damage taken by each team member
-     * @param koList              the list of KO statuses for each team member
+     * @param damageTakenList     the list of damage received by each team member
+     * @param koList              the list of KO value for each team member
      */
     public void roundinfo(int roundNum, int teamNumber, String teamName, ArrayList<String> teamMemberNameList, ArrayList<String> teamWeaponList, ArrayList<String> teamArmorList, ArrayList<Double> damageTakenList, ArrayList<Boolean> koList) {
         println("--- ROUND " + roundNum + " ---");
@@ -270,12 +270,12 @@ public class Menu {
     }
 
     /**
-     * Displays information about a combat attack between two players.
+     * Show what is happening in a combat attack between two players.
      *
      * @param attacker     the name of the attacker
      * @param defender     the name of the defender
      * @param weapon       the weapon used by the attacker
-     * @param damage       the damage dealt by the attacker
+     * @param damage       the damage done by the attacker
      * @param damageTaken  the damage received by the defender
      */
     public void combatAttack(String attacker, String defender, String weapon, double damage, double damageTaken) {
@@ -284,26 +284,26 @@ public class Menu {
     }
 
     /**
-     * Displays a message when an item breaks during combat.
+     * Prints a message when an item breaks during a combat.
      *
      * @param memberName   the name of the team member whose item broke
-     * @param weaponName   the name of the broken weapon
+     * @param itemName   the name of the broken item
      */
-    public void itemBreak(String memberName, String weaponName) {
-        println("Oh no! " + memberName + "'s " + weaponName + " breaks!");
+    public void itemBreak(String memberName, String itemName) {
+        println("Oh no! " + memberName + "'s " + itemName + " breaks!");
     }
 
     /**
-     * Displays a message when a character is knocked out (KO).
+     * Show a message when a character is KO.
      *
-     * @param memberName the name of the character who was KO'd
+     * @param memberName the name of the character
      */
     public void charcterKO(String memberName) {
         println(memberName + " flies away! It's a KO!");
     }
 
     /**
-     * Displays the result of a combat, announcing the winner.
+     * Prints the result of a combat.
      *
      * @param winner the name of the winning team
      */
@@ -313,12 +313,12 @@ public class Menu {
     }
 
     /**
-     * Displays the final round information for a team, including the damage taken by each member.
+     * Show the final round information of a team.
      *
      * @param teamNumber          the team number
      * @param teamName            the team name
      * @param teamMemberNameList  the list of team member names
-     * @param damageTakenList     the list of damage taken by each team member
+     * @param damageTakenList     the list of damage received by each team member
      */
     public void finalRound(int teamNumber, String teamName, ArrayList<String> teamMemberNameList, ArrayList<String> damageTakenList) {
         println("\tTeam #" + teamNumber + " - " + teamName);
