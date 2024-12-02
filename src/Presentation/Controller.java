@@ -231,6 +231,7 @@ public class Controller {
                 String confirmation = menu.askString();
                 if (confirmation.equals("Yes")) {
                     teamManager.deleteTeam(name);
+                    statManager.deleteStat(name);
                     menu.println("\"" + name + "\" has been removed from the system.");
                 }
                 else if (confirmation.equals("No")){
@@ -439,7 +440,15 @@ public class Controller {
 
     private void brokenItems(){}
 
-    private void deadCombatMembers(){}
+    private void deadCombatMembers(){
+        Combat combat = combatManager.getCombat();
+
+        for (int i = 0; i < combat.getCombatMemberList().size(); i++) {
+            if (combat.getCombatMemberList().get(i).isKo()) {
+                menu.println(combat.getCombatMemberList().get(i).getCharacter().getName() +  " flies away! It’s a KO!");
+            }
+        }
+    }
 
     private boolean endCombat(){
         boolean combatEnded = false;
