@@ -5,7 +5,7 @@ package Business;
  */
 public class Character {
 
-    /** The unique identifier of the character. */
+    /** A unique identifier of the character. */
     private final long id;
 
     /** The name of the character. */

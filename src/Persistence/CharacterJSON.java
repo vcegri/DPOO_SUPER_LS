@@ -7,18 +7,18 @@ import java.io.*;
 import java.util.ArrayList;
 
 /**
- * Manages the reading of character data from a JSON file and checks the file's existence.
+ * Is used to read and write team data at the characters.json file.
  */
 public class CharacterJSON {
 
-    /** Path to the JSON file containing character data. */
+    /** Path to the items.json file that contains all the item data. */
     private static final String FILE_PATH = "data/characters.json";
 
     /**
-     * Reads all character data from the JSON file and converts it into a list of Character objects.
+     * Reads all the character data at the characters.json file and converts it into a list of Characters.
      *
-     * @return a list of Character objects read from the JSON file
-     * @throws FileNotFoundException if the character data file is not found or cannot be accessed
+     * @return a list of all the Characters that the characters.json file contains
+     * @throws FileNotFoundException if the characters.json file is not found or can't be accessed
      */
     public ArrayList<Character> readAll() throws FileNotFoundException {
         FileReader reader = new FileReader(FILE_PATH);
@@ -34,9 +34,9 @@ public class CharacterJSON {
     }
 
     /**
-     * Checks if the character data file exists and is a valid file.
+     * Checks if the characters.json file exists and is a valid file.
      *
-     * @return true if the character data file exists and is a valid file, false otherwise
+     * @return true if all is okay
      */
     public boolean fileOK() {
         File characterFile = new File(FILE_PATH);
