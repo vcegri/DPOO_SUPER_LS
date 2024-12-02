@@ -294,14 +294,14 @@ public class Controller {
         menu.printList(teamNameList);
 
         menu.print("\nChoose team #1: ");
-        int max = teamNameList.size() + 1;
-        int option = selectOption(1, max);
+        int max = teamNameList.size();
+        int option = selectOption(1, max) - 1;
         teamName = teamNameList.get(option);
         team = teamManager.getTeamByName(teamName);
         teamFight.add(team);
 
         menu.print("\nChoose team #2: ");
-        option = selectOption(1, max);
+        option = selectOption(1, max) - 1;
         teamName = teamNameList.get(option);
         team = teamManager.getTeamByName(teamName);
         teamFight.add(team);
