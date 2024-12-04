@@ -124,7 +124,12 @@ public class CombatManager {
 
         defenderDamage = defender.getDamage();
         defenderWeight = defender.getCharacter().getWeight();
-        armor = defender.getArmor().getPower();
+        if (defender.getArmor() != null){
+            armor = defender.getArmor().getPower();
+        }
+        else {
+            armor = 0;
+        }
 
         finalDamage = 200 * (1 - defenderDamage);
         finalDamage = finalDamage / defenderWeight;
@@ -198,7 +203,12 @@ public class CombatManager {
         ArrayList<String> weaponNameList = new ArrayList<>();
 
         for (int i = 0; i < combat.getCombatMemberList().size(); i++) {
-            weaponNameList.add(combat.getCombatMemberList().get(i).getWeapon().getName());
+            if (combat.getCombatMemberList().get(i).getWeapon() == null){
+                weaponNameList.add("null");
+            }
+            else {
+                weaponNameList.add(combat.getCombatMemberList().get(i).getWeapon().getName());
+            }
         }
 
         return weaponNameList;
@@ -213,7 +223,12 @@ public class CombatManager {
         ArrayList<String> armorNameList = new ArrayList<>();
 
         for (int i = 0; i < combat.getCombatMemberList().size(); i++) {
-            armorNameList.add(combat.getCombatMemberList().get(i).getArmor().getName());
+            if (combat.getCombatMemberList().get(i).getArmor() == null){
+                armorNameList.add("null");
+            }
+            else {
+                armorNameList.add(combat.getCombatMemberList().get(i).getArmor().getName());
+            }
         }
 
         return armorNameList;

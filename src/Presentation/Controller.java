@@ -422,16 +422,13 @@ public class Controller {
             if (!hasWeapon){
                 newWeapon(i);
             }
-            else if (hasArmor){
-                if (hasHighDamage){
+            else {
+                if (hasArmor && hasHighDamage){
                     defendStatus(i, true);
                 }
                 else {
                     atack(i);
                 }
-            }
-            else {
-                atack(i);
             }
         }
     }
