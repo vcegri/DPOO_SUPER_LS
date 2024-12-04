@@ -87,6 +87,7 @@ public class Controller {
         return (startProgram);
     }
 
+
     private void listCharacters() throws IOException {
         ArrayList<String> characterNameList;
         ArrayList<String> teamList;
@@ -108,6 +109,8 @@ public class Controller {
             pressEnter();
         }
     }
+
+
     private void manageTeams() throws FileNotFoundException {
         menu.manageTeamsMenu();
         int option = selectOption(1, 4);
@@ -139,7 +142,6 @@ public class Controller {
             pressEnter();
         }
     }
-
     private void createTeam() throws FileNotFoundException {
         int teamSize = 4;
         ArrayList<TeamMember> teamMemberList = new ArrayList<>();
@@ -170,7 +172,6 @@ public class Controller {
             statManager.createStat(name);
         }
     }
-
     private TeamMember getTeamMember(String characterName, int j) throws FileNotFoundException {
         boolean characterExist;
         boolean isLong = false;
@@ -250,6 +251,7 @@ public class Controller {
         }
     }
 
+
     private void simulateCombat() throws FileNotFoundException {
         boolean existTeam;
 
@@ -283,7 +285,6 @@ public class Controller {
 
         return existTeam;
     }
-
     private ArrayList<Team> chooseTeamForCombat() throws FileNotFoundException {
         ArrayList<String> teamNameList;
         ArrayList<Team> teamFight = new ArrayList<>();
@@ -308,7 +309,6 @@ public class Controller {
 
         return teamFight;
     }
-
     private void showTeamInfoForCombat(int numTeam, ArrayList<Team> teamFight) throws FileNotFoundException {
         int teamSize = 4;
         ArrayList<String> teamMemberNameList = new ArrayList<>();
@@ -361,7 +361,6 @@ public class Controller {
         menu.finalRound(teamNumber, winner, memberNameList, damageTakenList, koList);
         this.combatManager.getCombat().endCombat();
     }
-
     private void checkDefenders(){
         Combat combat = combatManager.getCombat();
 
@@ -370,7 +369,6 @@ public class Controller {
             defendStatus(i, false);
         }
     }
-
     private void roundTeamInfo(int roundNum) throws FileNotFoundException {
         int teamNumber;
         ArrayList<String> nameList;
@@ -395,14 +393,13 @@ public class Controller {
                 }
             }
             nameList = characterManager.getNameById(idList);
-            weaponList = combatManager.getWeaponList();
-            armorList = combatManager.getArmorList();
-            damageList = combatManager.getDamageList();
+            weaponList = combatManager.getWeaponList(k);
+            armorList = combatManager.getArmorList(k);
+            damageList = combatManager.getDamageList(k);
 
             menu.roundinfo(roundNum, teamNumber, teamList.get(k).getName(), nameList, weaponList, armorList, damageList, koList);
         }
     }
-
     private void executeAction() throws FileNotFoundException {
         boolean hasWeapon;
         boolean hasArmor;
@@ -428,7 +425,6 @@ public class Controller {
             }
         }
     }
-
     private void atack(int i){
         Combat combat = this.combatManager.getCombat();
         Random random = new Random();
@@ -464,21 +460,17 @@ public class Controller {
             this.combatManager.getCombat().getCombatMemberList().get(randomIndex).getArmor().updateDurability();
         }
     }
-
     private void defendStatus(int i, boolean defendingStatus){
         this.combatManager.getCombat().getCombatMemberList().get(i).setDefendingStatus(defendingStatus);
     }
-
     private void newWeapon(int i) throws FileNotFoundException {
         this.combatManager.getCombat().getCombatMemberList().get(i).setWeapon(itemManager.setRandomWeapon());
         menu.println(combatManager.getCombat().getCombatMemberList().get(i).getCharacter().getName() + " GOT A NEW WEAPON");
     }
-
     private void newArmor(int i) throws FileNotFoundException {
         this.combatManager.getCombat().getCombatMemberList().get(i).setArmor(itemManager.setRandomArmor());
 
     }
-
     private void brokenWeapon(){
         Combat combat = this.combatManager.getCombat();
 
@@ -494,7 +486,6 @@ public class Controller {
         }
         menu.println("");
     }
-
     private void brokenArmor(){
         Combat combat = combatManager.getCombat();
 
@@ -510,7 +501,6 @@ public class Controller {
         }
         menu.println("");
     }
-
     private void deadCombatMembers(){
         Combat combat = combatManager.getCombat();
 
@@ -521,7 +511,6 @@ public class Controller {
         }
         menu.println("");
     }
-
     private boolean endCombat(){
         boolean combatEnded = false;
         boolean teamOneFinish = true;
@@ -548,7 +537,6 @@ public class Controller {
 
         return combatEnded;
     }
-
     private Integer checkWinner() {
         int winner = 0;
 
@@ -568,13 +556,11 @@ public class Controller {
 
         return winner;
     }
-
     private void calculateKo() {
         for (int i = 0; i < combatManager.getCombat().getCombatMemberList().size(); i++) {
             this.combatManager.setKo(i);
         }
     }
-    
     private void pressEnter() {
         menu.print("<Press enter to continue...>");
         menu.askString();

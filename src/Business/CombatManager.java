@@ -80,7 +80,9 @@ public class CombatManager {
 
         double damage = combat.getCombatMemberList().get(i).getDamage();
         randomKnockOut = random.nextInt(199) + 1;
-        if (randomKnockOut < damage) {
+        randomKnockOut = randomKnockOut/100;
+
+        if (randomKnockOut > damage) {
             knocked = true;
         }
 
@@ -200,15 +202,25 @@ public class CombatManager {
      *
      * @return a list of weapon names
      */
-    public ArrayList<String> getWeaponList() {
+    public ArrayList<String> getWeaponList(int k) {
         ArrayList<String> weaponNameList = new ArrayList<>();
+        int teamSize = 4;
 
-        for (int i = 0; i < combat.getCombatMemberList().size(); i++) {
-            if (combat.getCombatMemberList().get(i).getWeapon() == null){
-                weaponNameList.add("null");
+        for (int i = 0; i < teamSize; i++) {
+            if (k == 0) {
+                if (combat.getCombatMemberList().get(i).getWeapon() == null) {
+                    weaponNameList.add("null");
+                } else {
+                    weaponNameList.add(combat.getCombatMemberList().get(i).getWeapon().getName());
+                }
             }
             else {
-                weaponNameList.add(combat.getCombatMemberList().get(i).getWeapon().getName());
+                k = i + 4;
+                if (combat.getCombatMemberList().get(k).getWeapon() == null) {
+                    weaponNameList.add("null");
+                } else {
+                    weaponNameList.add(combat.getCombatMemberList().get(k).getWeapon().getName());
+                }
             }
         }
 
@@ -220,15 +232,25 @@ public class CombatManager {
      *
      * @return a list of armor names
      */
-    public ArrayList<String> getArmorList() {
+    public ArrayList<String> getArmorList(int k) {
         ArrayList<String> armorNameList = new ArrayList<>();
+        int teamSize = 4;
 
-        for (int i = 0; i < combat.getCombatMemberList().size(); i++) {
-            if (combat.getCombatMemberList().get(i).getArmor() == null){
-                armorNameList.add("null");
+        for (int i = 0; i < teamSize; i++) {
+            if (k == 0) {
+                if (combat.getCombatMemberList().get(i).getArmor() == null) {
+                    armorNameList.add("null");
+                } else {
+                    armorNameList.add(combat.getCombatMemberList().get(i).getArmor().getName());
+                }
             }
             else {
-                armorNameList.add(combat.getCombatMemberList().get(i).getArmor().getName());
+                k = i + 4;
+                if (combat.getCombatMemberList().get(k).getArmor() == null) {
+                    armorNameList.add("null");
+                } else {
+                    armorNameList.add(combat.getCombatMemberList().get(k).getArmor().getName());
+                }
             }
         }
 
@@ -240,11 +262,18 @@ public class CombatManager {
      *
      * @return a list of damage values
      */
-    public ArrayList<Double> getDamageList() {
+    public ArrayList<Double> getDamageList(int k) {
         ArrayList<Double> damageNameList = new ArrayList<>();
+        int teamSize = 4;
 
-        for (int i = 0; i < combat.getCombatMemberList().size(); i++) {
-            damageNameList.add(combat.getCombatMemberList().get(i).getDamage());
+        for (int i = 0; i < teamSize; i++) {
+            if (k == 0) {
+                damageNameList.add(combat.getCombatMemberList().get(i).getDamage());
+            }
+            else {
+                k = i + 4;
+                damageNameList.add(combat.getCombatMemberList().get(k).getDamage());
+            }
         }
 
         return damageNameList;
