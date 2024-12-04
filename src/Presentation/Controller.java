@@ -419,6 +419,7 @@ public class Controller {
                     newWeapon(i);
                 } else {
                     if (hasArmor && hasHighDamage) {
+                        menu.println(combatManager.getCombat().getCombatMemberList().get(i).getCharacter().getName() + " IS DEFENDING NEXT ROUND");
                         defendStatus(i, true);
                     } else {
                         atack(i);
@@ -466,7 +467,6 @@ public class Controller {
 
     private void defendStatus(int i, boolean defendingStatus){
         this.combatManager.getCombat().getCombatMemberList().get(i).setDefendingStatus(defendingStatus);
-        menu.println(combatManager.getCombat().getCombatMemberList().get(i).getCharacter().getName() + " IS DEFENDING NEXT ROUND");
     }
 
     private void newWeapon(int i) throws FileNotFoundException {
