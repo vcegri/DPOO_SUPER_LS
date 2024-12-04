@@ -68,30 +68,6 @@ public class CombatManager {
     }
 
     /**
-     * Sets a random armor for a combat member.
-     *
-     * @return a random Item representing armor
-     */
-    public Item setRandomArmor(int i) {
-        Item armor = null;
-
-        // Assign random armor
-        return armor;
-    }
-
-    /**
-     * Sets a random weapon for a combat member.
-     *
-     * @return a random Item representing a weapon
-     */
-    public Item setRandomWeapon(int i) {
-        Item weapon = null;
-
-        // Assign random weapon
-        return weapon;
-    }
-
-    /**
      * Determines if a combat member has been knocked out based on their damage value.
      *
      * @param damage the damage value of the combat member

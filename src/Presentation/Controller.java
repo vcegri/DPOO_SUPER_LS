@@ -320,16 +320,16 @@ public class Controller {
 
         for (int i = 0; i < teamSize; i++){
             teamMemberIdList.add(teamFight.get(numTeam).getMemberList().get(i).getId());
-            weaponList.add(combatManager.setRandomWeapon(i));
+            weaponList.add(itemManager.setRandomWeapon(i));
             weaponNameList.add(weaponList.get(i).getName());
-            armorList.add(combatManager.setRandomArmor(i));
+            armorList.add(itemManager.setRandomArmor(i));
             armorNameList.add(armorList.get(i).getName());
             teamMemberNameList = characterManager.getNameById(teamMemberIdList);
         }
         int showNumTeam = numTeam + 1;
         menu.showTeamInfoForCombat(showNumTeam, teamFight.get(numTeam).getName(), teamMemberNameList, weaponNameList, armorNameList);
 
-        this.combatManager.setCombat(teamFight, weaponList, armorList, characterManager.getCharacterListByIdList());
+        this.combatManager.setCombat(teamFight, weaponList, armorList, characterManager.getCharacterListByIdList(teamMemberIdList));
 
     }
     private void executeCombat() throws FileNotFoundException {
@@ -406,7 +406,7 @@ public class Controller {
         }
     }
 
-    private void executeAction(){
+    private void executeAction() throws FileNotFoundException {
         boolean hasWeapon;
         boolean hasArmor;
         boolean hasHighDamage;
@@ -466,8 +466,8 @@ public class Controller {
         this.combatManager.getCombat().getCombatMemberList().get(i).setDefendingStatus(defendingStatus);
     }
 
-    private void newWeapon(int i) {
-        this.combatManager.setRandomWeapon(i);
+    private void newWeapon(int i) throws FileNotFoundException {
+        this.itemManager.setRandomWeapon(i);
     }
 
     private void brokenItems(){

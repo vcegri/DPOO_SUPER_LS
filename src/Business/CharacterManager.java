@@ -181,8 +181,19 @@ public class CharacterManager {
      *
      * @return a list of Character objects
      */
-    public ArrayList<Character> getCharacterListByIdList() {
-        return new ArrayList<>();
+    public ArrayList<Character> getCharacterListByIdList(ArrayList<Long> teamMemberIdList) throws FileNotFoundException {
+        ArrayList<Character> characterList = characterJson.readAll();
+        ArrayList<Character> characterCombat = new ArrayList<>();
+        for (Character character : characterList) {
+            for (Long id : teamMemberIdList) {
+                if (character.getId() == id) {
+                    characterCombat.add(character);
+                }
+            }
+
+        }
+
+        return characterCombat;
     }
 
     /**

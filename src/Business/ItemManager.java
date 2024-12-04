@@ -4,6 +4,7 @@ import Persistence.ItemJSON;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Manages the interactions with item data, including retrieving item details such as ID, power, durability,
@@ -144,4 +145,41 @@ public class ItemManager {
         }
         return nameList;
     }
+
+    /**
+     * Sets a random weapon for a combat member.
+     *
+     * @return a random Item representing a weapon
+     */
+    public Item setRandomWeapon(int i) throws FileNotFoundException {
+        Random random = new Random();
+        ArrayList<Item> itemList = itemJson.readAll();
+        int randomWeapon = random.nextInt(itemList.size());
+        do {
+            if (itemList.get(randomWeapon).getClasse().equals("Armor")) {
+                randomWeapon = random.nextInt(itemList.size());
+            }
+        } while (itemList.get(randomWeapon).getClasse().equals("Armor"));
+
+        return itemList.get(randomWeapon);
+    }
+
+    /**
+     * Sets a random armor for a combat member.
+     *
+     * @return a random Item representing armor
+     */
+    public Item setRandomArmor(int i) throws FileNotFoundException {
+        Random random = new Random();
+        ArrayList<Item> itemList = itemJson.readAll();
+        int randomArmor = random.nextInt(itemList.size());
+        do {
+            if (itemList.get(randomArmor).getClasse().equals("Weapon")) {
+                randomArmor = random.nextInt(itemList.size());
+            }
+        } while (itemList.get(randomArmor).getClasse().equals("Weapon"));
+
+        return itemList.get(randomArmor);
+    }
+
 }
