@@ -386,7 +386,7 @@ public class Controller {
             idList.clear();
             for (int i = 0; i < teamList.get(k).getMemberList().size(); i++) {
                 idList.add(teamList.get(k).getMemberList().get(i).getId());
-                if (i == 0){
+                if (k == 0){
                     koList.add(combatManager.getCombat().getCombatMemberList().get(i).isKo());
                 }
                 else {
