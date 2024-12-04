@@ -280,8 +280,8 @@ public class Menu {
      * @param damageTaken  the damage received by the defender
      */
     public void combatAttack(String attacker, String defender, String weapon, double damage, double damageTaken) {
-        println(attacker + " ATTACKS " + defender + " WITH " + weapon + " FOR " + damage + " DAMAGE!");
-        println("\t" + defender + " RECEIVES " + damageTaken + " DAMAGE!");
+        println(attacker + " ATTACKS " + defender + " WITH " + weapon + " FOR " + Math.round(damage * 100.0) / 100.0 + " DAMAGE!");
+        println("\t" + defender + " RECEIVES " + Math.round(damageTaken * 100.0) / 100.0 + " DAMAGE!");
     }
 
     /**
@@ -300,7 +300,7 @@ public class Menu {
      * @param memberName the name of the character
      */
     public void charcterKO(String memberName) {
-        println(memberName + " flies away! It's a KO!");
+        println(memberName + " It's a KO!");
     }
 
     /**
