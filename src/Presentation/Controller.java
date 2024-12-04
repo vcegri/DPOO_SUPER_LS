@@ -344,8 +344,10 @@ public class Controller {
             menu.println("--- ROUND " + roundNum + " ---");
             roundTeamInfo(roundNum);
             executeAction();
+            menu.println("");
             brokenWeapon();
             brokenArmor();
+            menu.println("");
             calculateKo();
             deadCombatMembers();
             roundNum++;
@@ -397,7 +399,7 @@ public class Controller {
             armorList = combatManager.getArmorList(k);
             damageList = combatManager.getDamageList(k);
 
-            menu.roundinfo(roundNum, teamNumber, teamList.get(k).getName(), nameList, weaponList, armorList, damageList, koList);
+            menu.roundinfo(teamNumber, teamList.get(k).getName(), nameList, weaponList, armorList, damageList, koList);
         }
     }
     private void executeAction() throws FileNotFoundException {

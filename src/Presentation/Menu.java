@@ -253,16 +253,17 @@ public class Menu {
      * @param damageTakenList     the list of damage received by each team member
      * @param koList              the list of KO value for each team member
      */
-    public void roundinfo(int roundNum, int teamNumber, String teamName, ArrayList<String> teamMemberNameList, ArrayList<String> teamWeaponList, ArrayList<String> teamArmorList, ArrayList<Double> damageTakenList, ArrayList<Boolean> koList) {
+    public void roundinfo(int teamNumber, String teamName, ArrayList<String> teamMemberNameList, ArrayList<String> teamWeaponList, ArrayList<String> teamArmorList, ArrayList<Double> damageTakenList, ArrayList<Boolean> koList) {
 
         println("\tTeam #" + teamNumber + " - " + teamName);
         for (int i = 0; i < teamMemberNameList.size(); i++) {
             String name = teamMemberNameList.get(i);
             String weapon = teamWeaponList.get(i);
             String armor = teamArmorList.get(i);
-            double damageTaken = damageTakenList.get(i);
+            double damageTaken = (damageTakenList.get(i) * 100);
+            int damage = (int) damageTaken;
             if (!koList.get(i)) {
-                println("\t- " + name + "(" + damageTaken + " %) " + weapon + " - " + armor);
+                println("\t- " + name + "(" + damage + " %) " + weapon + " - " + armor);
             } else {
                 println("\t- " + name + "(KO) " + weapon + " - " + armor);
             }
@@ -280,7 +281,7 @@ public class Menu {
      */
     public void combatAttack(String attacker, String defender, String weapon, double damage, double damageTaken) {
         println(attacker + " ATTACKS " + defender + " WITH " + weapon + " FOR " + damage + " DAMAGE!");
-        println(defender + " RECEIVES " + damageTaken + " DAMAGE!");
+        println("\t" + defender + " RECEIVES " + damageTaken + " DAMAGE!");
     }
 
     /**
@@ -324,9 +325,10 @@ public class Menu {
         println("\tTeam #" + teamNumber + " - " + teamName);
         for (int i = 0; i < teamMemberNameList.size(); i++) {
             String name = teamMemberNameList.get(i);
-            double damageTaken = damageTakenList.get(i);
+            double damageTaken = (damageTakenList.get(i) * 100);
+            int damage = (int) damageTaken;
             if (!koList.get(i)) {
-                println("\t- " + name + "(" + damageTaken + " %) ");
+                println("\t- " + name + "(" + damage + " %) ");
             } else {
                 println("\t- " + name + "(KO) ");
             }
