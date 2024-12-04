@@ -263,4 +263,10 @@ public class CombatManager {
     public boolean hasHighDamage(int i) {
         return combat.getCombatMemberList().get(i).getDamage() >= 0.5;
     }
+
+    public void setKo (double damage, int randomIndex) {
+        if (checkKnockOut(damage)) {
+            this.combat.getCombatMemberList().get(randomIndex).setKo();
+        }
+    }
 }

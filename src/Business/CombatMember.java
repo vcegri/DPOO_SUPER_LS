@@ -15,10 +15,10 @@ public class CombatMember {
     private double damage;
 
     /** The weapon equipped by this combat member. */
-    private final Item weapon;
+    private Item weapon;
 
     /** The armor equipped by this combat member. */
-    private final Item armor;
+    private Item armor;
 
     /** Indicates whether this combat member is knocked out (KO). */
     private boolean ko;
@@ -118,7 +118,7 @@ public class CombatMember {
     }
 
     public void setKo(){
-        this.ko = !this.ko;
+        this.ko = true;
     }
 
     public void setDefendingStatus(boolean defendingStatus) {
@@ -127,5 +127,13 @@ public class CombatMember {
 
     public void setDefending(boolean defendingStatus) {
         this.defendRequest = defendingStatus;
+    }
+
+    public void setWeapon(Item weapon) {
+        this.weapon = weapon;
+    }
+
+    public void setArmor(Item armor) {
+        this.armor = armor;
     }
 }
