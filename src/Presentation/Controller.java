@@ -320,9 +320,9 @@ public class Controller {
 
         for (int i = 0; i < teamSize; i++){
             teamMemberIdList.add(teamFight.get(numTeam).getMemberList().get(i).getId());
-            weaponList.add(itemManager.setRandomWeapon(i));
+            weaponList.add(itemManager.setRandomWeapon());
             weaponNameList.add(weaponList.get(i).getName());
-            armorList.add(itemManager.setRandomArmor(i));
+            armorList.add(itemManager.setRandomArmor());
             armorNameList.add(armorList.get(i).getName());
             teamMemberNameList = characterManager.getNameById(teamMemberIdList);
         }
@@ -419,15 +419,15 @@ public class Controller {
             hasArmor = combatManager.hasArmor(i);
             hasHighDamage = combatManager.hasHighDamage(i);
 
-            if (!hasWeapon){
-                newWeapon(i);
-            }
-            else {
-                if (hasArmor && hasHighDamage){
-                    defendStatus(i, true);
-                }
-                else {
-                    atack(i);
+            if (!combatManager.getCombat().getCombatMemberList().get(i).isKo()) {
+                if (!hasWeapon) {
+                    newWeapon(i);
+                } else {
+                    if (hasArmor && hasHighDamage) {
+                        defendStatus(i, true);
+                    } else {
+                        atack(i);
+                    }
                 }
             }
         }
@@ -447,8 +447,14 @@ public class Controller {
             randomIndex = random.nextInt(4);
         }
 
+        String weaponName;
         String defenderName = combat.getCombatMemberList().get(randomIndex).getCharacter().getName();
-        String weaponName = combat.getCombatMemberList().get(randomIndex).getWeapon().getName();
+        if (combat.getCombatMemberList().get(randomIndex).getWeapon() != null) {
+            weaponName = combat.getCombatMemberList().get(randomIndex).getWeapon().getName();
+        }
+        else {
+            weaponName = "null";
+        }
         double damage = combatManager.calculateDamage(combat.getCombatMemberList().get(i));
         double finalDamage = combatManager.calculateReducedDamage(damage, combat.getCombatMemberList().get(randomIndex));
 
@@ -459,7 +465,9 @@ public class Controller {
         combatManager.setKo(finalDamage, randomIndex);
         menu.combatAttack(attackerName, defenderName, weaponName, damage, finalDamage);
         this.combatManager.getCombat().getCombatMemberList().get(i).getWeapon().updateDurability();
-        this.combatManager.getCombat().getCombatMemberList().get(randomIndex).getArmor().updateDurability();
+        if (this.combatManager.getCombat().getCombatMemberList().get(randomIndex).getArmor() != null) {
+            this.combatManager.getCombat().getCombatMemberList().get(randomIndex).getArmor().updateDurability();
+        }
     }
 
     private void defendStatus(int i, boolean defendingStatus){
@@ -467,18 +475,26 @@ public class Controller {
     }
 
     private void newWeapon(int i) throws FileNotFoundException {
-        this.itemManager.setRandomWeapon(i);
+        this.combatManager.getCombat().getCombatMemberList().get(i).setWeapon(itemManager.setRandomWeapon());
+
+    }
+
+    private void newArmor(int i) throws FileNotFoundException {
+        this.combatManager.getCombat().getCombatMemberList().get(i).setArmor(itemManager.setRandomArmor());
+
     }
 
     private void brokenWeapon(){
         Combat combat = combatManager.getCombat();
 
         for (int i = 0; i < combat.getCombatMemberList().size(); i++) {
-            if (combat.getCombatMemberList().get(i).getWeapon().getDurability() == 0) {
-                String characterName = combat.getCombatMemberList().get(i).getCharacter().getName();
-                String weaponName = combat.getCombatMemberList().get(i).getWeapon().getName();
-                combat.getCombatMemberList().get(i).setWeapon(null);
-                menu.itemBreak(characterName,weaponName);
+            if (combat.getCombatMemberList().get(i).getWeapon() != null) {
+                if (combat.getCombatMemberList().get(i).getWeapon().getDurability() == 0) {
+                    String characterName = combat.getCombatMemberList().get(i).getCharacter().getName();
+                    String weaponName = combat.getCombatMemberList().get(i).getWeapon().getName();
+                    combat.getCombatMemberList().get(i).setWeapon(null);
+                    menu.itemBreak(characterName, weaponName);
+                }
             }
         }
         menu.println("");
@@ -488,11 +504,13 @@ public class Controller {
         Combat combat = combatManager.getCombat();
 
         for (int i = 0; i < combat.getCombatMemberList().size(); i++) {
-            if (combat.getCombatMemberList().get(i).getArmor().getDurability() == 0) {
-                String characterName = combat.getCombatMemberList().get(i).getCharacter().getName();
-                String armorName = combat.getCombatMemberList().get(i).getArmor().getName();
-                combat.getCombatMemberList().get(i).setArmor(null);
-                menu.itemBreak(characterName,armorName);
+            if (combat.getCombatMemberList().get(i).getArmor() != null) {
+                if (combat.getCombatMemberList().get(i).getArmor().getDurability() == 0) {
+                    String characterName = combat.getCombatMemberList().get(i).getCharacter().getName();
+                    String armorName = combat.getCombatMemberList().get(i).getArmor().getName();
+                    combat.getCombatMemberList().get(i).setArmor(null);
+                    menu.itemBreak(characterName, armorName);
+                }
             }
         }
         menu.println("");

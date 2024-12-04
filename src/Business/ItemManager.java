@@ -151,7 +151,7 @@ public class ItemManager {
      *
      * @return a random Item representing a weapon
      */
-    public Item setRandomWeapon(int i) throws FileNotFoundException {
+    public Item setRandomWeapon() throws FileNotFoundException {
         Random random = new Random();
         ArrayList<Item> itemList = itemJson.readAll();
         int randomWeapon = random.nextInt(itemList.size());
@@ -169,7 +169,7 @@ public class ItemManager {
      *
      * @return a random Item representing armor
      */
-    public Item setRandomArmor(int i) throws FileNotFoundException {
+    public Item setRandomArmor() throws FileNotFoundException {
         Random random = new Random();
         ArrayList<Item> itemList = itemJson.readAll();
         int randomArmor = random.nextInt(itemList.size());
