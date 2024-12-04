@@ -104,7 +104,7 @@ public class CombatManager {
 
         damage = attackerWeight * (1 - attackerDamage);
         damage = damage / 10;
-        damage = damage + (weaponPower / 20) + 18;
+        damage = damage + ((double) weaponPower / 20) + 18;
 
         return damage;
     }
@@ -133,7 +133,7 @@ public class CombatManager {
 
         finalDamage = 200 * (1 - defenderDamage);
         finalDamage = finalDamage / defenderWeight;
-        finalDamage = finalDamage + (armor / 20);
+        finalDamage = finalDamage + ((double) armor / 20);
         finalDamage = finalDamage * 1.4;
         finalDamage = damage - finalDamage;
         finalDamage = finalDamage / 100;
@@ -144,7 +144,7 @@ public class CombatManager {
     public double calculateDamageReduction(CombatMember defender){
         double damageReduction;
 
-        damageReduction = (defender.getCharacter().getWeight())/400;
+        damageReduction = (double) (defender.getCharacter().getWeight()) /400;
 
         return damageReduction;
     }
