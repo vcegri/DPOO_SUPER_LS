@@ -346,6 +346,7 @@ public class Controller {
             executeAction();
             brokenWeapon();
             brokenArmor();
+            calculateKo();
             deadCombatMembers();
             roundNum++;
         } while (!endCombat());
@@ -462,7 +463,6 @@ public class Controller {
             finalDamage = finalDamage - combatManager.calculateDamageReduction(combat.getCombatMemberList().get(randomIndex));
         }
         combat.getCombatMemberList().get(randomIndex).updateDamage(finalDamage);
-        combatManager.setKo(finalDamage, randomIndex);
         menu.combatAttack(attackerName, defenderName, weaponName, damage, finalDamage);
         this.combatManager.getCombat().getCombatMemberList().get(i).getWeapon().updateDurability();
         if (this.combatManager.getCombat().getCombatMemberList().get(randomIndex).getArmor() != null) {
@@ -472,11 +472,12 @@ public class Controller {
 
     private void defendStatus(int i, boolean defendingStatus){
         this.combatManager.getCombat().getCombatMemberList().get(i).setDefendingStatus(defendingStatus);
+        menu.println(combatManager.getCombat().getCombatMemberList().get(i).getCharacter().getName() + "IS DEFENDING NEXT ROUND");
     }
 
     private void newWeapon(int i) throws FileNotFoundException {
         this.combatManager.getCombat().getCombatMemberList().get(i).setWeapon(itemManager.setRandomWeapon());
-
+        menu.println(combatManager.getCombat().getCombatMemberList().get(i).getCharacter().getName() + "GOT A NEW WEAPON");
     }
 
     private void newArmor(int i) throws FileNotFoundException {
@@ -572,6 +573,12 @@ public class Controller {
         }
 
         return winner;
+    }
+
+    private void calculateKo() {
+        for (int i = 0; i < combatManager.getCombat().getCombatMemberList().size(); i++) {
+            this.combatManager.setKo(i);
+        }
     }
     
     private void pressEnter() {

@@ -70,14 +70,15 @@ public class CombatManager {
     /**
      * Determines if a combat member has been knocked out based on their damage value.
      *
-     * @param damage the damage value of the combat member
+     * @param i the damage value of the combat member
      * @return true if the combat member is knocked out, false otherwise
      */
-    public boolean checkKnockOut(double damage) {
+    public boolean checkKnockOut(int i) {
         boolean knocked = false;
         Random random = new Random();
         double randomKnockOut;
 
+        double damage = combat.getCombatMemberList().get(i).getDamage();
         randomKnockOut = random.nextInt(199) + 1;
         if (randomKnockOut < damage) {
             knocked = true;
@@ -279,9 +280,9 @@ public class CombatManager {
         return combat.getCombatMemberList().get(i).getDamage() >= 0.5;
     }
 
-    public void setKo (double damage, int randomIndex) {
-        if (checkKnockOut(damage)) {
-            this.combat.getCombatMemberList().get(randomIndex).setKo();
+    public void setKo (int i) {
+        if (checkKnockOut(i)) {
+            this.combat.getCombatMemberList().get(i).setKo();
         }
     }
 }
