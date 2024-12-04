@@ -77,24 +77,60 @@ public class StatManager {
      * @param teamName the name of the team whose statistics are to be updated
      * @throws FileNotFoundException if the stat data cannot be read or written to storage
      */
-    public void updateStats(boolean winner, String teamName) throws FileNotFoundException {
+    public void updateStats(String winner, String teamName, ArrayList<Boolean> koList, int teamNum) throws FileNotFoundException {
         ArrayList<Stat> statList = statJson.readAll();
         int gamesPlayed, gamesWon, KO_done, KO_received;
 
         for (int i = 0; i < statList.size(); i++){
             if (statList.get(i).getName().equals(teamName)){
+                KO_received = statList.get(i).getKoReceived();
+                KO_done = statList.get(i).getKoDone();
                 gamesPlayed = statList.get(i).getGamesPlayed();
                 gamesPlayed++;
                 gamesWon = statList.get(i).getGamesWon();
-                if (winner) {
+                if (winner.equals(teamName)) {
                     gamesWon++;
-                }
-                KO_done = statList.get(i).getKoDone();
-                KO_received = statList.get(i).getKoReceived();
+                    KO_done = KO_done + 4;
 
-                statList.remove(i);
-                Stat stat = new Stat(teamName, gamesPlayed, gamesWon, KO_done, KO_received);
-                statList.add(stat);
+                    int cont = 0;
+                    if (teamNum == 0) {
+                        for (int j = 0; j < 4; j++) {
+                            if (koList.get(j)) {
+                                cont++;
+                            }
+                        }
+                    }
+                    else {
+                        for (int j = 4; j < 8; j++) {
+                            if (koList.get(j)) {
+                                cont++;
+                            }
+                        }
+                    }
+                    KO_received = KO_received + cont;
+                }
+                else {
+                    KO_received = KO_received + 4;
+
+                    int cont = 0;
+                    if (teamNum == 1) {
+                        for (int j = 0; j < 4; j++) {
+                            if (koList.get(j)) {
+                                cont++;
+                            }
+                        }
+                    }
+                    else {
+                        for (int j = 4; j < 8; j++) {
+                            if (koList.get(j)) {
+                                cont++;
+                            }
+                        }
+                    }
+                    KO_done = KO_done + cont;
+                }
+
+                statList.get(i).updateStats(gamesPlayed, gamesWon, KO_done, KO_received);
                 statJson.saveStatList(statList);
             }
         }

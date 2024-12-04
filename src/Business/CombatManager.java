@@ -10,7 +10,7 @@ import java.util.Random;
 public class CombatManager {
 
     /** The combat instance that this manager will control. */
-    private Combat combat;
+    private final Combat combat;
 
     /**
      * Constructs a CombatManager with the specified Combat instance.
@@ -28,43 +28,6 @@ public class CombatManager {
      */
     public Combat getCombat() {
         return combat;
-    }
-
-    /**
-     * Simulates the combat between the teams and determines the winner.
-     *
-     * @param teamList the list of teams participating in the combat
-     * @return the ID of the winning team (0 for no winner)
-     */
-    public int simulateCombat(ArrayList<Team> teamList) {
-        int winner = 0;
-
-        // Simulate the combat and determine the winner
-        return winner;
-    }
-
-    /**
-     * Selects the teams for the combat.
-     *
-     * @return a list of teams selected for the combat
-     */
-    public ArrayList<Team> selectTeamList() {
-        ArrayList<Team> teamList = new ArrayList<>();
-
-        // Select teams for the combat
-        return teamList;
-    }
-
-    /**
-     * Checks if the teams are properly set up for combat.
-     *
-     * @return true if the teams are valid, false otherwise
-     */
-    public boolean checkTeams() {
-        boolean exist = false;
-
-        // Check if the teams exist
-        return exist;
     }
 
     /**
@@ -150,34 +113,6 @@ public class CombatManager {
         damageReduction = (double) (defender.getCharacter().getWeight()) /400;
 
         return damageReduction;
-    }
-
-    /**
-     * Updates the stats of the attacker after their turn in combat, such as durability of the weapon.
-     *
-     * @param combatMember the combat member whose stats are being updated
-     */
-    public void updateStatsAttacker(CombatMember combatMember) {
-        for (int i = 0; i < combat.getCombatMemberList().size(); i++) {
-            if (combat.getCombatMemberList().get(i).getCharacter().getName().equals(combatMember.getCharacter().getName())) {
-                this.combat.getCombatMemberList().get(i).getWeapon().updateDurability();
-            }
-        }
-    }
-
-    /**
-     * Updates the stats of the defender after taking damage, such as durability of the armor and updating the damage.
-     *
-     * @param combatMember the combat member whose stats are being updated
-     * @param damage       the damage taken by the defender
-     */
-    public void updateStatsDefender(CombatMember combatMember, double damage) {
-        for (int i = 0; i < combat.getCombatMemberList().size(); i++) {
-            if (combat.getCombatMemberList().get(i).getCharacter().getName().equals(combatMember.getCharacter().getName())) {
-                this.combat.getCombatMemberList().get(i).getArmor().updateDurability();
-                this.combat.getCombatMemberList().get(i).updateDamage(damage);
-            }
-        }
     }
 
     /**

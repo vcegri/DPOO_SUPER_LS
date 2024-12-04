@@ -9,16 +9,16 @@ public class Stat {
     private final String name;
 
     /** The total number of games played. */
-    private final int games_played;
+    private int games_played;
 
     /** The total number of games won. */
-    private final int games_won;
+    private int games_won;
 
     /** The total number of knockouts (KO) performed by this entity. */
-    private final int KO_done;
+    private int KO_done;
 
     /** The total number of knockouts (KO) received by this entity. */
-    private final int KO_received;
+    private int KO_received;
 
     /**
      * Constructs a new Stat instance with a name and default values for all statistics.
@@ -94,5 +94,12 @@ public class Stat {
      */
     public int getKoReceived() {
         return KO_received;
+    }
+
+    public void updateStats(int games_played, int games_won, int KO_done, int KO_received) {
+        this.games_played = games_played;
+        this.games_won = games_won;
+        this.KO_done = KO_done;
+        this.KO_received = KO_received;
     }
 }

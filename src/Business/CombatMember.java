@@ -56,15 +56,6 @@ public class CombatMember {
     }
 
     /**
-     * Returns the strategy employed by this combat member.
-     *
-     * @return the strategy
-     */
-    public String getStrategy() {
-        return strategy;
-    }
-
-    /**
      * Returns the total damage dealt by this combat member.
      *
      * @return the total damage
@@ -126,7 +117,7 @@ public class CombatMember {
     }
 
     public void setDefending(boolean defendingStatus) {
-        this.defendRequest = defendingStatus;
+        this.defending = defendingStatus;
     }
 
     public void setWeapon(Item weapon) {

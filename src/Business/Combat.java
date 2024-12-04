@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Combat {
 
     /** The list of combat members participating in the combat. */
-    private ArrayList<CombatMember> combatMemberList;
+    private final ArrayList<CombatMember> combatMemberList;
 
     /** The list of teams involved in the combat. */
     private ArrayList<Team> teamList;

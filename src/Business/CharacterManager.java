@@ -23,22 +23,6 @@ public class CharacterManager {
     }
 
     /**
-     * Retrieves the IDs of all characters.
-     *
-     * @return a list of character IDs
-     * @throws FileNotFoundException if the JSON file cannot be found
-     */
-    public ArrayList<Long> getIdOfCharacters() throws FileNotFoundException {
-        ArrayList<Long> idList = new ArrayList<>();
-        ArrayList<Character> characterList = characterJson.readAll();
-
-        for (int i = 0; i < characterList.size(); i++) {
-            idList.set(i, characterList.get(i).getId());
-        }
-        return idList;
-    }
-
-    /**
      * Retrieves the names of all characters.
      *
      * @return a list of character names
@@ -52,22 +36,6 @@ public class CharacterManager {
             nameList.add(character.getName());
         }
         return nameList;
-    }
-
-    /**
-     * Retrieves the weights of all characters.
-     *
-     * @return a list of character weights
-     * @throws FileNotFoundException if the JSON file cannot be found
-     */
-    public ArrayList<Long> getWeightOfCharacters() throws FileNotFoundException {
-        ArrayList<Long> weightList = new ArrayList<>();
-        ArrayList<Character> characterList = characterJson.readAll();
-
-        for (Character character : characterList) {
-            weightList.add(character.getId());
-        }
-        return weightList;
     }
 
     /**

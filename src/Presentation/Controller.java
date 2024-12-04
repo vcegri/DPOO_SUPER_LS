@@ -14,7 +14,7 @@ public class Controller {
     private final TeamManager teamManager;
     private final ItemManager itemManager;
     private final StatManager statManager;
-    private CombatManager combatManager;
+    private final CombatManager combatManager;
 
     public Controller(Menu menu, CharacterManager characterManager, TeamManager teamManager, ItemManager itemManager, StatManager statManager, CombatManager combatManager) {
         this.menu = menu;
@@ -342,7 +342,7 @@ public class Controller {
         do {
             checkDefenders();
             menu.println("--- ROUND " + roundNum + " ---");
-            roundTeamInfo(roundNum);
+            roundTeamInfo();
             executeAction();
             menu.println("");
             brokenWeapon();
@@ -353,7 +353,14 @@ public class Controller {
             roundNum++;
         } while (!endCombat());
         int teamNumber = checkWinner();
-        String winner = combatManager.getCombat().getTeamList().get(teamNumber).getName();
+        String winner;
+        if (teamNumber != 2) {
+            winner = combatManager.getCombat().getTeamList().get(teamNumber).getName();
+        }
+        else {
+            winner = "";
+        }
+
         menu.endCombat(winner);
         for (int i = 0; i < combat.getCombatMemberList().size(); i++) {
             koList.add(combatManager.getCombat().getCombatMemberList().get(i).isKo());
@@ -361,6 +368,7 @@ public class Controller {
             memberNameList.add(combat.getCombatMemberList().get(i).getCharacter().getName());
         }
         menu.finalRound(teamNumber, winner, memberNameList, damageTakenList, koList);
+        updateStats(winner, koList);
         this.combatManager.getCombat().endCombat();
     }
     private void checkDefenders(){
@@ -371,7 +379,7 @@ public class Controller {
             defendStatus(i, false);
         }
     }
-    private void roundTeamInfo(int roundNum) throws FileNotFoundException {
+    private void roundTeamInfo() throws FileNotFoundException {
         int teamNumber;
         ArrayList<String> nameList;
         ArrayList<String> weaponList;
@@ -469,10 +477,6 @@ public class Controller {
         this.combatManager.getCombat().getCombatMemberList().get(i).setWeapon(itemManager.setRandomWeapon());
         menu.println(combatManager.getCombat().getCombatMemberList().get(i).getCharacter().getName() + " GOT A NEW WEAPON");
     }
-    private void newArmor(int i) throws FileNotFoundException {
-        this.combatManager.getCombat().getCombatMemberList().get(i).setArmor(itemManager.setRandomArmor());
-
-    }
     private void brokenWeapon(){
         Combat combat = this.combatManager.getCombat();
 
@@ -540,7 +544,7 @@ public class Controller {
         return combatEnded;
     }
     private Integer checkWinner() {
-        int winner = 0;
+        int winner = 2;
 
         for (int i = 0; i < 4; i++){
             if (!combatManager.getCombat().getCombatMemberList().get(i).isKo()) {
@@ -563,6 +567,16 @@ public class Controller {
             this.combatManager.setKo(i);
         }
     }
+    private void updateStats(String winner, ArrayList<Boolean> koList) throws FileNotFoundException {
+        String teamName;
+        int teamNum = 2;
+
+        for (int i = 0; i < teamNum; i++) {
+            teamName = combatManager.getCombat().getTeamList().get(i).getName();
+            statManager.updateStats(winner, teamName, koList, i);
+        }
+    }
+
     private void pressEnter() {
         menu.print("<Press enter to continue...>");
         menu.askString();
