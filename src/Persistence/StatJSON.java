@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class StatJSON {
 
     /** Path to the stats.json file that contains all the stat data. */
-    private static final String FILE_PATH = "data/teams.json";
+    private static final String FILE_PATH = "data/stats.json";
 
     /**
      * Reads all the stat data at the stats.json file and converts it into a list of Stats.
