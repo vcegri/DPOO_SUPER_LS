@@ -9,39 +9,261 @@ import java.util.Random;
  */
 public class CombatManager {
 
-    /** The combat instance that this manager will control. */
-    private final Combat combat;
+    /** The list of combat members participating in the  */
+    private final ArrayList<CombatMember> combatMemberList;
+
+    /** The list of teams involved in the  */
+    private ArrayList<Team> teamList;
 
     /**
      * Constructs a CombatManager with the specified Combat instance.
-     *
-     * @param combat the combat instance to manage
      */
-    public CombatManager(Combat combat) {
-        this.combat = combat;
+    public CombatManager() {
+        this.combatMemberList = new ArrayList<>();
+        this.teamList = new ArrayList<>();
     }
 
     /**
-     * Returns the current combat instance.
+     * Returns the list of weapon names currently assigned to combat members.
      *
-     * @return the combat instance being managed
+     * @return a list of weapon names
      */
-    public Combat getCombat() {
-        return combat;
+    public ArrayList<String> getWeaponList(int k) {
+        ArrayList<String> weaponNameList = new ArrayList<>();
+        int teamSize = 4;
+
+        for (int i = 0; i < teamSize; i++) {
+            if (k == 0) {
+                if (getCombatMemberList().get(i).getWeapon() == null) {
+                    weaponNameList.add("null");
+                } else {
+                    weaponNameList.add(getCombatMemberList().get(i).getWeapon().getName());
+                }
+            }
+            else {
+                k = i + 4;
+                if (getCombatMemberList().get(k).getWeapon() == null) {
+                    weaponNameList.add("null");
+                } else {
+                    weaponNameList.add(getCombatMemberList().get(k).getWeapon().getName());
+                }
+            }
+        }
+
+        return weaponNameList;
     }
 
     /**
-     * Determines if a combat member has been knocked out based on their damage value.
+     * Returns the list of armor names currently assigned to combat members.
      *
-     * @param i the damage value of the combat member
-     * @return true if the combat member is knocked out, false otherwise
+     * @return a list of armor names
      */
-    public boolean checkKnockOut(int i) {
+    public ArrayList<String> getArmorList(int k) {
+        ArrayList<String> armorNameList = new ArrayList<>();
+        int teamSize = 4;
+
+        for (int i = 0; i < teamSize; i++) {
+            if (k == 0) {
+                if (getCombatMemberList().get(i).getArmor() == null) {
+                    armorNameList.add("null");
+                } else {
+                    armorNameList.add(getCombatMemberList().get(i).getArmor().getName());
+                }
+            }
+            else {
+                k = i + 4;
+                if (getCombatMemberList().get(k).getArmor() == null) {
+                    armorNameList.add("null");
+                } else {
+                    armorNameList.add(getCombatMemberList().get(k).getArmor().getName());
+                }
+            }
+        }
+
+        return armorNameList;
+    }
+
+    /**
+     * Returns the list of damage values for all combat members.
+     *
+     * @return a list of damage values
+     */
+    public ArrayList<Double> getDamageList(int k) {
+        ArrayList<Double> damageNameList = new ArrayList<>();
+        int teamSize = 4;
+
+        for (int i = 0; i < teamSize; i++) {
+            if (k == 0) {
+                damageNameList.add(getCombatMemberList().get(i).getDamage());
+            }
+            else {
+                k = i + 4;
+                damageNameList.add(getCombatMemberList().get(k).getDamage());
+            }
+        }
+
+        return damageNameList;
+    }
+
+    /**
+     * Checks if a combat member has a weapon assigned.
+     *
+     * @param i the index of the combat member to check
+     * @return true if the combat member has a weapon, false otherwise
+     */
+    public boolean hasWeapon(int i) {
+        return getCombatMemberList().get(i).getWeapon() != null;
+    }
+
+    /**
+     * Checks if a combat member has armor assigned.
+     *
+     * @param i the index of the combat member to check
+     * @return true if the combat member has armor, false otherwise
+     */
+    public boolean hasArmor(int i) {
+        return getCombatMemberList().get(i).getArmor() != null;
+    }
+
+    /**
+     * Checks if a combat member has high damage based on their damage stat.
+     *
+     * @param i the index of the combat member to check
+     * @return true if the combat member has high damage, false otherwise
+     */
+    public boolean hasHighDamage(int i) {
+        return getCombatMemberList().get(i).getDamage() >= 0.5 && getCombatMemberList().get(i).getDamage() <= 1.0;
+    }
+
+    public void setKo (int i) {
+        if (knocked(i)) {
+            this.getCombatMemberList().get(i).setKo();
+        }
+    }
+
+    public boolean checkEndCombat(){
+        boolean combatEnded = false;
+        boolean teamOneFinish = true;
+        boolean teamTwoFinish = true;
+
+        for (int i = 0; i < 4; i++){
+            if (!getCombatMemberList().get(i).isKo()) {
+                teamOneFinish = false;
+                break;
+            }
+        }
+
+        for (int i = 0; i < 4; i++){
+            int j = i + 4;
+            if (!getCombatMemberList().get(j).isKo()) {
+                teamTwoFinish = false;
+                break;
+            }
+        }
+
+        if (teamOneFinish || teamTwoFinish){
+            combatEnded = true;
+        }
+
+        return combatEnded;
+    }
+
+    public Integer checkWinner() {
+        int winner = 2;
+
+        for (int i = 0; i < 4; i++){
+            if (!getCombatMemberList().get(i).isKo()) {
+                winner = 0;
+                break;
+            }
+        }
+
+        for (int i = 0; i < 4; i++){
+            int j = i + 4;
+            if (!getCombatMemberList().get(j).isKo()) {
+                winner = 1;
+                break;
+            }
+        }
+
+        return winner;
+    }
+
+    public void checkDefenders(){
+
+        for (int i = 0; i < getCombatMemberList().size(); i++) {
+            this.getCombatMemberList().get(i).setDefending(getCombatMemberList().get(i).isDefendRequest());
+            this.getCombatMemberList().get(i).setDefendingStatus(false);
+        }
+    }
+    
+    public void updateItemDurability(int i,int randomIndex) {
+        this.getCombatMemberList().get(i).getWeapon().updateDurability();
+        if (this.getCombatMemberList().get(randomIndex).getArmor() != null) {
+            this.getCombatMemberList().get(randomIndex).getArmor().updateDurability();
+        }
+    }
+
+    public void calculateKo() {
+        for (int i = 0; i < getCombatMemberList().size(); i++) {
+            this.setKo(i);
+        }
+    }
+
+    /**
+     * Returns the list of combat members participating in the 
+     *
+     * @return a list of CombatMember
+     */
+    public ArrayList<CombatMember> getCombatMemberList() {
+        return this.combatMemberList;
+    }
+
+    /**
+     * Returns the list of teams involved in the 
+     *
+     * @return a list of Team
+     */
+    public ArrayList<Team> getTeamList() {
+        return teamList;
+    }
+
+    /**
+     * Sets the list of teams involved in the 
+     *
+     * @param teamList the list of Team to set
+     */
+    public void setTeamList(ArrayList<Team> teamList) {
+        this.teamList = teamList;
+    }
+
+    /**
+     * Creates a new combat member and adds it to the combat member list.
+     *
+     * @param character the character associated with the combat member
+     * @param strategy  the strategy employed by the combat member
+     * @param weapon    the weapon equipped by the combat member
+     * @param armor     the armor equipped by the combat member
+     */
+    public void createCombatMember(Character character, String strategy, Item weapon, Item armor) {
+        CombatMember combatMember = new CombatMember(character, strategy, weapon, armor);
+        this.combatMemberList.add(combatMember);
+    }
+
+    /**
+     * Ends the combat by clearing the team and combat member lists.
+     */
+    public void endCombat() {
+        this.teamList.clear();
+        this.combatMemberList.clear();
+    }
+
+    public boolean knocked (int i) {
         boolean knocked = false;
         Random random = new Random();
         double randomKnockOut;
 
-        double damage = combat.getCombatMemberList().get(i).getDamage();
+        double damage = getCombatMemberList().get(i).getDamage();
         randomKnockOut = random.nextInt(199) + 1;
         randomKnockOut = randomKnockOut/100;
 
@@ -52,13 +274,7 @@ public class CombatManager {
         return knocked;
     }
 
-    /**
-     * Calculates the damage dealt by a combat member during an attack.
-     *
-     * @param attacker the combat member who is attacking
-     * @return the calculated damage value
-     */
-    public double calculateDamage(CombatMember attacker) {
+    public double calculateDamage (CombatMember attacker) {
         double damage;
         int attackerWeight;
         double attackerDamage;
@@ -75,13 +291,6 @@ public class CombatManager {
         return damage;
     }
 
-    /**
-     * Calculates the reduced damage for a defender based on their armor and other stats.
-     *
-     * @param damage   the initial damage dealt to the defender
-     * @param defender the combat member who is defending
-     * @return the reduced damage value after considering the defender's stats
-     */
     public double calculateReducedDamage(double damage, CombatMember defender) {
         double finalDamage;
         double defenderDamage;
@@ -127,126 +336,8 @@ public class CombatManager {
         int teamSize = 4;
 
         for (int i = 0; i < teamSize; i++) {
-            combat.createCombatMember(characterList.get(i), "Balanced", weaponList.get(i), armorList.get(i));
+            createCombatMember(characterList.get(i), "Balanced", weaponList.get(i), armorList.get(i));
         }
-        combat.setTeamList(teamFight);
-    }
-
-    /**
-     * Returns the list of weapon names currently assigned to combat members.
-     *
-     * @return a list of weapon names
-     */
-    public ArrayList<String> getWeaponList(int k) {
-        ArrayList<String> weaponNameList = new ArrayList<>();
-        int teamSize = 4;
-
-        for (int i = 0; i < teamSize; i++) {
-            if (k == 0) {
-                if (combat.getCombatMemberList().get(i).getWeapon() == null) {
-                    weaponNameList.add("null");
-                } else {
-                    weaponNameList.add(combat.getCombatMemberList().get(i).getWeapon().getName());
-                }
-            }
-            else {
-                k = i + 4;
-                if (combat.getCombatMemberList().get(k).getWeapon() == null) {
-                    weaponNameList.add("null");
-                } else {
-                    weaponNameList.add(combat.getCombatMemberList().get(k).getWeapon().getName());
-                }
-            }
-        }
-
-        return weaponNameList;
-    }
-
-    /**
-     * Returns the list of armor names currently assigned to combat members.
-     *
-     * @return a list of armor names
-     */
-    public ArrayList<String> getArmorList(int k) {
-        ArrayList<String> armorNameList = new ArrayList<>();
-        int teamSize = 4;
-
-        for (int i = 0; i < teamSize; i++) {
-            if (k == 0) {
-                if (combat.getCombatMemberList().get(i).getArmor() == null) {
-                    armorNameList.add("null");
-                } else {
-                    armorNameList.add(combat.getCombatMemberList().get(i).getArmor().getName());
-                }
-            }
-            else {
-                k = i + 4;
-                if (combat.getCombatMemberList().get(k).getArmor() == null) {
-                    armorNameList.add("null");
-                } else {
-                    armorNameList.add(combat.getCombatMemberList().get(k).getArmor().getName());
-                }
-            }
-        }
-
-        return armorNameList;
-    }
-
-    /**
-     * Returns the list of damage values for all combat members.
-     *
-     * @return a list of damage values
-     */
-    public ArrayList<Double> getDamageList(int k) {
-        ArrayList<Double> damageNameList = new ArrayList<>();
-        int teamSize = 4;
-
-        for (int i = 0; i < teamSize; i++) {
-            if (k == 0) {
-                damageNameList.add(combat.getCombatMemberList().get(i).getDamage());
-            }
-            else {
-                k = i + 4;
-                damageNameList.add(combat.getCombatMemberList().get(k).getDamage());
-            }
-        }
-
-        return damageNameList;
-    }
-
-    /**
-     * Checks if a combat member has a weapon assigned.
-     *
-     * @param i the index of the combat member to check
-     * @return true if the combat member has a weapon, false otherwise
-     */
-    public boolean hasWeapon(int i) {
-        return combat.getCombatMemberList().get(i).getWeapon() != null;
-    }
-
-    /**
-     * Checks if a combat member has armor assigned.
-     *
-     * @param i the index of the combat member to check
-     * @return true if the combat member has armor, false otherwise
-     */
-    public boolean hasArmor(int i) {
-        return combat.getCombatMemberList().get(i).getArmor() != null;
-    }
-
-    /**
-     * Checks if a combat member has high damage based on their damage stat.
-     *
-     * @param i the index of the combat member to check
-     * @return true if the combat member has high damage, false otherwise
-     */
-    public boolean hasHighDamage(int i) {
-        return combat.getCombatMemberList().get(i).getDamage() >= 0.5 && combat.getCombatMemberList().get(i).getDamage() <= 1.0;
-    }
-
-    public void setKo (int i) {
-        if (checkKnockOut(i)) {
-            this.combat.getCombatMemberList().get(i).setKo();
-        }
+        setTeamList(teamFight);
     }
 }

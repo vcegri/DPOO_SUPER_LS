@@ -21,8 +21,7 @@ public class Main {
         ItemManager itemManager = new ItemManager(itemJson);
         StatManager statManager = new StatManager(statJson);
         TeamManager teamManager = new TeamManager(teamJson);
-        Combat combat = new Combat();
-        CombatManager combatManager = new CombatManager(combat);
+        CombatManager combatManager = new CombatManager();
 
         Controller controller = new Controller(menu,characterManager, teamManager, itemManager, statManager, combatManager);
         controller.run();
