@@ -480,7 +480,7 @@ public class Controller {
     }
 
     private void brokenWeapon(){
-        Combat combat = combatManager.getCombat();
+        Combat combat = this.combatManager.getCombat();
 
         for (int i = 0; i < combat.getCombatMemberList().size(); i++) {
             if (combat.getCombatMemberList().get(i).getWeapon() != null) {
