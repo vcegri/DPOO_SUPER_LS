@@ -112,25 +112,6 @@ public class ItemManager {
     }
 
     /**
-     * Checks if the item data file is accessible and valid.
-     *
-     * @return true if the file is accessible and valid, false otherwise
-     */
-    public boolean fileOK() {
-        return itemJson.fileOK();
-    }
-
-    /**
-     * Reads and returns all items from the item data source.
-     *
-     * @return a list of all items
-     * @throws FileNotFoundException if the item data cannot be read from storage
-     */
-    public ArrayList<Item> readAllItems() throws FileNotFoundException {
-        return itemJson.readAll();
-    }
-
-    /**
      * Retrieves the names of all items.
      *
      * @return a list of item names
@@ -182,4 +163,12 @@ public class ItemManager {
         return itemList.get(randomArmor);
     }
 
+    /**
+     * Checks if the item data file is accessible and valid.
+     *
+     * @return true if the file is accessible and valid, false otherwise
+     */
+    public boolean fileOK() {
+        return itemJson.fileOK();
+    }
 }

@@ -24,6 +24,50 @@ public class CombatManager {
     }
 
     /**
+     * Returns the list of combat members participating in the
+     *
+     * @return a list of CombatMember
+     */
+    public ArrayList<CombatMember> getCombatMemberList() {
+        return this.combatMemberList;
+    }
+
+    /**
+     * Returns the list of teams involved in the
+     *
+     * @return a list of Team
+     */
+    public ArrayList<Team> getTeamList() {
+        return teamList;
+    }
+
+    /**
+     * Sets the list of teams involved in the
+     *
+     * @param teamList the list of Team to set
+     */
+    public void setTeamList(ArrayList<Team> teamList) {
+        this.teamList = teamList;
+    }
+
+    /**
+     * Sets up the combat with the specified teams, weapons, armor, and characters.
+     *
+     * @param teamFight      the list of teams participating in the combat
+     * @param weaponList     the list of weapons available for combat members
+     * @param armorList      the list of armor available for combat members
+     * @param characterList  the list of characters participating in the combat
+     */
+    public void setCombat(ArrayList<Team> teamFight, ArrayList<Item> weaponList, ArrayList<Item> armorList, ArrayList<Character> characterList) {
+        int teamSize = 4;
+
+        for (int i = 0; i < teamSize; i++) {
+            createCombatMember(characterList.get(i), "Balanced", weaponList.get(i), armorList.get(i));
+        }
+        setTeamList(teamFight);
+    }
+
+    /**
      * Returns the list of weapon names currently assigned to combat members.
      *
      * @return a list of weapon names
@@ -141,54 +185,6 @@ public class CombatManager {
         }
     }
 
-    public boolean checkEndCombat(){
-        boolean combatEnded = false;
-        boolean teamOneFinish = true;
-        boolean teamTwoFinish = true;
-
-        for (int i = 0; i < 4; i++){
-            if (!getCombatMemberList().get(i).isKo()) {
-                teamOneFinish = false;
-                break;
-            }
-        }
-
-        for (int i = 0; i < 4; i++){
-            int j = i + 4;
-            if (!getCombatMemberList().get(j).isKo()) {
-                teamTwoFinish = false;
-                break;
-            }
-        }
-
-        if (teamOneFinish || teamTwoFinish){
-            combatEnded = true;
-        }
-
-        return combatEnded;
-    }
-
-    public Integer checkWinner() {
-        int winner = 2;
-
-        for (int i = 0; i < 4; i++){
-            if (!getCombatMemberList().get(i).isKo()) {
-                winner = 0;
-                break;
-            }
-        }
-
-        for (int i = 0; i < 4; i++){
-            int j = i + 4;
-            if (!getCombatMemberList().get(j).isKo()) {
-                winner = 1;
-                break;
-            }
-        }
-
-        return winner;
-    }
-
     public void checkDefenders(){
 
         for (int i = 0; i < getCombatMemberList().size(); i++) {
@@ -211,33 +207,6 @@ public class CombatManager {
     }
 
     /**
-     * Returns the list of combat members participating in the 
-     *
-     * @return a list of CombatMember
-     */
-    public ArrayList<CombatMember> getCombatMemberList() {
-        return this.combatMemberList;
-    }
-
-    /**
-     * Returns the list of teams involved in the 
-     *
-     * @return a list of Team
-     */
-    public ArrayList<Team> getTeamList() {
-        return teamList;
-    }
-
-    /**
-     * Sets the list of teams involved in the 
-     *
-     * @param teamList the list of Team to set
-     */
-    public void setTeamList(ArrayList<Team> teamList) {
-        this.teamList = teamList;
-    }
-
-    /**
      * Creates a new combat member and adds it to the combat member list.
      *
      * @param character the character associated with the combat member
@@ -248,14 +217,6 @@ public class CombatManager {
     public void createCombatMember(Character character, String strategy, Item weapon, Item armor) {
         CombatMember combatMember = new CombatMember(character, strategy, weapon, armor);
         this.combatMemberList.add(combatMember);
-    }
-
-    /**
-     * Ends the combat by clearing the team and combat member lists.
-     */
-    public void endCombat() {
-        this.teamList.clear();
-        this.combatMemberList.clear();
     }
 
     public boolean knocked (int i) {
@@ -325,19 +286,58 @@ public class CombatManager {
     }
 
     /**
-     * Sets up the combat with the specified teams, weapons, armor, and characters.
-     *
-     * @param teamFight      the list of teams participating in the combat
-     * @param weaponList     the list of weapons available for combat members
-     * @param armorList      the list of armor available for combat members
-     * @param characterList  the list of characters participating in the combat
+     * Ends the combat by clearing the team and combat member lists.
      */
-    public void setCombat(ArrayList<Team> teamFight, ArrayList<Item> weaponList, ArrayList<Item> armorList, ArrayList<Character> characterList) {
-        int teamSize = 4;
+    public void endCombat() {
+        this.teamList.clear();
+        this.combatMemberList.clear();
+    }
 
-        for (int i = 0; i < teamSize; i++) {
-            createCombatMember(characterList.get(i), "Balanced", weaponList.get(i), armorList.get(i));
+    public boolean checkEndCombat(){
+        boolean combatEnded = false;
+        boolean teamOneFinish = true;
+        boolean teamTwoFinish = true;
+
+        for (int i = 0; i < 4; i++){
+            if (!getCombatMemberList().get(i).isKo()) {
+                teamOneFinish = false;
+                break;
+            }
         }
-        setTeamList(teamFight);
+
+        for (int i = 0; i < 4; i++){
+            int j = i + 4;
+            if (!getCombatMemberList().get(j).isKo()) {
+                teamTwoFinish = false;
+                break;
+            }
+        }
+
+        if (teamOneFinish || teamTwoFinish){
+            combatEnded = true;
+        }
+
+        return combatEnded;
+    }
+
+    public Integer checkWinner() {
+        int winner = 2;
+
+        for (int i = 0; i < 4; i++){
+            if (!getCombatMemberList().get(i).isKo()) {
+                winner = 0;
+                break;
+            }
+        }
+
+        for (int i = 0; i < 4; i++){
+            int j = i + 4;
+            if (!getCombatMemberList().get(j).isKo()) {
+                winner = 1;
+                break;
+            }
+        }
+
+        return winner;
     }
 }

@@ -23,22 +23,6 @@ public class CharacterManager {
     }
 
     /**
-     * Retrieves the names of all characters.
-     *
-     * @return a list of character names
-     * @throws FileNotFoundException if the JSON file cannot be found
-     */
-    public ArrayList<String> getNameOfCharacters() throws FileNotFoundException {
-        ArrayList<String> nameList = new ArrayList<>();
-        ArrayList<Character> characterList = characterJson.readAll();
-
-        for (Character character : characterList) {
-            nameList.add(character.getName());
-        }
-        return nameList;
-    }
-
-    /**
      * Checks if a character with the specified name exists.
      *
      * @param name the name to check
@@ -78,6 +62,22 @@ public class CharacterManager {
             }
         }
         return exist;
+    }
+
+    /**
+     * Retrieves the names of all characters.
+     *
+     * @return a list of character names
+     * @throws FileNotFoundException if the JSON file cannot be found
+     */
+    public ArrayList<String> getNameOfCharacters() throws FileNotFoundException {
+        ArrayList<String> nameList = new ArrayList<>();
+        ArrayList<Character> characterList = characterJson.readAll();
+
+        for (Character character : characterList) {
+            nameList.add(character.getName());
+        }
+        return nameList;
     }
 
     /**

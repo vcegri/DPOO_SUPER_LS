@@ -99,15 +99,6 @@ public class CombatMember {
         return defendRequest;
     }
 
-    /**
-     * Updates the total damage dealt by this combat member.
-     *
-     * @param newDamage the additional damage to add
-     */
-    public void updateDamage(double newDamage) {
-        this.damage = this.damage + newDamage;
-    }
-
     public void setKo(){
         this.ko = true;
     }
@@ -126,5 +117,14 @@ public class CombatMember {
 
     public void setArmor(Item armor) {
         this.armor = armor;
+    }
+
+    /**
+     * Updates the total damage dealt by this combat member.
+     *
+     * @param newDamage the additional damage to add
+     */
+    public void updateDamage(double newDamage) {
+        this.damage = this.damage + newDamage;
     }
 }

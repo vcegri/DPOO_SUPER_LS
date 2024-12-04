@@ -24,6 +24,20 @@ public class TeamManager {
     }
 
     /**
+     * Creates a new team with the specified name and list of team members.
+     *
+     * @param name the name of the new team
+     * @param teamMemberList the list of team members
+     * @throws FileNotFoundException if the team data cannot be written to storage
+     */
+    public void createTeam(String name, ArrayList<TeamMember> teamMemberList) throws FileNotFoundException {
+        ArrayList<Team> teamList = teamJson.readAll();
+        Team team = new Team(name, teamMemberList);
+        teamList.add(team);
+        teamJson.saveTeams(teamList);
+    }
+
+    /**
      * Retrieves a list of all team names.
      *
      * @return a list of names of all the teams
@@ -80,42 +94,6 @@ public class TeamManager {
             }
         }
         return exist;
-    }
-
-    /**
-     * Creates a new team with the specified name and list of team members.
-     *
-     * @param name the name of the new team
-     * @param teamMemberList the list of team members
-     * @throws FileNotFoundException if the team data cannot be written to storage
-     */
-    public void createTeam(String name, ArrayList<TeamMember> teamMemberList) throws FileNotFoundException {
-        ArrayList<Team> teamList = teamJson.readAll();
-        Team team = new Team(name, teamMemberList);
-        teamList.add(team);
-        teamJson.saveTeams(teamList);
-    }
-
-    /**
-     * Retrieves the list of member IDs for a team based on the team's name.
-     *
-     * @param name the name of the team whose members' IDs are to be retrieved
-     * @return a list of member IDs for the specified team
-     * @throws FileNotFoundException if the team data cannot be read from storage
-     */
-    public ArrayList<Long> getIdListOfATeam(String name) throws FileNotFoundException {
-        ArrayList<Long> memberList = new ArrayList<>();
-        ArrayList<Team> teamList = teamJson.readAll();
-
-        for (Team team : teamList) {
-            if (name.equals(team.getName())) {
-                for (int j = 0; j < 4; j++) {
-                    memberList.add(team.getMemberList().get(j).getId());
-                }
-            }
-        }
-
-        return memberList;
     }
 
     /**
