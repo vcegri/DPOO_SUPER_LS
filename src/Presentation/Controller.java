@@ -505,7 +505,6 @@ public class Controller {
                 }
             }
         }
-        menu.println("");
     }
     private void deadCombatMembers(){
         Combat combat = combatManager.getCombat();
