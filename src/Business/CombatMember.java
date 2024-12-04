@@ -25,6 +25,8 @@ public class CombatMember {
 
     private boolean defending;
 
+    private boolean defendRequest;
+
     /**
      * Constructs a new CombatMember with the specified character, strategy, weapon, and armor.
      *
@@ -41,6 +43,7 @@ public class CombatMember {
         this.armor = armor;
         this.ko = false;
         this.defending = false;
+        this.defendRequest = false;
     }
 
     /**
@@ -101,6 +104,10 @@ public class CombatMember {
         return defending;
     }
 
+    public boolean isDefendRequest() {
+        return defendRequest;
+    }
+
     /**
      * Updates the total damage dealt by this combat member.
      *
@@ -110,7 +117,15 @@ public class CombatMember {
         this.damage = this.damage + newDamage;
     }
 
-    public void setKo(){this.ko = !this.ko;}
+    public void setKo(){
+        this.ko = !this.ko;
+    }
 
-    public void setDefending(){this.defending = !this.defending;}
+    public void setDefendingStatus(boolean defendingStatus) {
+        this.defendRequest = defendingStatus;
+    }
+
+    public void setDefending(boolean defendingStatus) {
+        this.defendRequest = defendingStatus;
+    }
 }

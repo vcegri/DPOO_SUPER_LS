@@ -340,6 +340,7 @@ public class Controller {
         ArrayList<String> memberNameList = new ArrayList<>();
 
         do {
+            checkDefenders();
             roundTeamInfo(roundNum);
             executeAction();
             brokenItems();
@@ -362,6 +363,15 @@ public class Controller {
         }
         menu.finalRound(teamNumber, winner, memberNameList, damageTakenList, koList);
         this.combatManager.getCombat().endCombat();
+    }
+
+    private void checkDefenders(){
+        Combat combat = combatManager.getCombat();
+
+        for (int i = 0; i < combat.getCombatMemberList().size(); i++) {
+            this.combatManager.getCombat().getCombatMemberList().get(i).setDefending(combat.getCombatMemberList().get(i).isDefendRequest());
+            defendStatus(i, false);
+        }
     }
 
     private void roundTeamInfo(int roundNum) throws FileNotFoundException {
@@ -412,7 +422,7 @@ public class Controller {
             }
             else if (hasArmor){
                 if (hasHighDamage){
-                    defend(i);
+                    defendStatus(i, true);
                 }
                 else {
                     atack(i);
@@ -448,13 +458,12 @@ public class Controller {
         }
 
         menu.combatAttack(attackerName, defenderName, weaponName, damage, finalDamage);
-        defend(i);
         this.combatManager.getCombat().getCombatMemberList().get(i).getWeapon().updateDurability();
         this.combatManager.getCombat().getCombatMemberList().get(randomIndex).getArmor().updateDurability();
     }
 
-    private void defend(int i){
-        this.combatManager.getCombat().getCombatMemberList().get(i).isDefending();
+    private void defendStatus(int i, boolean defendingStatus){
+        this.combatManager.getCombat().getCombatMemberList().get(i).setDefendingStatus(defendingStatus);
     }
 
     private void newWeapon(int i) {
