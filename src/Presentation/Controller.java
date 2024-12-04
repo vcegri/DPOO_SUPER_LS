@@ -341,6 +341,7 @@ public class Controller {
 
         do {
             checkDefenders();
+            menu.println("--- ROUND " + roundNum + " ---");
             roundTeamInfo(roundNum);
             executeAction();
             brokenWeapon();
@@ -387,7 +388,7 @@ public class Controller {
 
         for (int k = 0; k < teamList.size(); k++) {
             teamNumber = k +1;
-
+            idList.clear();
             for (int i = 0; i < teamList.get(k).getMemberList().size(); i++) {
                 idList.add(teamList.get(k).getMemberList().get(i).getId());
                 if (i == 0){
@@ -479,7 +480,7 @@ public class Controller {
             if (combat.getCombatMemberList().get(i).getWeapon().getDurability() == 0) {
                 String characterName = combat.getCombatMemberList().get(i).getCharacter().getName();
                 String weaponName = combat.getCombatMemberList().get(i).getWeapon().getName();
-                combat.getCombatMemberList().get(i).setWeapon(null);
+
                 menu.itemBreak(characterName,weaponName);
             }
         }
@@ -493,7 +494,7 @@ public class Controller {
             if (combat.getCombatMemberList().get(i).getArmor().getDurability() == 0) {
                 String characterName = combat.getCombatMemberList().get(i).getCharacter().getName();
                 String armorName = combat.getCombatMemberList().get(i).getArmor().getName();
-                combat.getCombatMemberList().get(i).setArmor(null);
+
                 menu.itemBreak(characterName,armorName);
             }
         }

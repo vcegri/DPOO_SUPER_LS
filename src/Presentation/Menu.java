@@ -254,7 +254,7 @@ public class Menu {
      * @param koList              the list of KO value for each team member
      */
     public void roundinfo(int roundNum, int teamNumber, String teamName, ArrayList<String> teamMemberNameList, ArrayList<String> teamWeaponList, ArrayList<String> teamArmorList, ArrayList<Double> damageTakenList, ArrayList<Boolean> koList) {
-        println("--- ROUND " + roundNum + " ---");
+
         println("\tTeam #" + teamNumber + " - " + teamName);
         for (int i = 0; i < teamMemberNameList.size(); i++) {
             String name = teamMemberNameList.get(i);
