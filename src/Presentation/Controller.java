@@ -480,7 +480,7 @@ public class Controller {
             if (combat.getCombatMemberList().get(i).getWeapon().getDurability() == 0) {
                 String characterName = combat.getCombatMemberList().get(i).getCharacter().getName();
                 String weaponName = combat.getCombatMemberList().get(i).getWeapon().getName();
-
+                combat.getCombatMemberList().get(i).setWeapon(null);
                 menu.itemBreak(characterName,weaponName);
             }
         }
@@ -494,7 +494,7 @@ public class Controller {
             if (combat.getCombatMemberList().get(i).getArmor().getDurability() == 0) {
                 String characterName = combat.getCombatMemberList().get(i).getCharacter().getName();
                 String armorName = combat.getCombatMemberList().get(i).getArmor().getName();
-
+                combat.getCombatMemberList().get(i).setArmor(null);
                 menu.itemBreak(characterName,armorName);
             }
         }
