@@ -277,7 +277,7 @@ public class CombatManager {
      * @return true if the combat member has high damage, false otherwise
      */
     public boolean hasHighDamage(int i) {
-        return combat.getCombatMemberList().get(i).getDamage() >= 0.5;
+        return combat.getCombatMemberList().get(i).getDamage() >= 0.5 && combat.getCombatMemberList().get(i).getDamage() <= 1.0;
     }
 
     public void setKo (int i) {
