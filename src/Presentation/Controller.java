@@ -367,7 +367,7 @@ public class Controller {
             damageTakenList.add(combat.getCombatMemberList().get(i).getDamage());
             memberNameList.add(combat.getCombatMemberList().get(i).getCharacter().getName());
         }
-        menu.finalRound(teamNumber, winner, memberNameList, damageTakenList, koList);
+        menu.finalRound(memberNameList, damageTakenList, koList);
         updateStats(winner, koList);
         this.combatManager.getCombat().endCombat();
     }
@@ -547,6 +547,7 @@ public class Controller {
 
         for (int i = 0; i < 4; i++){
             if (!combatManager.getCombat().getCombatMemberList().get(i).isKo()) {
+                winner = 0;
                 break;
             }
         }

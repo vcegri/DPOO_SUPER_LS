@@ -244,7 +244,6 @@ public class Menu {
     /**
      * Prints the details of a combat round.
      *
-     * @param roundNum            the round number
      * @param teamNumber          the team number
      * @param teamName            the team name
      * @param teamMemberNameList  the list of team member names
@@ -315,14 +314,11 @@ public class Menu {
 
     /**
      * Show the final round information of a team.
-     *
-     * @param teamNumber          the team number
-     * @param teamName            the team name
      * @param teamMemberNameList  the list of team member names
      * @param damageTakenList     the list of damage received by each team member
      */
-    public void finalRound(int teamNumber, String teamName, ArrayList<String> teamMemberNameList, ArrayList<Double> damageTakenList, ArrayList<Boolean> koList) {
-        println("\tTeam #" + teamNumber + " - " + teamName);
+    public void finalRound(ArrayList<String> teamMemberNameList, ArrayList<Double> damageTakenList, ArrayList<Boolean> koList) {
+
         for (int i = 0; i < teamMemberNameList.size(); i++) {
             String name = teamMemberNameList.get(i);
             double damageTaken = (damageTakenList.get(i) * 100);

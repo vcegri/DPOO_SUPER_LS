@@ -35,23 +35,6 @@ public class Stat {
     }
 
     /**
-     * Constructs a new Stat instance with the specified values for all attributes.
-     *
-     * @param name         the name associated with the statistics
-     * @param games_played the total number of games played
-     * @param games_won    the total number of games won
-     * @param KO_done      the total number of knockouts performed
-     * @param KO_received  the total number of knockouts received
-     */
-    public Stat(String name, int games_played, int games_won, int KO_done, int KO_received) {
-        this.name = name;
-        this.games_played = games_played;
-        this.games_won = games_won;
-        this.KO_done = KO_done;
-        this.KO_received = KO_received;
-    }
-
-    /**
      * Returns the name associated with the statistics.
      *
      * @return the name
