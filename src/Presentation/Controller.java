@@ -8,6 +8,11 @@ import java.util.ArrayList;
 import java.io.IOException;
 import java.util.Random;
 
+/**
+ * Controller class that manages the logic and interactions
+ * between the user interface and managers.
+ */
+
 public class Controller {
     private final Menu menu;
     private final CharacterManager characterManager;
@@ -16,6 +21,16 @@ public class Controller {
     private final StatManager statManager;
     private final CombatManager combatManager;
 
+    /**
+     * Constructs a Controller with the given managers and menu interface.
+     *
+     * @param menu             the menu interface for user interaction.
+     * @param characterManager the manager of character data and operations.
+     * @param teamManager      the manager of team data and operations.
+     * @param itemManager      the manager of item data and operations.
+     * @param statManager      the manager of team stats data and operations.
+     * @param combatManager    the manager that controls combat simulations.
+     */
     public Controller(Menu menu, CharacterManager characterManager, TeamManager teamManager, ItemManager itemManager, StatManager statManager, CombatManager combatManager) {
         this.menu = menu;
         this.characterManager = characterManager;
@@ -25,6 +40,11 @@ public class Controller {
         this.combatManager = combatManager;
     }
 
+    /**
+     * Runs the main application loop, controlling the program functions.
+     *
+     * @throws IOException if an I/O error happens during file operations.
+     */
     public void run() throws IOException {
         int option;
         boolean startProgram;
@@ -47,6 +67,13 @@ public class Controller {
         }
     }
 
+    /**
+     * Ask the user to select an option.
+     *
+     * @param min the minimum option.
+     * @param max the maximum option.
+     * @return the selected option.
+     */
     private int selectOption(int min, int max) {
         int option;
         int flag;
@@ -63,6 +90,11 @@ public class Controller {
         return (option);
     }
 
+    /**
+     * Starts the program after verifying the state of required files.
+     *
+     * @return true if the program can start, false if not.
+     */
     private boolean startProgram() {
         boolean startProgram;
         boolean characterFileOk = characterManager.fileOK();
@@ -87,7 +119,11 @@ public class Controller {
         return (startProgram);
     }
 
-
+    /**
+     * Show a list of characters and their details.
+     *
+     * @throws IOException if an I/O error happens while accessing character data.
+     */
     private void listCharacters() throws IOException {
         ArrayList<String> characterNameList;
         ArrayList<String> teamList;
@@ -110,7 +146,11 @@ public class Controller {
         }
     }
 
-
+    /**
+     * Manages team operations such as creation, listing, and deletion.
+     *
+     * @throws FileNotFoundException if required files are not found.
+     */
     private void manageTeams() throws FileNotFoundException {
         menu.manageTeamsMenu();
         int option = selectOption(1, 4);
@@ -121,6 +161,12 @@ public class Controller {
         }
 
     }
+
+    /**
+     * Creates a new team asking the user.
+     *
+     * @throws FileNotFoundException if required files are not found.
+     */
     private void createTeam() throws FileNotFoundException {
         int teamSize = 4;
         ArrayList<TeamMember> teamMemberList = new ArrayList<>();
@@ -151,6 +197,15 @@ public class Controller {
             statManager.createStat(name);
         }
     }
+
+    /**
+     * Takes a TeamMember based on a character name or ID.
+     *
+     * @param characterName the name or ID of the character.
+     * @param j             the index of the character in the team.
+     * @return the corresponding TeamMember.
+     * @throws FileNotFoundException if required files are not found.
+     */
     private TeamMember getTeamMember(String characterName, int j) throws FileNotFoundException {
         boolean characterExist;
         boolean isLong = false;
@@ -179,6 +234,12 @@ public class Controller {
 
         return teamMember;
     }
+
+    /**
+     * Show a list of teams and their details.
+     *
+     * @throws FileNotFoundException if required files are not found.
+     */
     private void listTeams() throws FileNotFoundException {
         ArrayList<String> teamNameList;
         ArrayList<Long> memberIdList = new ArrayList<>();
@@ -200,6 +261,12 @@ public class Controller {
             pressEnter();
         }
     }
+
+    /**
+     * Deletes a team asking the user.
+     *
+     * @throws FileNotFoundException if required files are not found.
+     */
     private void deleteTeam() throws FileNotFoundException {
         boolean correctConfirm = true;
 
@@ -231,7 +298,11 @@ public class Controller {
         }
     }
 
-
+    /**
+     * Show a list of items and their details.
+     *
+     * @throws IOException if an I/O error happens while accessing item data.
+     */
     private void listItems() throws IOException {
         ArrayList<String> itemNameList;
 
@@ -254,7 +325,11 @@ public class Controller {
         }
     }
 
-    
+    /**
+     * Simulates a combat between two teams.
+     *
+     * @throws FileNotFoundException if required files are not found.
+     */
     private void simulateCombat() throws FileNotFoundException {
         boolean existTeam;
 
@@ -264,6 +339,13 @@ public class Controller {
             executeCombat();
         }
     }
+
+    /**
+     * Show which teams are available for combat and prepares them for the combat.
+     *
+     * @return true if teams are available for combat, false if not.
+     * @throws FileNotFoundException if required files are not found.
+     */
     private boolean chooseTeam() throws FileNotFoundException {
         ArrayList<Team> teamFight;
         ArrayList<String> teamNames;
@@ -288,6 +370,13 @@ public class Controller {
 
         return existTeam;
     }
+
+    /**
+     * Ask the user to select two teams for combat.
+     *
+     * @return a list of the two selected teams.
+     * @throws FileNotFoundException if required files are not found.
+     */
     private ArrayList<Team> chooseTeamForCombat() throws FileNotFoundException {
         ArrayList<String> teamNameList;
         ArrayList<Team> teamFight = new ArrayList<>();
@@ -300,6 +389,15 @@ public class Controller {
 
         return teamFight;
     }
+
+    /**
+     * Ask the user to select a single team for combat.
+     *
+     * @param teamNameList the list of team names that can fight.
+     * @param numTeam the team number being selected (1 or 2).
+     * @return the selected team.
+     * @throws FileNotFoundException if required files are not found.
+     */
     private Team chooseSingleTeam(ArrayList<String> teamNameList, int numTeam) throws FileNotFoundException {
         String teamName;
         Team team;
@@ -312,6 +410,14 @@ public class Controller {
         
         return team;
     }
+
+    /**
+     * Show the details of a team for combat simulation.
+     *
+     * @param numTeam  the team number in the combat.
+     * @param teamFight the list of teams in the combat.
+     * @throws FileNotFoundException if required files are not found.
+     */
     private void showTeamInfoForCombat(int numTeam, ArrayList<Team> teamFight) throws FileNotFoundException {
         int teamSize = 4;
         ArrayList<String> teamMemberNameList = new ArrayList<>();
@@ -335,6 +441,12 @@ public class Controller {
         this.combatManager.setCombat(teamFight, weaponList, armorList, characterManager.getCharacterListByIdList(teamMemberIdList));
 
     }
+
+    /**
+     * Executes all rounds of a combat by simulating each CombatMember action.
+     *
+     * @throws FileNotFoundException if required files are not found.
+     */
     private void executeCombat() throws FileNotFoundException {
         int roundNum = 1;
         ArrayList<Boolean> koList = new ArrayList<>();
@@ -373,6 +485,12 @@ public class Controller {
         updateStats(winner, koList);
         this.combatManager.endCombat();
     }
+
+    /**
+     * Show the state of teams after each combat round, including CombatMember details.
+     *
+     * @throws FileNotFoundException if required files are not found.
+     */
     private void roundTeamInfo() throws FileNotFoundException {
         int teamNumber;
         ArrayList<String> nameList;
@@ -404,6 +522,12 @@ public class Controller {
             menu.roundinfo(teamNumber, teamList.get(k).getName(), nameList, weaponList, armorList, damageList, koList);
         }
     }
+
+    /**
+     * Executes actions about all combat members.
+     *
+     * @throws FileNotFoundException if required files are not found.
+     */
     private void executeAction() throws FileNotFoundException {
         boolean hasWeapon;
         boolean hasArmor;
@@ -429,6 +553,12 @@ public class Controller {
             }
         }
     }
+
+    /**
+     * Simulates an attack from a CombatMember to a random opponent.
+     *
+     * @param i the index of the attacking member in the combat list.
+     */
     private void atack(int i){
 
         Random random = new Random();
@@ -461,10 +591,21 @@ public class Controller {
         menu.combatAttack(attackerName, defenderName, weaponName, damage, finalDamage);
         combatManager.updateItemDurability(i, randomIndex);
     }
+
+    /**
+     * Assigns a new weapon to a combat member if they do not have one.
+     *
+     * @param i the index of the combat member in the list.
+     * @throws FileNotFoundException if required files are not found.
+     */
     private void newWeapon(int i) throws FileNotFoundException {
         this.combatManager.getCombatMemberList().get(i).setWeapon(itemManager.setRandomWeapon());
         menu.println(combatManager.getCombatMemberList().get(i).getCharacter().getName() + " GOT A NEW WEAPON");
     }
+
+    /**
+     * Checks for broken weapons among combat members and updates their status accordingly.
+     */
     private void brokenWeapon(){
         
         for (int i = 0; i < combatManager.getCombatMemberList().size(); i++) {
@@ -479,6 +620,10 @@ public class Controller {
         }
         menu.println("");
     }
+
+    /**
+     * Checks for broken armor among combat members and updates their status accordingly.
+     */
     private void brokenArmor(){
 
         for (int i = 0; i < combatManager.getCombatMemberList().size(); i++) {
@@ -492,6 +637,10 @@ public class Controller {
             }
         }
     }
+
+    /**
+     * Notifies about combat members who have been knocked out (KO) during the combat.
+     */
     private void deadCombatMembers(){
 
         for (int i = 0; i < combatManager.getCombatMemberList().size(); i++) {
@@ -501,6 +650,14 @@ public class Controller {
         }
         menu.println("");
     }
+
+    /**
+     * Updates the statistics for teams and characters after a combat session.
+     *
+     * @param winner the name of the winning team.
+     * @param koList a list indicating KO status for each character.
+     * @throws FileNotFoundException if required files are not found.
+     */
     private void updateStats(String winner, ArrayList<Boolean> koList) throws FileNotFoundException {
         String teamName;
         int teamNum = 2;
@@ -511,6 +668,9 @@ public class Controller {
         }
     }
 
+    /**
+     * Waits for the user to press Enter to continue.
+     */
     private void pressEnter() {
         menu.print("<Press enter to continue...>");
         menu.askString();
