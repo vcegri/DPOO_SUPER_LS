@@ -179,12 +179,6 @@ public class CombatManager {
         return getCombatMemberList().get(i).getDamage() >= 0.5 && getCombatMemberList().get(i).getDamage() <= 1.0;
     }
 
-    public void setKo (int i) {
-        if (knocked(i)) {
-            this.getCombatMemberList().get(i).setKo();
-        }
-    }
-
     public void checkDefenders(){
 
         for (int i = 0; i < getCombatMemberList().size(); i++) {
@@ -202,7 +196,7 @@ public class CombatManager {
 
     public void calculateKo() {
         for (int i = 0; i < getCombatMemberList().size(); i++) {
-            this.setKo(i);
+            this.knocked(i);
             this.combatMemberList.get(i).setAtacked(false);
         }
     }
@@ -220,8 +214,7 @@ public class CombatManager {
         this.combatMemberList.add(combatMember);
     }
 
-    public boolean knocked (int i) {
-        boolean knocked = false;
+    public void knocked (int i) {
         Random random = new Random();
         double randomKnockOut;
 
@@ -231,11 +224,9 @@ public class CombatManager {
 
         if (getCombatMemberList().get(i).isAttacked()) {
             if (randomKnockOut > damage) {
-                knocked = true;
+                this.getCombatMemberList().get(i).setKo();
             }
         }
-
-        return knocked;
     }
 
     public double calculateDamage (CombatMember attacker) {

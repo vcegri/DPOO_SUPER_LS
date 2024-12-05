@@ -567,10 +567,14 @@ public class Controller {
         String  attackerName = this.combatManager.getCombatMemberList().get(i).getCharacter().getName();
 
         if (i < 4) {
-            randomIndex = random.nextInt(4) + 4;
+            do {
+                randomIndex = random.nextInt(4) + 4;
+            } while (combatManager.getCombatMemberList().get(randomIndex).isKo());
         }
         else {
-            randomIndex = random.nextInt(4);
+            do {
+                randomIndex = random.nextInt(4);
+            } while (combatManager.getCombatMemberList().get(randomIndex).isKo());
         }
 
         String weaponName;
