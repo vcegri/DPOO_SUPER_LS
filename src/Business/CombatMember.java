@@ -27,6 +27,8 @@ public class CombatMember {
 
     private boolean defendRequest;
 
+    private boolean attacked;
+
     /**
      * Constructs a new CombatMember with the specified character, strategy, weapon, and armor.
      *
@@ -44,6 +46,7 @@ public class CombatMember {
         this.ko = false;
         this.defending = false;
         this.defendRequest = false;
+        this.attacked = false;
     }
 
     /**
@@ -99,6 +102,10 @@ public class CombatMember {
         return defendRequest;
     }
 
+    public boolean isAttacked() {
+        return attacked;
+    }
+
     public void setKo(){
         this.ko = true;
     }
@@ -117,6 +124,10 @@ public class CombatMember {
 
     public void setArmor(Item armor) {
         this.armor = armor;
+    }
+
+    public void setAtacked(boolean atacked) {
+        this.attacked = atacked;
     }
 
     /**

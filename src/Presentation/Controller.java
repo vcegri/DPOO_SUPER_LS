@@ -588,6 +588,7 @@ public class Controller {
             finalDamage = finalDamage - combatManager.calculateDamageReduction(this.combatManager.getCombatMemberList().get(randomIndex));
         }
         this.combatManager.getCombatMemberList().get(randomIndex).updateDamage(finalDamage);
+        this.combatManager.getCombatMemberList().get(randomIndex).setAtacked(true);
         menu.combatAttack(attackerName, defenderName, weaponName, damage, finalDamage);
         combatManager.updateItemDurability(i, randomIndex);
     }

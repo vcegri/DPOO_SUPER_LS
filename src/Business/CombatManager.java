@@ -203,6 +203,7 @@ public class CombatManager {
     public void calculateKo() {
         for (int i = 0; i < getCombatMemberList().size(); i++) {
             this.setKo(i);
+            this.combatMemberList.get(i).setAtacked(false);
         }
     }
 
@@ -228,8 +229,10 @@ public class CombatManager {
         randomKnockOut = random.nextInt(199) + 1;
         randomKnockOut = randomKnockOut/100;
 
-        if (randomKnockOut > damage) {
-            knocked = true;
+        if (getCombatMemberList().get(i).isAttacked()) {
+            if (randomKnockOut > damage) {
+                knocked = true;
+            }
         }
 
         return knocked;
