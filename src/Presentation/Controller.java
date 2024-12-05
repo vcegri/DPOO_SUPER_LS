@@ -504,6 +504,7 @@ public class Controller {
         for (int k = 0; k < teamList.size(); k++) {
             teamNumber = k +1;
             idList.clear();
+            koList.clear();
             for (int i = 0; i < teamList.get(k).getMemberList().size(); i++) {
                 idList.add(teamList.get(k).getMemberList().get(i).getId());
                 if (k == 0){
