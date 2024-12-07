@@ -6,29 +6,28 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 /**
- * Manages the interaction with team data, including retrieving team information,
- * creating teams, deleting teams, and verifying the existence of a team.
+ * Manages the interactions with team data using the teamJson class.
  */
 public class TeamManager {
 
-    /** The TeamJSON instance used to read and save team data. */
+    /** Class to manage the teams.json file. */
     private final TeamJSON teamJson;
 
     /**
-     * Constructs a TeamManager with the specified TeamJSON instance.
+     * Constructs a TeamManager with the TeamJSON class.
      *
-     * @param teamJson the TeamJSON instance to interact with for team data
+     * @param teamJson class to manage the teams.json file
      */
     public TeamManager(TeamJSON teamJson) {
         this.teamJson = teamJson;
     }
 
     /**
-     * Creates a new team with the specified name and list of team members.
+     * Creates a new Team with the name and list of team members.
      *
-     * @param name the name of the new team
-     * @param teamMemberList the list of team members
-     * @throws FileNotFoundException if the team data cannot be written to storage
+     * @param name name of the new team
+     * @param teamMemberList list of team members
+     * @throws FileNotFoundException if the team data can't be written
      */
     public void createTeam(String name, ArrayList<TeamMember> teamMemberList) throws FileNotFoundException {
         ArrayList<Team> teamList = teamJson.readAll();
@@ -38,10 +37,10 @@ public class TeamManager {
     }
 
     /**
-     * Retrieves a list of all team names.
+     * Get a list of all team names.
      *
-     * @return a list of names of all the teams
-     * @throws FileNotFoundException if the team data cannot be read from storage
+     * @return list of names of all the teams
+     * @throws FileNotFoundException if the team data can't be read
      */
     public ArrayList<String> getNameOfTeams() throws FileNotFoundException {
         ArrayList<String> nameList = new ArrayList<>();
@@ -54,11 +53,11 @@ public class TeamManager {
     }
 
     /**
-     * Searches for teams that a specific character is a member of, based on the character's ID.
+     * Search for teams with a specific member based on the character's ID.
      *
-     * @param idCharacter the ID of the character to search for
-     * @return a list of team names the character is a part of
-     * @throws FileNotFoundException if the team data cannot be read from storage
+     * @param idCharacter ID of the character
+     * @return list of team names the character is a part of
+     * @throws FileNotFoundException if the team data can't be read
      */
     public ArrayList<String> searchTeamsOfCharacter(long idCharacter) throws FileNotFoundException {
         ArrayList<String> teamNameList = new ArrayList<>();
@@ -77,11 +76,11 @@ public class TeamManager {
     }
 
     /**
-     * Verifies if a team with the specified name already exists.
+     * Verifies if a team with a specified name exists.
      *
-     * @param newName the name of the team to check for existence
-     * @return true if the team exists, false otherwise
-     * @throws FileNotFoundException if the team data cannot be read from storage
+     * @param newName name of the team
+     * @return true if the team exists, false if not
+     * @throws FileNotFoundException if the team data can't be read
      */
     public boolean comproveIfTeamExist(String newName) throws FileNotFoundException {
         boolean exist = false;
@@ -97,10 +96,10 @@ public class TeamManager {
     }
 
     /**
-     * Deletes a team based on the team's name.
+     * Deletes a team based on the team name.
      *
-     * @param name the name of the team to be deleted
-     * @throws FileNotFoundException if the team data cannot be read or written to storage
+     * @param name name of the team
+     * @throws FileNotFoundException if the team data can't be read or written
      */
     public void deleteTeam(String name) throws FileNotFoundException {
         ArrayList<Team> teamList = teamJson.readAll();
@@ -120,11 +119,11 @@ public class TeamManager {
     }
 
     /**
-     * Retrieves a team object by its name.
+     * Get a team by its name.
      *
-     * @param name the name of the team to retrieve
-     * @return the Team object with the specified name
-     * @throws FileNotFoundException if the team data cannot be read from storage
+     * @param name name of the team
+     * @return Team with the specified name
+     * @throws FileNotFoundException if the team data can't be read
      */
     public Team getTeamByName(String name) throws FileNotFoundException {
         ArrayList<Team> teamList = teamJson.readAll();

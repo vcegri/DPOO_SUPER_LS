@@ -1,28 +1,27 @@
 package Business;
 
 /**
- * Represents the statistics of a character or player, including games played, games won, knockouts performed, and knockouts received.
+ * Represents the stats of a Team with the games played, games won, knockouts performed, and knockouts received.
  */
 public class Stat {
 
-    /** The name associated with the statistics (e.g., character or player name). */
+    /** Team name associated with the stats */
     private final String name;
 
-    /** The total number of games played. */
+    /** Total number of games played. */
     private int games_played;
 
-    /** The total number of games won. */
+    /** Total number of games won. */
     private int games_won;
 
-    /** The total number of knockouts (KO) performed by this entity. */
+    /** Total number of KO done by the Team. */
     private int KO_done;
 
-    /** The total number of knockouts (KO) received by this entity. */
+    /** Total number of KO received by the Team. */
     private int KO_received;
 
     /**
-     * Constructs a new Stat instance with a name and default values for all statistics.
-     * All statistics are initialized to zero.
+     * Constructs a new Stat with a name and default values for all statistics.
      *
      * @param name the name associated with the statistics
      */
@@ -35,9 +34,9 @@ public class Stat {
     }
 
     /**
-     * Returns the name associated with the statistics.
+     * Returns the Team name.
      *
-     * @return the name
+     * @return name
      */
     public String getName() {
         return name;
@@ -46,7 +45,7 @@ public class Stat {
     /**
      * Returns the total number of games played.
      *
-     * @return the number of games played
+     * @return number of games played
      */
     public int getGamesPlayed() {
         return games_played;
@@ -55,30 +54,38 @@ public class Stat {
     /**
      * Returns the total number of games won.
      *
-     * @return the number of games won
+     * @return number of games won
      */
     public int getGamesWon() {
         return games_won;
     }
 
     /**
-     * Returns the total number of knockouts performed.
+     * Returns the total number of KOs done.
      *
-     * @return the number of knockouts performed
+     * @return number of KOs done
      */
     public int getKoDone() {
         return KO_done;
     }
 
     /**
-     * Returns the total number of knockouts received.
+     * Returns the total number of KOs received.
      *
-     * @return the number of knockouts received
+     * @return number of KOs received
      */
     public int getKoReceived() {
         return KO_received;
     }
 
+    /**
+     * Updates the stats of a Team.
+     *
+     * @param games_played total number of games played.
+     * @param games_won total number of games won.
+     * @param KO_done total number of KOs done.
+     * @param KO_received total number of KOs received.
+     */
     public void updateStats(int games_played, int games_won, int KO_done, int KO_received) {
         this.games_played = games_played;
         this.games_won = games_won;

@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class Main {
     /**
-     * Stats the program and does the principals configurations.
+     * Starts the program and does the principals configurations.
      *
      * @param args arguments from the command line.
      */

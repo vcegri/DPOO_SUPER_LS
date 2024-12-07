@@ -6,28 +6,26 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 /**
- * Manages the interaction with statistical data related to teams, including creating statistics,
- * updating stats, and retrieving information such as games played, games won, knockouts done, and received.
+ * Manages the interactions with stat data using the statJson class.
  */
 public class StatManager {
 
-    /** The StatJSON instance used to read and save statistical data. */
+    /** Class to manage the stats.json file. */
     private final StatJSON statJson;
 
     /**
-     * Constructs a StatManager with the specified StatJSON instance.
+     * Constructs a StatManager with the StatJSON class.
      *
-     * @param statJson the StatJSON instance to interact with for statistical data
+     * @param statJson class to manage the stats.json file
      */
     public StatManager(StatJSON statJson) {
         this.statJson = statJson;
     }
 
     /**
-     * Creates a new Stat object for a team with the given name. This method initializes
-     * the statistics for the team with default values.
+     * Creates a new Stat for a team with the given name.
      *
-     * @param name the name of the team for which to create statistics
+     * @param name name of the team
      */
     public void createStat(String name) throws FileNotFoundException {
         ArrayList<Stat> statList = statJson.readAll();
@@ -38,13 +36,11 @@ public class StatManager {
     }
 
     /**
-     * Retrieves the statistics of a team by name. The statistics include the number of games played,
-     * games won, knockouts done, knockouts received, and the win rate.
+     * Get the stats of a team by its name.
      *
-     * @param name the name of the team whose statistics to retrieve
-     * @return a list of integers representing the team's statistics in the order:
-     *         games played, games won, knockouts done, knockouts received, and win rate
-     * @throws FileNotFoundException if the stat data cannot be read from storage
+     * @param name name of the team
+     * @return list of integers representing the teams stats
+     * @throws FileNotFoundException if the stat data can't be read
      */
     public ArrayList<Integer> getStatList(String name) throws FileNotFoundException {
         ArrayList<Integer> statInfoList = new ArrayList<>();
@@ -70,12 +66,11 @@ public class StatManager {
     }
 
     /**
-     * Updates the statistics for a team after a game. The statistics are updated based on whether the team won.
-     * If the team won, the number of games played, games won, knockouts done, and knockouts received are incremented.
+     * Updates the stats for a team after a game.
      *
-     * @param winner  a boolean indicating if the team won (true if won, false otherwise)
-     * @param teamName the name of the team whose statistics are to be updated
-     * @throws FileNotFoundException if the stat data cannot be read or written to storage
+     * @param winner  boolean indicating if the team won
+     * @param teamName name of the team
+     * @throws FileNotFoundException if the stat data can't be read or written
      */
     public void updateStats(String winner, String teamName, ArrayList<Boolean> koList, int teamNum) throws FileNotFoundException {
         ArrayList<Stat> statList = statJson.readAll();
@@ -136,6 +131,12 @@ public class StatManager {
         }
     }
 
+    /**
+     * Deletes the stats of a team by its name.
+     *
+     * @param name name of the team
+     * @throws FileNotFoundException if the statistics file can't be found.
+     */
     public void deleteStat(String name) throws FileNotFoundException {
         ArrayList<Stat> statList = statJson.readAll();
 

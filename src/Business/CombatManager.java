@@ -4,19 +4,18 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Manages the simulation and logic for a combat between teams, including the calculation of damage,
- * handling of combat stats, and determining the outcome of the battle.
+ * Manages the simulation and logic for a combat between two teams.
  */
 public class CombatManager {
 
-    /** The list of combat members participating in the  */
+    /** List of CombatMembers that participates in the combat*/
     private final ArrayList<CombatMember> combatMemberList;
 
-    /** The list of teams involved in the  */
+    /** List of teams that participates in the combat*/
     private ArrayList<Team> teamList;
 
     /**
-     * Constructs a CombatManager with the specified Combat instance.
+     * Constructs a CombatManager with the specified combat team and members.
      */
     public CombatManager() {
         this.combatMemberList = new ArrayList<>();
@@ -24,39 +23,39 @@ public class CombatManager {
     }
 
     /**
-     * Returns the list of combat members participating in the
+     * Returns the list of CombatMembers participating in the combat
      *
-     * @return a list of CombatMember
+     * @return list of CombatMember
      */
     public ArrayList<CombatMember> getCombatMemberList() {
         return this.combatMemberList;
     }
 
     /**
-     * Returns the list of teams involved in the
+     * Returns the list of teams participating in the combat
      *
-     * @return a list of Team
+     * @return list of Teams
      */
     public ArrayList<Team> getTeamList() {
         return teamList;
     }
 
     /**
-     * Sets the list of teams involved in the
+     * Sets the list of teams participating in the combat
      *
-     * @param teamList the list of Team to set
+     * @param teamList list of Teams
      */
     public void setTeamList(ArrayList<Team> teamList) {
         this.teamList = teamList;
     }
 
     /**
-     * Sets up the combat with the specified teams, weapons, armor, and characters.
+     * Creates all the CombatMembers and set them to their team combat.
      *
-     * @param teamFight      the list of teams participating in the combat
-     * @param weaponList     the list of weapons available for combat members
-     * @param armorList      the list of armor available for combat members
-     * @param characterList  the list of characters participating in the combat
+     * @param teamFight      list of teams participating in the combat
+     * @param weaponList     list of weapons available for CombatMembers
+     * @param armorList      list of armor available for CombatMembers
+     * @param characterList  list of characters participating at the combat
      */
     public void setCombat(ArrayList<Team> teamFight, ArrayList<Item> weaponList, ArrayList<Item> armorList, ArrayList<Character> characterList) {
         int teamSize = 4;
@@ -68,9 +67,9 @@ public class CombatManager {
     }
 
     /**
-     * Returns the list of weapon names currently assigned to combat members.
+     * Returns the list of weapon names assigned to each CombatMember.
      *
-     * @return a list of weapon names
+     * @return list of weapon names
      */
     public ArrayList<String> getWeaponList(int k) {
         ArrayList<String> weaponNameList = new ArrayList<>();
@@ -98,9 +97,9 @@ public class CombatManager {
     }
 
     /**
-     * Returns the list of armor names currently assigned to combat members.
+     * Returns the list of armor names assigned to each CombatMember.
      *
-     * @return a list of armor names
+     * @return list of armor names
      */
     public ArrayList<String> getArmorList(int k) {
         ArrayList<String> armorNameList = new ArrayList<>();
@@ -128,9 +127,9 @@ public class CombatManager {
     }
 
     /**
-     * Returns the list of damage values for all combat members.
+     * Returns the list of damage for all CombatMembers.
      *
-     * @return a list of damage values
+     * @return list of damage
      */
     public ArrayList<Double> getDamageList(int k) {
         ArrayList<Double> damageNameList = new ArrayList<>();
@@ -150,35 +149,38 @@ public class CombatManager {
     }
 
     /**
-     * Checks if a combat member has a weapon assigned.
+     * Checks if a CombatMember has a weapon assigned.
      *
-     * @param i the index of the combat member to check
-     * @return true if the combat member has a weapon, false otherwise
+     * @param i index of the CombatMember to check
+     * @return true if the CombatMember has a weapon, false if not
      */
     public boolean hasWeapon(int i) {
         return getCombatMemberList().get(i).getWeapon() != null;
     }
 
     /**
-     * Checks if a combat member has armor assigned.
+     * Checks if a CombatMember has armor assigned.
      *
-     * @param i the index of the combat member to check
-     * @return true if the combat member has armor, false otherwise
+     * @param i index of the CombatMember to check
+     * @return true if the CombatMember has armor, false if not
      */
     public boolean hasArmor(int i) {
         return getCombatMemberList().get(i).getArmor() != null;
     }
 
     /**
-     * Checks if a combat member has high damage based on their damage stat.
+     * Checks if a CombatMember has high damage based on their damage stat and need to defend.
      *
-     * @param i the index of the combat member to check
-     * @return true if the combat member has high damage, false otherwise
+     * @param i index of the CombatMember to check
+     * @return true if the CombatMember has high damage, false if not
      */
     public boolean hasHighDamage(int i) {
         return getCombatMemberList().get(i).getDamage() >= 0.5 && getCombatMemberList().get(i).getDamage() <= 1.0;
     }
 
+    /**
+     * Updates the defending variable of all the CombatMembers.
+     */
     public void checkDefenders(){
 
         for (int i = 0; i < getCombatMemberList().size(); i++) {
@@ -186,7 +188,13 @@ public class CombatManager {
             this.getCombatMemberList().get(i).setDefendingStatus(false);
         }
     }
-    
+
+    /**
+     * Updates the durability of the attacker weapon and the defender armor in a combat round.
+     *
+     * @param i index of the attacking CombatMember.
+     * @param randomIndex index of the defending CombatMember.
+     */
     public void updateItemDurability(int i,int randomIndex) {
         this.getCombatMemberList().get(i).getWeapon().updateDurability();
         if (this.getCombatMemberList().get(randomIndex).getArmor() != null) {
@@ -194,6 +202,10 @@ public class CombatManager {
         }
     }
 
+    /**
+     * Calculates the KO state of each CombatMember based on their damage taken and
+     * resets the attacked state of all combat members.
+     */
     public void calculateKo() {
         for (int i = 0; i < getCombatMemberList().size(); i++) {
             this.knocked(i);
@@ -202,18 +214,23 @@ public class CombatManager {
     }
 
     /**
-     * Creates a new combat member and adds it to the combat member list.
+     * Creates a new CombatMember and adds it to the CombatMember list.
      *
-     * @param character the character associated with the combat member
-     * @param strategy  the strategy employed by the combat member
-     * @param weapon    the weapon equipped by the combat member
-     * @param armor     the armor equipped by the combat member
+     * @param character character associated with the CombatMember
+     * @param strategy  strategy employed by the CombatMember
+     * @param weapon    weapon equipped by the CombatMember
+     * @param armor     armor equipped by the CombatMember
      */
     public void createCombatMember(Character character, String strategy, Item weapon, Item armor) {
         CombatMember combatMember = new CombatMember(character, strategy, weapon, armor);
         this.combatMemberList.add(combatMember);
     }
 
+    /**
+     * Determines if a CombatMember is KO based on a random parameter and their current damage.
+     *
+     * @param i index of the CombatMember.
+     */
     public void knocked (int i) {
         Random random = new Random();
         double randomKnockOut;
@@ -229,6 +246,12 @@ public class CombatManager {
         }
     }
 
+    /**
+     * Calculates the initial damage done by an attacker in a combat round.
+     *
+     * @param attacker CombatMember that attacks.
+     * @return calculated damage value.
+     */
     public double calculateDamage (CombatMember attacker) {
         double damage;
         int attackerWeight;
@@ -246,6 +269,13 @@ public class CombatManager {
         return damage;
     }
 
+    /**
+     * Calculates the reduced damage taken by a defender.
+     *
+     * @param damage initial damage done by the attacker.
+     * @param defender CombatMember defending.
+     * @return final reduced damage.
+     */
     public double calculateReducedDamage(double damage, CombatMember defender) {
         double finalDamage;
         double defenderDamage;
@@ -271,6 +301,12 @@ public class CombatManager {
         return finalDamage;
     }
 
+    /**
+     * Calculates the damage reduction value for a defender.
+     *
+     * @param defender CombatMember defending against an attack.
+     * @return calculated damage reduction value.
+     */
     public double calculateDamageReduction(CombatMember defender){
         double damageReduction;
 
@@ -280,13 +316,18 @@ public class CombatManager {
     }
 
     /**
-     * Ends the combat by clearing the team and combat member lists.
+     * Ends the combat by clearing the Team list and CombatMember list.
      */
     public void endCombat() {
         this.teamList.clear();
         this.combatMemberList.clear();
     }
 
+    /**
+     * Checks if the combat has ended, if all members of a team are KO.
+     *
+     * @return true if the combat has ended; false if not.
+     */
     public boolean checkEndCombat(){
         boolean combatEnded = false;
         boolean teamOneFinish = true;
@@ -314,6 +355,11 @@ public class CombatManager {
         return combatEnded;
     }
 
+    /**
+     * Determines the winning team.
+     *
+     * @return an integer depending on the final result.
+     */
     public Integer checkWinner() {
         int winner = 2;
 

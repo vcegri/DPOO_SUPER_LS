@@ -6,28 +6,28 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 /**
- * Manages character data by interfacing with a JSON storage system.
+ * Manages the interactions with character data using the characterJson class.
  */
 public class CharacterManager {
 
-    /** The JSON handler for character data. */
+    /** Class to manage the characters.json file. */
     private final CharacterJSON characterJson;
 
     /**
-     * Constructs a CharacterManager with the specified JSON handler.
+     * Constructs a CharacterManager with the CharacterJSON class.
      *
-     * @param characterJson the JSON handler for character data
+     * @param characterJson class to manage the characters.json file
      */
     public CharacterManager(CharacterJSON characterJson) {
         this.characterJson = characterJson;
     }
 
     /**
-     * Checks if a character with the specified name exists.
+     * Checks if a character with a specified name exists.
      *
-     * @param name the name to check
-     * @return true if the character exists, false otherwise
-     * @throws FileNotFoundException if the JSON file cannot be found
+     * @param name name to check
+     * @return true if the character exists, false if not
+     * @throws FileNotFoundException if the JSON file can't be found
      */
     public boolean comproveIfCharacterExistByName(String name) throws FileNotFoundException {
         boolean exist = false;
@@ -44,11 +44,11 @@ public class CharacterManager {
     }
 
     /**
-     * Checks if a character with the specified ID exists.
+     * Checks if a character with a specified ID exists.
      *
-     * @param id the ID to check
-     * @return true if the character exists, false otherwise
-     * @throws FileNotFoundException if the JSON file cannot be found
+     * @param id ID to check
+     * @return true if the character exists, false if not
+     * @throws FileNotFoundException if the JSON file can't be found
      */
     public boolean comproveIfCharacterExistById(long id) throws FileNotFoundException {
         boolean exist = false;
@@ -65,10 +65,10 @@ public class CharacterManager {
     }
 
     /**
-     * Retrieves the names of all characters.
+     * Creates a list with the names of all characters.
      *
-     * @return a list of character names
-     * @throws FileNotFoundException if the JSON file cannot be found
+     * @return list of all the character names
+     * @throws FileNotFoundException if the JSON file can't be found
      */
     public ArrayList<String> getNameOfCharacters() throws FileNotFoundException {
         ArrayList<String> nameList = new ArrayList<>();
@@ -81,11 +81,11 @@ public class CharacterManager {
     }
 
     /**
-     * Retrieves the ID of a character by its name.
+     * Get the ID of a character by its name.
      *
-     * @param name the name of the character
-     * @return the ID of the character
-     * @throws FileNotFoundException if the JSON file cannot be found
+     * @param name name of the character
+     * @return ID of the character
+     * @throws FileNotFoundException if the JSON file can't be found.
      */
     public long getIdByName(String name) throws FileNotFoundException {
         long id = 0;
@@ -102,11 +102,11 @@ public class CharacterManager {
     }
 
     /**
-     * Retrieves the weight of a character by its name.
+     * Get the weight of a character by its name.
      *
-     * @param name the name of the character
-     * @return the weight of the character
-     * @throws FileNotFoundException if the JSON file cannot be found
+     * @param name name of the character
+     * @return weight of the character
+     * @throws FileNotFoundException if the JSON file can't be found
      */
     public int getWeightByName(String name) throws FileNotFoundException {
         int weight = 0;
@@ -123,11 +123,11 @@ public class CharacterManager {
     }
 
     /**
-     * Retrieves the names of characters based on a list of IDs.
+     * Get the names of characters by a list of IDs.
      *
-     * @param idList the list of character IDs
-     * @return a list of character names corresponding to the IDs
-     * @throws FileNotFoundException if the JSON file cannot be found
+     * @param idList list of character IDs
+     * @return list of character names
+     * @throws FileNotFoundException if the JSON file can't be found
      */
     public ArrayList<String> getNameById(ArrayList<Long> idList) throws FileNotFoundException {
         ArrayList<String> nameList = new ArrayList<>();
@@ -145,9 +145,9 @@ public class CharacterManager {
     }
 
     /**
-     * Retrieves a list of Character objects based on their IDs.
+     * Get a list of Characters by their IDs.
      *
-     * @return a list of Character objects
+     * @return list of Characters
      */
     public ArrayList<Character> getCharacterListByIdList(ArrayList<Long> teamMemberIdList) throws FileNotFoundException {
         ArrayList<Character> characterList = characterJson.readAll();
@@ -165,9 +165,9 @@ public class CharacterManager {
     }
 
     /**
-     * Verifies if the JSON file is available and valid.
+     * Verifies if the JSON file is available.
      *
-     * @return true if the file is valid, false otherwise
+     * @return true if the file is available, false if not
      */
     public boolean fileOK() {
         return characterJson.fileOK();
