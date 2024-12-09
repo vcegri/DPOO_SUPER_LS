@@ -3,7 +3,7 @@ package Business;
 /**
  * Represents a member of a combat, with an associate character, strategy, equipment, and combat stats.
  */
-public class CombatMember {
+public abstract class CombatMember {
 
     /** Character associated with the CombatMember. */
     private final Character character;
@@ -23,12 +23,6 @@ public class CombatMember {
     /** Indicates when this CombatMember is KO. */
     private boolean ko;
 
-    /** Indicates when this CombatMember is defending */
-    private boolean defending;
-
-    /** Indicates when this CombatMember is going to defend */
-    private boolean defendRequest;
-
     /** Indicates when this CombatMember is attacking */
     private boolean attacked;
 
@@ -47,8 +41,6 @@ public class CombatMember {
         this.weapon = weapon;
         this.armor = armor;
         this.ko = false;
-        this.defending = false;
-        this.defendRequest = false;
         this.attacked = false;
     }
 
@@ -98,24 +90,6 @@ public class CombatMember {
     }
 
     /**
-     * Checks if the CombatMember is currently in a defending state.
-     *
-     * @return true if the CombatMember is defending, false if not.
-     */
-    public boolean isDefending() {
-        return defending;
-    }
-
-    /**
-     * Checks if the CombatMember has requested to defend in the current round.
-     *
-     * @return true if a defend request is active, false if not.
-     */
-    public boolean isDefendRequest() {
-        return defendRequest;
-    }
-
-    /**
      * Checks if the CombatMember has been attacked in the current round.
      *
      * @return true if the CombatMember has been attacked, false if not.
@@ -129,24 +103,6 @@ public class CombatMember {
      */
     public void setKo(){
         this.ko = true;
-    }
-
-    /**
-     * Updates the defending request for the CombatMember.
-     *
-     * @param defendingStatus true if the CombatMember requests to defend, false if not.
-     */
-    public void setDefendingStatus(boolean defendingStatus) {
-        this.defendRequest = defendingStatus;
-    }
-
-    /**
-     * Sets the defending state of the CombatMember.
-     *
-     * @param defendingStatus true if the CombatMember is defending, false if not.
-     */
-    public void setDefending(boolean defendingStatus) {
-        this.defending = defendingStatus;
     }
 
     /**
@@ -184,4 +140,6 @@ public class CombatMember {
     public void updateDamage(double newDamage) {
         this.damage = this.damage + newDamage;
     }
+
+    public abstract String chooseAction();
 }
