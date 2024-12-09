@@ -572,9 +572,19 @@ public class Controller {
         double damage = combatManager.calculateDamage(this.combatManager.getCombatMemberList().get(i));
         double finalDamage = combatManager.calculateReducedDamage(damage, this.combatManager.getCombatMemberList().get(objective));
 
-        if (this.combatManager.getCombatMemberList().get(objective).isDefending()){
-            finalDamage = finalDamage - combatManager.calculateDamageReduction(this.combatManager.getCombatMemberList().get(objective));
+        CombatMember combatMember = combatManager.getCombatMemberList().get(objective);
+
+        if (combatMember instanceof CombatMemberDeffensive) {
+            if (((CombatMemberDeffensive) combatMember).isDefending()) {
+                finalDamage = finalDamage - combatManager.calculateDamageReduction(this.combatManager.getCombatMemberList().get(objective));
+            }
         }
+        if (combatMember instanceof CombatMemberBalanced) {
+            if (((CombatMemberBalanced) combatMember).isDefending()) {
+                finalDamage = finalDamage - combatManager.calculateDamageReduction(this.combatManager.getCombatMemberList().get(objective));
+            }
+        }
+
         this.combatManager.getCombatMemberList().get(objective).updateDamage(finalDamage);
         this.combatManager.getCombatMemberList().get(objective).setAtacked(true);
         menu.combatAttack(attackerName, defenderName, weaponName, damage, finalDamage);
@@ -584,14 +594,31 @@ public class Controller {
     private int selectObjective(int i){
         Random random = new Random();
         int index = 0;
+        int maxDamage = 0;
 
         if (combatManager.getCombatMemberList().get(i).getStrategy().equals("Sniper")) {
-
+            if (i < 4) {
+                do {
+                    for (int j = 0; j < 4; j++) {
+                        if (combatManager.getCombatMemberList().get(j).getDamage() > maxDamage) {
+                            index = j;
+                        }
+                    }
+                } while (combatManager.getCombatMemberList().get(index).isKo());
+            } else {
+                do {
+                    for (int j = 4; j < 8; j++) {
+                        if (combatManager.getCombatMemberList().get(j).getDamage() > maxDamage) {
+                            index = j;
+                        }
+                    }
+                } while (combatManager.getCombatMemberList().get(index).isKo());
+            }
         }
         else {
             if (i < 4) {
                 do {
-                    i = random.nextInt(4) + 4;
+                    index = random.nextInt(4) + 4;
                 } while (combatManager.getCombatMemberList().get(index).isKo());
             } else {
                 do {
