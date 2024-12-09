@@ -20,7 +20,7 @@ public class Main {
         CharacterManager characterManager = new CharacterManager(characterJson);
         ItemManager itemManager = new ItemManager(itemJson);
         StatManager statManager = new StatManager(statJson);
-        TeamManager teamManager = new TeamManager(teamJson);
+        TeamManager teamManager = new TeamManager();
         CombatManager combatManager = new CombatManager();
 
         Controller controller = new Controller(menu,characterManager, teamManager, itemManager, statManager, combatManager);
