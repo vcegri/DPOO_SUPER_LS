@@ -3,7 +3,7 @@ package Business;
 /**
  * Represents an item with properties such as ID, name, power, durability, and class.
  */
-public class Item {
+public abstract class Item {
 
     /** Identifier of the item. */
     private final long id;
@@ -88,4 +88,6 @@ public class Item {
     public void updateDurability() {
         this.durability--;
     }
+
+    public abstract double getItemUtilityPower(int weight);
 }

@@ -6,7 +6,8 @@ public class SuperItem extends Item{
         super(id, name, power, durability, classe);
     }
 
-    public double getItemUtilityPower(int weight){
+    @Override
+    public  double getItemUtilityPower(int weight){
 
         return getPower() * weight;
     }

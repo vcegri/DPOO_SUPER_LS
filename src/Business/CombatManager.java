@@ -256,15 +256,15 @@ public class CombatManager {
         double damage;
         int attackerWeight;
         double attackerDamage;
-        int weaponPower;
+        double weaponPower;
 
         attackerWeight = attacker.getCharacter().getWeight();
-        weaponPower = attacker.getWeapon().getPower();
+        weaponPower = attacker.getWeapon().getItemUtilityPower(attackerWeight);
         attackerDamage = attacker.getDamage();
 
         damage = attackerWeight * (1 - attackerDamage);
         damage = damage / 10;
-        damage = damage + ((double) weaponPower / 20) + 18;
+        damage = damage + (weaponPower / 20) + 18;
 
         return damage;
     }
@@ -280,12 +280,12 @@ public class CombatManager {
         double finalDamage;
         double defenderDamage;
         int defenderWeight;
-        int armor;
+        double armor;
 
         defenderDamage = defender.getDamage();
         defenderWeight = defender.getCharacter().getWeight();
         if (defender.getArmor() != null){
-            armor = defender.getArmor().getPower();
+            armor = defender.getArmor().getItemUtilityPower(defenderWeight);
         }
         else {
             armor = 0;
@@ -293,7 +293,7 @@ public class CombatManager {
 
         finalDamage = 200 * (1 - defenderDamage);
         finalDamage = finalDamage / defenderWeight;
-        finalDamage = finalDamage + ((double) armor / 20);
+        finalDamage = finalDamage + (armor / 20);
         finalDamage = finalDamage * 1.4;
         finalDamage = damage - finalDamage;
         finalDamage = finalDamage / 100;
