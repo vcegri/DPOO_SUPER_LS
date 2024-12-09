@@ -11,6 +11,9 @@ import java.util.Random;
  */
 public class ItemManager {
 
+    public static final String WEAPON = "Weapon";
+    public static final String ARMOR = "Armor";
+
     /** Class to manage the items.json file. */
     private final ItemJSON itemJson;
 
@@ -136,10 +139,10 @@ public class ItemManager {
         ArrayList<Item> itemList = itemJson.readAll();
         int randomWeapon = random.nextInt(itemList.size());
         do {
-            if (itemList.get(randomWeapon).getClasse().equals("Armor")) {
+            if (itemList.get(randomWeapon).getClasse().equals(ARMOR)) {
                 randomWeapon = random.nextInt(itemList.size());
             }
-        } while (itemList.get(randomWeapon).getClasse().equals("Armor"));
+        } while (itemList.get(randomWeapon).getClasse().equals(ARMOR));
 
         return itemList.get(randomWeapon);
     }
@@ -154,10 +157,10 @@ public class ItemManager {
         ArrayList<Item> itemList = itemJson.readAll();
         int randomArmor = random.nextInt(itemList.size());
         do {
-            if (itemList.get(randomArmor).getClasse().equals("Weapon")) {
+            if (itemList.get(randomArmor).getClasse().equals(WEAPON)) {
                 randomArmor = random.nextInt(itemList.size());
             }
-        } while (itemList.get(randomArmor).getClasse().equals("Weapon"));
+        } while (itemList.get(randomArmor).getClasse().equals(WEAPON));
 
         return itemList.get(randomArmor);
     }

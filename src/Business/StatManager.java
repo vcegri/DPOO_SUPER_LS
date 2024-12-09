@@ -10,6 +10,10 @@ import java.util.ArrayList;
  */
 public class StatManager {
 
+    public static final int TEAMSIZE = 4;
+    public static final int FIRSTTEAM = 0;
+    public static final int SECONDTEAM = 1;
+
     /** Class to manage the stats.json file. */
     private final StatJSON statJson;
 
@@ -85,18 +89,18 @@ public class StatManager {
                 gamesWon = statList.get(i).getGamesWon();
                 if (winner.equals(teamName)) {
                     gamesWon++;
-                    KO_done = KO_done + 4;
+                    KO_done = KO_done + TEAMSIZE;
 
                     int cont = 0;
-                    if (teamNum == 0) {
-                        for (int j = 0; j < 4; j++) {
+                    if (teamNum == FIRSTTEAM) {
+                        for (int j = 0; j < TEAMSIZE; j++) {
                             if (koList.get(j)) {
                                 cont++;
                             }
                         }
                     }
                     else {
-                        for (int j = 4; j < 8; j++) {
+                        for (int j = TEAMSIZE; j < (2*TEAMSIZE); j++) {
                             if (koList.get(j)) {
                                 cont++;
                             }
@@ -105,18 +109,18 @@ public class StatManager {
                     KO_received = KO_received + cont;
                 }
                 else {
-                    KO_received = KO_received + 4;
+                    KO_received = KO_received + TEAMSIZE;
 
                     int cont = 0;
-                    if (teamNum == 1) {
-                        for (int j = 0; j < 4; j++) {
+                    if (teamNum == SECONDTEAM) {
+                        for (int j = 0; j < TEAMSIZE; j++) {
                             if (koList.get(j)) {
                                 cont++;
                             }
                         }
                     }
                     else {
-                        for (int j = 4; j < 8; j++) {
+                        for (int j = TEAMSIZE; j < (2*TEAMSIZE); j++) {
                             if (koList.get(j)) {
                                 cont++;
                             }

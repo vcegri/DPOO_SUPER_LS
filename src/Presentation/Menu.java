@@ -33,19 +33,19 @@ public class Menu {
     public int askInt() {
         Scanner scanner = new Scanner(System.in);
         int integer = 0;
-        int flag;
+        boolean isInt;
 
         do {
             if (scanner.hasNextInt()) {
                 integer = scanner.nextInt();
                 scanner.nextLine();
-                flag = 1;
+                isInt = true;
             } else {
                 scanner.nextLine();
                 println("You may write an integer");
-                flag = 0;
+                isInt = false;
             }
-        } while (flag != 1);
+        } while (!isInt);
 
         return integer;
     }
