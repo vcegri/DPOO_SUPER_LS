@@ -149,36 +149,6 @@ public class CombatManager {
     }
 
     /**
-     * Checks if a CombatMember has a weapon assigned.
-     *
-     * @param i index of the CombatMember to check
-     * @return true if the CombatMember has a weapon, false if not
-     */
-    public boolean hasWeapon(int i) {
-        return getCombatMemberList().get(i).getWeapon() != null;
-    }
-
-    /**
-     * Checks if a CombatMember has armor assigned.
-     *
-     * @param i index of the CombatMember to check
-     * @return true if the CombatMember has armor, false if not
-     */
-    public boolean hasArmor(int i) {
-        return getCombatMemberList().get(i).getArmor() != null;
-    }
-
-    /**
-     * Checks if a CombatMember has high damage based on their damage stat and need to defend.
-     *
-     * @param i index of the CombatMember to check
-     * @return true if the CombatMember has high damage, false if not
-     */
-    public boolean hasHighDamage(int i) {
-        return getCombatMemberList().get(i).getDamage() >= 0.5 && getCombatMemberList().get(i).getDamage() <= 1.0;
-    }
-
-    /**
      * Updates the defending variable of all the CombatMembers.
      */
     public void checkDefenders(){

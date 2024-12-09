@@ -44,6 +44,10 @@ public abstract class CombatMember {
         this.attacked = false;
     }
 
+    public String getStrategy() {
+        return strategy;
+    }
+
     /**
      * Returns the character associated with the CombatMember.
      *
@@ -139,6 +143,26 @@ public abstract class CombatMember {
      */
     public void updateDamage(double newDamage) {
         this.damage = this.damage + newDamage;
+    }
+
+    /**
+     * Checks if a CombatMember has a weapon assigned.
+     *
+     * @param i index of the CombatMember to check
+     * @return true if the CombatMember has a weapon, false if not
+     */
+    public boolean hasWeapon() {
+        return getWeapon() != null;
+    }
+
+    /**
+     * Checks if a CombatMember has armor assigned.
+     *
+     * @param i index of the CombatMember to check
+     * @return true if the CombatMember has armor, false if not
+     */
+    public boolean hasArmor() {
+        return getArmor() != null;
     }
 
     public abstract String chooseAction();

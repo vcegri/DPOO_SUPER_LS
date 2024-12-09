@@ -8,7 +8,17 @@ public class CombatMemberOffensive extends CombatMember{
 
     @Override
     public String chooseAction(){
-        String string = "";
-        return string;
+        String action = "";
+
+        if (!isKo()) {
+            if (!hasWeapon()) {
+                action = "NEW_WEAPON";
+            }
+            else {
+                action = "ATACK";
+            }
+        }
+
+        return action;
     }
 }

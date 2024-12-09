@@ -48,9 +48,29 @@ public class CombatMemberDeffensive extends CombatMember{
         this.defending = defendingStatus;
     }
 
+    /**
+     * Checks if a CombatMember has high damage based on their damage stat and need to defend.
+     *
+     * @param i index of the CombatMember to check
+     * @return true if the CombatMember has high damage, false if not
+     */
+    public boolean hasHighDamage() {
+        return getDamage() <= 1.0;
+    }
+
     @Override
     public String chooseAction(){
-        String string = "";
-        return string;
+        String action = "";
+
+        if (!isKo()) {
+            if (hasArmor() && hasHighDamage()) {
+                this.setDefendingStatus(true);
+                action = "DEFEND";
+            } else {
+                action = "ATACK";
+            }
+        }
+
+        return action;
     }
 }

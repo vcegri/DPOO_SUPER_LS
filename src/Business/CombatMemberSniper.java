@@ -8,7 +8,6 @@ public class CombatMemberSniper extends CombatMember {
 
     @Override
     public String chooseAction(){
-        String string = "";
-        return string;
+        return "ATACK";
     }
 }

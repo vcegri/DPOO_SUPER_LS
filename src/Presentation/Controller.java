@@ -530,27 +530,22 @@ public class Controller {
      * @throws FileNotFoundException if the JSON file can't be found.
      */
     private void executeAction() throws FileNotFoundException {
-        boolean hasWeapon;
-        boolean hasArmor;
-        boolean hasHighDamage;
 
         for (int i = 0; i < combatManager.getCombatMemberList().size(); i++){
+            CombatMember combatMember = combatManager.getCombatMemberList().get(i);
 
-            hasWeapon = combatManager.hasWeapon(i);
-            hasArmor = combatManager.hasArmor(i);
-            hasHighDamage = combatManager.hasHighDamage(i);
-
-            if (!combatManager.getCombatMemberList().get(i).isKo()) {
-                if (!hasWeapon) {
-                    newWeapon(i);
-                } else {
-                    if (hasArmor && hasHighDamage) {
-                        menu.println(combatManager.getCombatMemberList().get(i).getCharacter().getName() + " IS DEFENDING NEXT ROUND");
-                        this.combatManager.getCombatMemberList().get(i).setDefendingStatus(true);
-                    } else {
-                        atack(i);
-                    }
-                }
+            String action = combatManager.getCombatMemberList().get(i).chooseAction();
+            if (action.equals("ATACK")) {
+                atack(i);
+            }
+            if (action.equals("DEFEND") && combatMember instanceof CombatMemberBalanced){
+                ((CombatMemberBalanced) combatMember).setDefendingStatus(true);
+            }
+            if (action.equals("DEFEND") && combatMember instanceof CombatMemberDeffensive){
+                ((CombatMemberDeffensive) combatMember).setDefendingStatus(true);
+            }
+            if (action.equals("NEW_WEAPON")){
+                newWeapon(i);
             }
         }
     }
@@ -562,40 +557,50 @@ public class Controller {
      */
     private void atack(int i){
 
-        Random random = new Random();
-        int randomIndex;
-
         String  attackerName = this.combatManager.getCombatMemberList().get(i).getCharacter().getName();
 
-        if (i < 4) {
-            do {
-                randomIndex = random.nextInt(4) + 4;
-            } while (combatManager.getCombatMemberList().get(randomIndex).isKo());
-        }
-        else {
-            do {
-                randomIndex = random.nextInt(4);
-            } while (combatManager.getCombatMemberList().get(randomIndex).isKo());
-        }
+        int objective = selectObjective(i);
 
         String weaponName;
-        String defenderName = this.combatManager.getCombatMemberList().get(randomIndex).getCharacter().getName();
-        if (this.combatManager.getCombatMemberList().get(randomIndex).getWeapon() != null) {
-            weaponName = this.combatManager.getCombatMemberList().get(randomIndex).getWeapon().getName();
+        String defenderName = this.combatManager.getCombatMemberList().get(objective).getCharacter().getName();
+        if (this.combatManager.getCombatMemberList().get(objective).getWeapon() != null) {
+            weaponName = this.combatManager.getCombatMemberList().get(objective).getWeapon().getName();
         }
         else {
             weaponName = "null";
         }
         double damage = combatManager.calculateDamage(this.combatManager.getCombatMemberList().get(i));
-        double finalDamage = combatManager.calculateReducedDamage(damage, this.combatManager.getCombatMemberList().get(randomIndex));
+        double finalDamage = combatManager.calculateReducedDamage(damage, this.combatManager.getCombatMemberList().get(objective));
 
-        if (this.combatManager.getCombatMemberList().get(randomIndex).isDefending()){
-            finalDamage = finalDamage - combatManager.calculateDamageReduction(this.combatManager.getCombatMemberList().get(randomIndex));
+        if (this.combatManager.getCombatMemberList().get(objective).isDefending()){
+            finalDamage = finalDamage - combatManager.calculateDamageReduction(this.combatManager.getCombatMemberList().get(objective));
         }
-        this.combatManager.getCombatMemberList().get(randomIndex).updateDamage(finalDamage);
-        this.combatManager.getCombatMemberList().get(randomIndex).setAtacked(true);
+        this.combatManager.getCombatMemberList().get(objective).updateDamage(finalDamage);
+        this.combatManager.getCombatMemberList().get(objective).setAtacked(true);
         menu.combatAttack(attackerName, defenderName, weaponName, damage, finalDamage);
-        combatManager.updateItemDurability(i, randomIndex);
+        combatManager.updateItemDurability(i, objective);
+    }
+
+    private int selectObjective(int i){
+        Random random = new Random();
+        int index = 0;
+
+        if (combatManager.getCombatMemberList().get(i).getStrategy().equals("Sniper")) {
+
+        }
+        else {
+            if (i < 4) {
+                do {
+                    i = random.nextInt(4) + 4;
+                } while (combatManager.getCombatMemberList().get(index).isKo());
+            } else {
+                do {
+                    index = random.nextInt(4);
+                } while (combatManager.getCombatMemberList().get(index).isKo());
+            }
+        }
+
+        return index;
     }
 
     /**
