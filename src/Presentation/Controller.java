@@ -1,6 +1,7 @@
 package Presentation;
 
 import Business.*;
+import edu.salle.url.api.exception.ApiException;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -159,7 +160,7 @@ public class Controller {
      *
      * @throws FileNotFoundException if the JSON file can't be found.
      */
-    private void manageTeams() throws FileNotFoundException {
+    private void manageTeams() throws FileNotFoundException, ApiException {
         menu.manageTeamsMenu();
         int option = selectOption(1, 4);
         switch (option) {
@@ -175,7 +176,7 @@ public class Controller {
      *
      * @throws FileNotFoundException if the JSON file can't be found.
      */
-    private void createTeam() throws FileNotFoundException {
+    private void createTeam() throws FileNotFoundException, ApiException {
         int teamSize = 4;
         ArrayList<TeamMember> teamMemberList = new ArrayList<>();
 
@@ -271,7 +272,7 @@ public class Controller {
      *
      * @throws FileNotFoundException if the JSON file can't be found.
      */
-    private void listTeams() throws FileNotFoundException {
+    private void listTeams() throws FileNotFoundException, ApiException {
         ArrayList<String> teamNameList;
         ArrayList<Long> memberIdList = new ArrayList<>();
         ArrayList<String> memberNameList;
@@ -303,7 +304,7 @@ public class Controller {
      *
      * @throws FileNotFoundException if the JSON file can't be found.
      */
-    private void deleteTeam() throws FileNotFoundException {
+    private void deleteTeam() throws FileNotFoundException, ApiException {
         boolean correctConfirm = true;
 
         menu.deleteTeam();
@@ -366,7 +367,7 @@ public class Controller {
      *
      * @throws FileNotFoundException if the JSON file can't be found.
      */
-    private void simulateCombat() throws FileNotFoundException {
+    private void simulateCombat() throws FileNotFoundException, ApiException {
         boolean existTeam;
 
         menu.println("Starting simulation...");
@@ -382,7 +383,7 @@ public class Controller {
      * @return true if teams are available for combat, false if not.
      * @throws FileNotFoundException if the JSON file can't be found.
      */
-    private boolean chooseTeam() throws FileNotFoundException {
+    private boolean chooseTeam() throws FileNotFoundException, ApiException {
         ArrayList<Team> teamFight;
         ArrayList<String> teamNames;
         boolean existTeam;
@@ -413,7 +414,7 @@ public class Controller {
      * @return list of the two selected teams.
      * @throws FileNotFoundException if the JSON file can't be found.
      */
-    private ArrayList<Team> chooseTeamForCombat() throws FileNotFoundException {
+    private ArrayList<Team> chooseTeamForCombat() throws FileNotFoundException, ApiException {
         ArrayList<String> teamNameList;
         ArrayList<Team> teamFight = new ArrayList<>();
 
@@ -434,7 +435,7 @@ public class Controller {
      * @return selected team.
      * @throws FileNotFoundException if the JSON file can't be found.
      */
-    private Team chooseSingleTeam(ArrayList<String> teamNameList, int numTeam) throws FileNotFoundException {
+    private Team chooseSingleTeam(ArrayList<String> teamNameList, int numTeam) throws FileNotFoundException, ApiException {
         String teamName;
         Team team;
         
