@@ -181,12 +181,12 @@ public class Menu {
      * @param koReceived       the number of KOs received
      * @param winRate          the team win rate
      */
-    public void teamInfo(String teamName, ArrayList<String> characterNameList, int combatPlayed, int combatWon, int koDone, int koReceived, int winRate) {
+    public void teamInfo(String teamName, ArrayList<String> characterNameList, int combatPlayed, int combatWon, int koDone, int koReceived, int winRate, ArrayList<String> strategy) {
         println("\tTeam name: " + teamName + "\n");
         for (int i = 0; i < characterNameList.size(); i++) {
             int j = i + 1;
             String name = characterNameList.get(i);
-            println("\tCharacter #" + j + ": " + name + "\t\t(BALANCED)");
+            println("\tCharacter #" + j + ": " + name + "\t\t(" + strategy.get(i) + ")");
         }
         println("\n\tCombats played:\t" + combatPlayed);
         println("\tCombats won:\t" + combatWon);

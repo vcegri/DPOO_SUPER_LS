@@ -138,4 +138,8 @@ public class TeamManager {
 
         return teamFound;
     }
+
+    public ArrayList<Team> getTeamList() throws FileNotFoundException {
+        return teamJson.readAll();
+    }
 }

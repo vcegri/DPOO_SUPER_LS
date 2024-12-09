@@ -276,6 +276,8 @@ public class Controller {
         ArrayList<Long> memberIdList = new ArrayList<>();
         ArrayList<String> memberNameList;
         ArrayList<Integer> statList;
+        ArrayList<String> strategy = new ArrayList<>();
+        ArrayList<Team> teamList = teamManager.getTeamList();
 
         teamNameList = teamManager.getNameOfTeams();
         menu.printList(teamNameList);
@@ -285,10 +287,13 @@ public class Controller {
 
         if (teamName != 0) {
             teamName--;
+            for (int i = 0; i < 4; i++) {
+                strategy.add(teamList.get(teamName).getMemberList().get(i).getStrategy());
+            }
             String name = teamNameList.get(teamName);
             memberNameList = characterManager.getNameById(memberIdList);
             statList = statManager.getStatList(name);
-            menu.teamInfo(name, memberNameList, statList.get(0), statList.get(1), statList.get(2), statList.get(3), statList.get(4));
+            menu.teamInfo(name, memberNameList, statList.get(0), statList.get(1), statList.get(2), statList.get(3), statList.get(4), strategy);
             pressEnter();
         }
     }
