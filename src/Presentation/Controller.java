@@ -24,12 +24,12 @@ public class Controller {
     /**
      * Constructs a Controller with the given managers and menu interface.
      *
-     * @param menu             the menu interface for user interaction.
-     * @param characterManager the manager of character data and operations.
-     * @param teamManager      the manager of team data and operations.
-     * @param itemManager      the manager of item data and operations.
-     * @param statManager      the manager of team stats data and operations.
-     * @param combatManager    the manager that controls combat simulations.
+     * @param menu             menu interface for user interaction.
+     * @param characterManager manager of character data and operations.
+     * @param teamManager      manager of team data and operations.
+     * @param itemManager      manager of item data and operations.
+     * @param statManager      manager of team stats data and operations.
+     * @param combatManager    manager that controls combat simulations.
      */
     public Controller(Menu menu, CharacterManager characterManager, TeamManager teamManager, ItemManager itemManager, StatManager statManager, CombatManager combatManager) {
         this.menu = menu;
@@ -70,9 +70,9 @@ public class Controller {
     /**
      * Ask the user to select an option.
      *
-     * @param min the minimum option.
-     * @param max the maximum option.
-     * @return the selected option.
+     * @param min minimum option.
+     * @param max maximum option.
+     * @return selected option.
      */
     private int selectOption(int min, int max) {
         int option;
@@ -149,7 +149,7 @@ public class Controller {
     /**
      * Manages team operations such as creation, listing, and deletion.
      *
-     * @throws FileNotFoundException if required files are not found.
+     * @throws FileNotFoundException if the JSON file can't be found.
      */
     private void manageTeams() throws FileNotFoundException {
         menu.manageTeamsMenu();
@@ -165,7 +165,7 @@ public class Controller {
     /**
      * Creates a new team asking the user.
      *
-     * @throws FileNotFoundException if required files are not found.
+     * @throws FileNotFoundException if the JSON file can't be found.
      */
     private void createTeam() throws FileNotFoundException {
         int teamSize = 4;
@@ -201,10 +201,10 @@ public class Controller {
     /**
      * Takes a TeamMember based on a character name or ID.
      *
-     * @param characterName the name or ID of the character.
-     * @param j             the index of the character in the team.
-     * @return the corresponding TeamMember.
-     * @throws FileNotFoundException if required files are not found.
+     * @param characterName name or ID of the character.
+     * @param j             index of the character in the team.
+     * @return corresponding TeamMember.
+     * @throws FileNotFoundException if the JSON file can't be found.
      */
     private TeamMember getTeamMember(String characterName, int j) throws FileNotFoundException {
         boolean characterExist;
@@ -238,7 +238,7 @@ public class Controller {
     /**
      * Show a list of teams and their details.
      *
-     * @throws FileNotFoundException if required files are not found.
+     * @throws FileNotFoundException if the JSON file can't be found.
      */
     private void listTeams() throws FileNotFoundException {
         ArrayList<String> teamNameList;
@@ -265,7 +265,7 @@ public class Controller {
     /**
      * Deletes a team asking the user.
      *
-     * @throws FileNotFoundException if required files are not found.
+     * @throws FileNotFoundException if the JSON file can't be found.
      */
     private void deleteTeam() throws FileNotFoundException {
         boolean correctConfirm = true;
@@ -328,7 +328,7 @@ public class Controller {
     /**
      * Simulates a combat between two teams.
      *
-     * @throws FileNotFoundException if required files are not found.
+     * @throws FileNotFoundException if the JSON file can't be found.
      */
     private void simulateCombat() throws FileNotFoundException {
         boolean existTeam;
@@ -344,7 +344,7 @@ public class Controller {
      * Show which teams are available for combat and prepares them for the combat.
      *
      * @return true if teams are available for combat, false if not.
-     * @throws FileNotFoundException if required files are not found.
+     * @throws FileNotFoundException if the JSON file can't be found.
      */
     private boolean chooseTeam() throws FileNotFoundException {
         ArrayList<Team> teamFight;
@@ -374,8 +374,8 @@ public class Controller {
     /**
      * Ask the user to select two teams for combat.
      *
-     * @return a list of the two selected teams.
-     * @throws FileNotFoundException if required files are not found.
+     * @return list of the two selected teams.
+     * @throws FileNotFoundException if the JSON file can't be found.
      */
     private ArrayList<Team> chooseTeamForCombat() throws FileNotFoundException {
         ArrayList<String> teamNameList;
@@ -393,10 +393,10 @@ public class Controller {
     /**
      * Ask the user to select a single team for combat.
      *
-     * @param teamNameList the list of team names that can fight.
-     * @param numTeam the team number being selected (1 or 2).
-     * @return the selected team.
-     * @throws FileNotFoundException if required files are not found.
+     * @param teamNameList list of team names that can fight.
+     * @param numTeam team number being selected (1 or 2).
+     * @return selected team.
+     * @throws FileNotFoundException if the JSON file can't be found.
      */
     private Team chooseSingleTeam(ArrayList<String> teamNameList, int numTeam) throws FileNotFoundException {
         String teamName;
@@ -414,9 +414,9 @@ public class Controller {
     /**
      * Show the details of a team for combat simulation.
      *
-     * @param numTeam  the team number in the combat.
-     * @param teamFight the list of teams in the combat.
-     * @throws FileNotFoundException if required files are not found.
+     * @param numTeam  team number in the combat.
+     * @param teamFight list of teams in the combat.
+     * @throws FileNotFoundException if the JSON file can't be found.
      */
     private void showTeamInfoForCombat(int numTeam, ArrayList<Team> teamFight) throws FileNotFoundException {
         int teamSize = 4;
@@ -445,7 +445,7 @@ public class Controller {
     /**
      * Executes all rounds of a combat by simulating each CombatMember action.
      *
-     * @throws FileNotFoundException if required files are not found.
+     * @throws FileNotFoundException if the JSON file can't be found.
      */
     private void executeCombat() throws FileNotFoundException {
         int roundNum = 1;
@@ -489,7 +489,7 @@ public class Controller {
     /**
      * Show the state of teams after each combat round, including CombatMember details.
      *
-     * @throws FileNotFoundException if required files are not found.
+     * @throws FileNotFoundException if the JSON file can't be found.
      */
     private void roundTeamInfo() throws FileNotFoundException {
         int teamNumber;
@@ -525,9 +525,9 @@ public class Controller {
     }
 
     /**
-     * Executes actions about all combat members.
+     * Executes actions of all CombatMembers.
      *
-     * @throws FileNotFoundException if required files are not found.
+     * @throws FileNotFoundException if the JSON file can't be found.
      */
     private void executeAction() throws FileNotFoundException {
         boolean hasWeapon;
@@ -558,7 +558,7 @@ public class Controller {
     /**
      * Simulates an attack from a CombatMember to a random opponent.
      *
-     * @param i the index of the attacking member in the combat list.
+     * @param i index of the attacking CombatMember at the combat list.
      */
     private void atack(int i){
 
@@ -599,10 +599,10 @@ public class Controller {
     }
 
     /**
-     * Assigns a new weapon to a combat member if they do not have one.
+     * Set a new weapon to a CombatMember if they don't have one.
      *
-     * @param i the index of the combat member in the list.
-     * @throws FileNotFoundException if required files are not found.
+     * @param i index of the CombatMember at the list.
+     * @throws FileNotFoundException if the JSON file can't be found.
      */
     private void newWeapon(int i) throws FileNotFoundException {
         this.combatManager.getCombatMemberList().get(i).setWeapon(itemManager.setRandomWeapon());
@@ -610,7 +610,7 @@ public class Controller {
     }
 
     /**
-     * Checks for broken weapons among combat members and updates their status accordingly.
+     * Checks for CombatMembers broken weapons and updates their status.
      */
     private void brokenWeapon(){
         
@@ -628,7 +628,7 @@ public class Controller {
     }
 
     /**
-     * Checks for broken armor among combat members and updates their status accordingly.
+     * Checks for CombatMembers broken armor and updates their status.
      */
     private void brokenArmor(){
 
@@ -645,7 +645,7 @@ public class Controller {
     }
 
     /**
-     * Notifies about combat members who have been knocked out (KO) during the combat.
+     * Show all the CombatMembers who have been KO during the combat.
      */
     private void deadCombatMembers(){
 
@@ -658,11 +658,11 @@ public class Controller {
     }
 
     /**
-     * Updates the statistics for teams and characters after a combat session.
+     * Updates the stats for teams and characters after a combat.
      *
-     * @param winner the name of the winning team.
-     * @param koList a list indicating KO status for each character.
-     * @throws FileNotFoundException if required files are not found.
+     * @param winner name of the winning team.
+     * @param koList a list indicating KO variable for each character.
+     * @throws FileNotFoundException if the JSON file can't be found.
      */
     private void updateStats(String winner, ArrayList<Boolean> koList) throws FileNotFoundException {
         String teamName;
@@ -675,7 +675,7 @@ public class Controller {
     }
 
     /**
-     * Waits for the user to press Enter to continue.
+     * Waits for the user to press Enter.
      */
     private void pressEnter() {
         menu.print("<Press enter to continue...>");

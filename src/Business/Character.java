@@ -5,21 +5,21 @@ package Business;
  */
 public class Character {
 
-    /** A unique identifier of the character. */
+    /** Identifier of the character. */
     private final long id;
 
-    /** The name of the character. */
+    /** Name of the character. */
     private final String name;
 
-    /** The weight of the character. */
+    /** Weight of the character. */
     private final int weight;
 
     /**
-     * Constructs a new Character with the specified ID, name, and weight.
+     * Constructs a new Character with the ID, name, and weight.
      *
-     * @param id    the unique identifier of the character
-     * @param name  the name of the character
-     * @param weight the weight of the character
+     * @param id    identifier of the character
+     * @param name  name of the character
+     * @param weight weight of the character
      */
     public Character(int id, String name, int weight) {
         this.id = id;
@@ -28,27 +28,27 @@ public class Character {
     }
 
     /**
-     * Returns the unique identifier of the character.
+     * Returns the character identifier.
      *
-     * @return the character's ID
+     * @return character ID
      */
     public long getId() {
         return id;
     }
 
     /**
-     * Returns the name of the character.
+     * Returns the character name.
      *
-     * @return the character's name
+     * @return character name
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Returns the weight of the character.
+     * Returns the character weight.
      *
-     * @return the character's weight
+     * @return character weight
      */
     public int getWeight() {
         return weight;

@@ -1,33 +1,33 @@
 package Business;
 
 /**
- * Represents an item with unique properties such as ID, name, power, durability, and class.
+ * Represents an item with properties such as ID, name, power, durability, and class.
  */
 public class Item {
 
-    /** The unique identifier of the item. */
+    /** Identifier of the item. */
     private final long id;
 
-    /** The name of the item. */
+    /** Name of the item. */
     private final String name;
 
-    /** The power level of the item. */
+    /** Power level of the item. */
     private final int power;
 
-    /** The durability of the item, which decreases with use. */
+    /** Durability of the item */
     private int durability;
 
-    /** The class or type of the item (e.g., weapon, armor, etc.). */
+    /** Type of the item */
     private final String classe;
 
     /**
      * Constructs a new Item with the specified properties.
      *
-     * @param id         the unique identifier of the item
-     * @param name       the name of the item
-     * @param power      the power level of the item
-     * @param durability the initial durability of the item
-     * @param classe     the class or type of the item
+     * @param id         identifier of the item
+     * @param name       name of the item
+     * @param power      power level of the item
+     * @param durability initial durability of the item
+     * @param classe     type of the item
      */
     public Item(int id, String name, int power, int durability, String classe) {
         this.id = id;
@@ -38,9 +38,9 @@ public class Item {
     }
 
     /**
-     * Returns the unique identifier of the item.
+     * Returns the identifier of the item.
      *
-     * @return the item's ID
+     * @return item ID
      */
     public long getId() {
         return id;
@@ -49,16 +49,16 @@ public class Item {
     /**
      * Returns the name of the item.
      *
-     * @return the item's name
+     * @return item name
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Returns the power level of the item.
+     * Returns the power of the item.
      *
-     * @return the item's power
+     * @return item power
      */
     public int getPower() {
         return power;
@@ -67,23 +67,23 @@ public class Item {
     /**
      * Returns the current durability of the item.
      *
-     * @return the item's durability
+     * @return item durability
      */
     public int getDurability() {
         return durability;
     }
 
     /**
-     * Returns the class or type of the item.
+     * Returns the class of the item.
      *
-     * @return the item's class
+     * @return item class
      */
     public String getClasse() {
         return classe;
     }
 
     /**
-     * Decreases the item's durability by one. Should be called when the item is used.
+     * Decreases the item durability by one when the item is used.
      */
     public void updateDurability() {
         this.durability--;

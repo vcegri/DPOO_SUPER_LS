@@ -1,21 +1,21 @@
 package Business;
 
 /**
- * Represents a member of a team, identified by an ID and a strategy.
+ * Represents a member of a team, with an ID and a strategy.
  */
 public class TeamMember {
 
-    /** The unique identifier of the team member. */
+    /** Identifier of the team member. */
     private final long id;
 
-    /** The strategy assigned to the team member. */
+    /** Strategy assigned to the team member. */
     private final String strategy;
 
     /**
-     * Constructs a new {@code TeamMember} with the specified ID and strategy.
+     * Constructs a new TeamMember with their ID and strategy.
      *
-     * @param id       the unique identifier of the team member
-     * @param strategy the strategy assigned to the team member
+     * @param id       identifier of the team member
+     * @param strategy strategy assigned to the team member
      */
     public TeamMember(long id, String strategy) {
         this.id = id;
@@ -23,9 +23,9 @@ public class TeamMember {
     }
 
     /**
-     * Returns the unique identifier of the team member.
+     * Returns the identifier of the team member.
      *
-     * @return the team member's ID
+     * @return team member ID
      */
     public long getId() {
         return id;
@@ -34,7 +34,7 @@ public class TeamMember {
     /**
      * Returns the strategy assigned to the team member.
      *
-     * @return the team member's strategy
+     * @return team member strategy
      */
     public String getStrategy() {
         return strategy;

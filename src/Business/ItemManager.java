@@ -7,29 +7,28 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Manages the interactions with item data, including retrieving item details such as ID, power, durability,
- * and class, as well as reading all items from the storage.
+ * Manages the interactions with item data using the characterJson class.
  */
 public class ItemManager {
 
-    /** The ItemJSON instance used to read item data. */
+    /** Class to manage the items.json file. */
     private final ItemJSON itemJson;
 
     /**
-     * Constructs an ItemManager with the specified ItemJSON instance.
+     * Constructs a ItemManager with the ItemJSON class.
      *
-     * @param itemJson the ItemJSON instance to interact with for item data
+     * @param itemJson class to manage the items.json file
      */
     public ItemManager(ItemJSON itemJson) {
         this.itemJson = itemJson;
     }
 
     /**
-     * Retrieves the ID of an item based on its name.
+     * Get the ID of an item by its name.
      *
-     * @param name the name of the item
-     * @return the ID of the item if found, or 0 if not found
-     * @throws FileNotFoundException if the item data cannot be read from storage
+     * @param name name of the item
+     * @return ID of the item
+     * @throws FileNotFoundException if the item data can't be read
      */
     public Long getIdByName(String name) throws FileNotFoundException {
         long id = 0;
@@ -46,11 +45,11 @@ public class ItemManager {
     }
 
     /**
-     * Retrieves the power of an item based on its name.
+     * Get the power of an item by its name.
      *
-     * @param name the name of the item
-     * @return the power of the item if found, or 0 if not found
-     * @throws FileNotFoundException if the item data cannot be read from storage
+     * @param name name of the item
+     * @return power of the item
+     * @throws FileNotFoundException if the item data can't be read
      */
     public int getPowerByName(String name) throws FileNotFoundException {
         int power = 0;
@@ -68,11 +67,11 @@ public class ItemManager {
     }
 
     /**
-     * Retrieves the durability of an item based on its name.
+     * Get the durability of an item by its name.
      *
-     * @param name the name of the item
-     * @return the durability of the item if found, or 0 if not found
-     * @throws FileNotFoundException if the item data cannot be read from storage
+     * @param name name of the item
+     * @return durability of the item
+     * @throws FileNotFoundException if the item data can't be read
      */
     public int getDurabilityByName(String name) throws FileNotFoundException {
         int durability = 0;
@@ -90,11 +89,11 @@ public class ItemManager {
     }
 
     /**
-     * Retrieves the class of an item based on its name.
+     * Get the class of an item by its name.
      *
-     * @param name the name of the item
-     * @return the class of the item if found, or an empty string if not found
-     * @throws FileNotFoundException if the item data cannot be read from storage
+     * @param name name of the item
+     * @return class of the item
+     * @throws FileNotFoundException if the item data can't be read
      */
     public String getClasseByName(String name) throws FileNotFoundException {
         String classe = "";
@@ -112,10 +111,10 @@ public class ItemManager {
     }
 
     /**
-     * Retrieves the names of all items.
+     * Get the names of all items.
      *
-     * @return a list of item names
-     * @throws FileNotFoundException if the item data cannot be read from storage
+     * @return list of item names
+     * @throws FileNotFoundException if the item data can't be read
      */
     public ArrayList<String> getNameOfItems() throws FileNotFoundException {
         ArrayList<String> nameList = new ArrayList<>();
@@ -128,9 +127,9 @@ public class ItemManager {
     }
 
     /**
-     * Sets a random weapon for a combat member.
+     * Sets a random weapon for a CombatMember.
      *
-     * @return a random Item representing a weapon
+     * @return random Item representing a weapon
      */
     public Item setRandomWeapon() throws FileNotFoundException {
         Random random = new Random();
@@ -146,9 +145,9 @@ public class ItemManager {
     }
 
     /**
-     * Sets a random armor for a combat member.
+     * Sets a random armor for a CombatMember.
      *
-     * @return a random Item representing armor
+     * @return random Item representing armor
      */
     public Item setRandomArmor() throws FileNotFoundException {
         Random random = new Random();
@@ -164,9 +163,9 @@ public class ItemManager {
     }
 
     /**
-     * Checks if the item data file is accessible and valid.
+     * Checks if the items.json file is accessible.
      *
-     * @return true if the file is accessible and valid, false otherwise
+     * @return true if the file is accessible, false if not
      */
     public boolean fileOK() {
         return itemJson.fileOK();
