@@ -231,16 +231,39 @@ public class Controller {
         if (characterExist){
             menu.println("Game strategy for character #" + j + "?");
             menu.println("\t1) Balanced");
-            selectOption(1,1);
+            menu.println("\t2) Offensive");
+            menu.println("\t3) Defensive");
+            menu.println("\t4) Sniper");
+            int opcio = selectOption(1,4);
+            String strategy = whichStrategy(opcio);
             if (isLong){
-                teamMember = new TeamMember(id, "Balanced");
+                teamMember = new TeamMember(id, strategy);
             }
             else {
-                teamMember = new TeamMember(characterManager.getIdByName(characterName), "Balanced");
+                teamMember = new TeamMember(characterManager.getIdByName(characterName), strategy);
             }
         }
 
         return teamMember;
+    }
+
+    private String whichStrategy(int opcio) {
+        String strategy = "";
+
+        if (opcio == 1) {
+            strategy = "Balanced";
+        }
+        if (opcio == 2) {
+            strategy = "Offensive";
+        }
+        if (opcio == 3) {
+            strategy = "Defensive";
+        }
+        if (opcio == 4) {
+            strategy = "Sniper";
+        }
+
+        return strategy;
     }
 
     /**
