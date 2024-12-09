@@ -99,21 +99,29 @@ public class Controller {
         boolean startProgram;
         boolean characterFileOk = characterManager.fileOK();
         boolean itemFileOk = itemManager.fileOK();
+        boolean apiOk = true;
 
-        if(characterFileOk && itemFileOk) {
+        if (apiOk) {
             menu.correctFile();
             startProgram = true;
         }
         else {
-            startProgram = false;
-            if (!characterFileOk && !itemFileOk) {
-                menu.incorrectFile("charaters.json y items.json files");
-            }
-            else if (!characterFileOk) {
-                menu.incorrectFile("characters.json file");
+            menu.println("Api failed...");
+            if(characterFileOk && itemFileOk) {
+                menu.correctFile();
+                startProgram = true;
             }
             else {
-                menu.incorrectFile("items.json file");
+                startProgram = false;
+                if (!characterFileOk && !itemFileOk) {
+                    menu.incorrectFile("charaters.json y items.json files");
+                }
+                else if (!characterFileOk) {
+                    menu.incorrectFile("characters.json file");
+                }
+                else {
+                    menu.incorrectFile("items.json file");
+                }
             }
         }
         return (startProgram);
