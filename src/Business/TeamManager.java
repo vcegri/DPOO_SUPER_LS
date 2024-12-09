@@ -1,6 +1,10 @@
 package Business;
 
+import Persistence.TeamAPI;
+import Persistence.TeamDAO;
 import Persistence.TeamJSON;
+import edu.salle.url.api.ApiHelper;
+import edu.salle.url.api.exception.ApiException;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -11,15 +15,19 @@ import java.util.ArrayList;
 public class TeamManager {
 
     /** Class to manage the teams.json file. */
-    private final TeamJSON teamJson;
+    private TeamDAO teamDao;
 
     /**
      * Constructs a TeamManager with the TeamJSON class.
-     *
-     * @param teamJson class to manage the teams.json file
      */
-    public TeamManager(TeamJSON teamJson) {
-        this.teamJson = teamJson;
+    public TeamManager() {
+        try {
+            ApiHelper api = new ApiHelper();
+            teamDao = new TeamAPI();
+        }catch (ApiException e){
+            teamDao = new TeamJSON();
+        }
+
     }
 
     /**
@@ -29,11 +37,11 @@ public class TeamManager {
      * @param teamMemberList list of team members
      * @throws FileNotFoundException if the team data can't be written
      */
-    public void createTeam(String name, ArrayList<TeamMember> teamMemberList) throws FileNotFoundException {
-        ArrayList<Team> teamList = teamJson.readAll();
+    public void createTeam(String name, ArrayList<TeamMember> teamMemberList) throws FileNotFoundException, ApiException {
+        ArrayList<Team> teamList = teamDao.readAll();
         Team team = new Team(name, teamMemberList);
         teamList.add(team);
-        teamJson.saveTeams(teamList);
+        teamDao.saveTeams(teamList);
     }
 
     /**
@@ -42,9 +50,9 @@ public class TeamManager {
      * @return list of names of all the teams
      * @throws FileNotFoundException if the team data can't be read
      */
-    public ArrayList<String> getNameOfTeams() throws FileNotFoundException {
+    public ArrayList<String> getNameOfTeams() throws FileNotFoundException, ApiException {
         ArrayList<String> nameList = new ArrayList<>();
-        ArrayList<Team> teamList = teamJson.readAll();
+        ArrayList<Team> teamList = teamDao.readAll();
 
         for (Team team : teamList) {
             nameList.add(team.getName());
@@ -59,9 +67,9 @@ public class TeamManager {
      * @return list of team names the character is a part of
      * @throws FileNotFoundException if the team data can't be read
      */
-    public ArrayList<String> searchTeamsOfCharacter(long idCharacter) throws FileNotFoundException {
+    public ArrayList<String> searchTeamsOfCharacter(long idCharacter) throws FileNotFoundException, ApiException {
         ArrayList<String> teamNameList = new ArrayList<>();
-        ArrayList<Team> teamList = teamJson.readAll();
+        ArrayList<Team> teamList = teamDao.readAll();
 
         for (Team team : teamList) {
             for (int j = 0; j < 4; j++) {
@@ -82,7 +90,7 @@ public class TeamManager {
      * @return true if the team exists, false if not
      * @throws FileNotFoundException if the team data can't be read
      */
-    public boolean comproveIfTeamExist(String newName) throws FileNotFoundException {
+    public boolean comproveIfTeamExist(String newName) throws FileNotFoundException, ApiException {
         boolean exist = false;
         ArrayList<String> teamNameList = getNameOfTeams();
 
@@ -101,8 +109,8 @@ public class TeamManager {
      * @param name name of the team
      * @throws FileNotFoundException if the team data can't be read or written
      */
-    public void deleteTeam(String name) throws FileNotFoundException {
-        ArrayList<Team> teamList = teamJson.readAll();
+    public void deleteTeam(String name) throws FileNotFoundException, ApiException {
+        ArrayList<Team> teamList = teamDao.readAll();
 
         Team teamFound = null;
         for (Team team : teamList) {
@@ -114,7 +122,7 @@ public class TeamManager {
 
         if (teamFound != null) {
             teamList.remove(teamFound);
-            teamJson.saveTeams(teamList);
+            teamDao.saveTeams(teamList);
         }
     }
 
@@ -125,8 +133,8 @@ public class TeamManager {
      * @return Team with the specified name
      * @throws FileNotFoundException if the team data can't be read
      */
-    public Team getTeamByName(String name) throws FileNotFoundException {
-        ArrayList<Team> teamList = teamJson.readAll();
+    public Team getTeamByName(String name) throws FileNotFoundException, ApiException {
+        ArrayList<Team> teamList = teamDao.readAll();
 
         Team teamFound = null;
         for (Team team : teamList) {
@@ -139,7 +147,7 @@ public class TeamManager {
         return teamFound;
     }
 
-    public ArrayList<Team> getTeamList() throws FileNotFoundException {
-        return teamJson.readAll();
+    public ArrayList<Team> getTeamList() throws FileNotFoundException, ApiException {
+        return teamDao.readAll();
     }
 }

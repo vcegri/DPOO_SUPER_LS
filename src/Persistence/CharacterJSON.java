@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * Is used to read and write team data at the characters.json file.
  */
-public class CharacterJSON {
+public class CharacterJSON implements CharacterDAO{
 
     /** Path to the items.json file that contains all the item data. */
     private static final String FILE_PATH = "data/characters.json";

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 /**
  * Is used to read and write team data at the teams.json file.
  */
-public class TeamJSON {
+public class TeamJSON implements TeamDAO{
 
     /** Path to the teams.json file that contains all the team data. */
     private static final String FILE_PATH = "data/teams.json";
