@@ -1,1 +1,65 @@
-[{"name":"Team 1","members":[{"id":4115637091,"strategy":"Balanced"},{"id":87077812,"strategy":"Balanced"},{"id":4020401825,"strategy":"Balanced"},{"id":467416287,"strategy":"Balanced"}]},{"name":"Team 2","members":[{"id":68053,"strategy":"Balanced"},{"id":2527,"strategy":"Balanced"},{"id":216541,"strategy":"Balanced"},{"id":468,"strategy":"Balanced"}]}]
+[
+  {
+    "name": "Salle Fest Bois",
+    "members": [
+      {
+        "id": 5431512,
+        "strategy": "balanced"
+      },
+      {
+        "id": 467416287,
+        "strategy": "offensive"
+      },
+      {
+        "id": 4264041,
+        "strategy": "defensive"
+      },
+      {
+        "id": 748738,
+        "strategy": "sniper"
+      }
+    ]
+  },
+  {
+    "name": "Technova",
+    "members": [
+      {
+        "id": 68053,
+        "strategy": "balanced"
+      },
+      {
+        "id": 68053,
+        "strategy": "balanced"
+      },
+      {
+        "id": 68053,
+        "strategy": "balanced"
+      },
+      {
+        "id": 68053,
+        "strategy": "balanced"
+      }
+    ]
+  },
+  {
+    "name": "DPOO All-star",
+    "members": [
+      {
+        "id": 467416287,
+        "strategy": "balanced"
+      },
+      {
+        "id": 4115637091,
+        "strategy": "balanced"
+      },
+      {
+        "id": 73237806,
+        "strategy": "balanced"
+      },
+      {
+        "id": 748738,
+        "strategy": "balanced"
+      }
+    ]
+  }
+]

@@ -106,7 +106,8 @@ public class Controller {
             startProgram = true;
         }
         else {
-            menu.println("Api failed...");
+            menu.println("Error: The API isn’t available.");
+            menu.println("Verifying local files...");
             if(characterFileOk == 3 && itemFileOk == 3) {
                 menu.correctFile();
                 startProgram = true;

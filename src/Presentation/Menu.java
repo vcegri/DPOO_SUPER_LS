@@ -78,7 +78,7 @@ public class Menu {
         System.out.println("  |___/\\_,_| .__/\\___|_|   |____|___( ) |___/_| \\___(_)");
         System.out.println("           |_|                      |/");
         println("\nWelcome to Super LS, Bro! Simulator.\n");
-        println("Verifying local files...");
+        println("Verifying API files...");
     }
 
     /**
