@@ -1,6 +1,7 @@
 package Persistence;
 
 import Business.Item;
+import Persistance.ItemDeserializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import edu.salle.url.api.ApiHelper;
