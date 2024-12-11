@@ -1,6 +1,5 @@
 package Persistence;
 
-import Business.Character;
 import Business.Team;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -20,7 +19,6 @@ public class TeamAPI implements TeamDAO{
     public TeamAPI() {
         try{
             this.apiHelper = new ApiHelper();
-            //this.apiHelper.deleteFromUrl(FILE_PATH +"/"+ID+"/products");
         }catch (ApiException e){
             throw new RuntimeException(e);
         }
@@ -36,7 +34,7 @@ public class TeamAPI implements TeamDAO{
     public ArrayList<Team> readAll() throws ApiException {
         ArrayList<Team> resultProducts = new ArrayList<>();
         try{
-            Gson gson = new GsonBuilder().registerTypeAdapter(Team[].class, new ProductDeserializer()).create();
+            Gson gson = new GsonBuilder().registerTypeAdapter(Team[].class, new TeamDeserializer()).create();
 
             //ArrayList<Product> resultProducts = new ArrayList<>();
             //JsonArray jsonArray = JsonParser.parseString(jsonResponse).getAsJsonArray();
@@ -50,7 +48,7 @@ public class TeamAPI implements TeamDAO{
                     resultProducts.add(p);
                 }
             }
-        }catch (ApiException e ){
+        }catch (ApiException ignored){
         }
         return resultProducts;
     }
@@ -65,7 +63,7 @@ public class TeamAPI implements TeamDAO{
      */
     @Override
     public void saveTeams(ArrayList<Team> products) {
-        Gson gson = new GsonBuilder().registerTypeAdapter(Team[].class, new ProductSerializer()).create();
+        Gson gson = new GsonBuilder().registerTypeAdapter(Team[].class, new TeamSerializer()).create();
         try {
             if ( products.size() > 1) {
                 apiHelper.deleteFromUrl(FILE_PATH + "/" + ID + "/products");

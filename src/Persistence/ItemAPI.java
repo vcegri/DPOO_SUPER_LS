@@ -1,13 +1,11 @@
 package Persistence;
 
 import Business.Item;
-import Persistance.ItemDeserializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import edu.salle.url.api.ApiHelper;
 import edu.salle.url.api.exception.ApiException;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class ItemAPI implements ItemDAO{
@@ -47,7 +45,7 @@ public class ItemAPI implements ItemDAO{
                     resultProducts.add(p);
                 }
             }
-        }catch (ApiException e ){
+        }catch (ApiException ignored){
         }
         return resultProducts;
     }

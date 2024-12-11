@@ -19,7 +19,6 @@ public class StatAPI implements StatDAO{
     public StatAPI() {
         try{
             this.apiHelper = new ApiHelper();
-            //this.apiHelper.deleteFromUrl(FILE_PATH +"/"+ID+"/products");
         }catch (ApiException e){
             throw new RuntimeException(e);
         }
@@ -35,10 +34,8 @@ public class StatAPI implements StatDAO{
     public ArrayList<Stat> readAll() throws ApiException {
         ArrayList<Stat> resultProducts = new ArrayList<>();
         try{
-            Gson gson = new GsonBuilder().registerTypeAdapter(Stat[].class, new ProductDeserializer()).create();
+            Gson gson = new GsonBuilder().registerTypeAdapter(Stat[].class, new StatDeserializer()).create();
 
-            //ArrayList<Product> resultProducts = new ArrayList<>();
-            //JsonArray jsonArray = JsonParser.parseString(jsonResponse).getAsJsonArray();
             String getUrl = apiHelper.getFromUrl(FILE_PATH + "/" + ID + "/products");
 
             String stringJson = getUrl.substring(1,getUrl .length()-1);
@@ -49,7 +46,7 @@ public class StatAPI implements StatDAO{
                     resultProducts.add(p);
                 }
             }
-        }catch (ApiException e ){
+        }catch (ApiException ignored){
         }
         return resultProducts;
     }
@@ -61,7 +58,7 @@ public class StatAPI implements StatDAO{
      */
     @Override
     public void saveStatList(ArrayList<Stat> statList) {
-        Gson gson = new GsonBuilder().registerTypeAdapter(Stat[].class, new ProductSerializer()).create();
+        Gson gson = new GsonBuilder().registerTypeAdapter(Stat[].class, new StatSerializer()).create();
         try {
             if ( statList.size() > 1) {
                 apiHelper.deleteFromUrl(FILE_PATH + "/" + ID + "/products");

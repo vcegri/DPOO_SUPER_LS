@@ -1,4 +1,4 @@
-package Persistance;
+package Persistence;
 
 import Business.Item;
 import Business.SuperItem; // Sustituir con subclases reales
