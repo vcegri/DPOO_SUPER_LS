@@ -1,6 +1,8 @@
 package Business;
 
-import Persistence.CharacterJSON;
+import Persistence.*;
+import edu.salle.url.api.ApiHelper;
+import edu.salle.url.api.exception.ApiException;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -11,15 +13,18 @@ import java.util.ArrayList;
 public class CharacterManager {
 
     /** Class to manage the characters.json file. */
-    private final CharacterJSON characterJson;
+    private CharacterDAO characterDao;
 
     /**
      * Constructs a CharacterManager with the CharacterJSON class.
-     *
-     * @param characterJson class to manage the characters.json file
      */
-    public CharacterManager(CharacterJSON characterJson) {
-        this.characterJson = characterJson;
+    public CharacterManager() {
+        try {
+            ApiHelper api = new ApiHelper();
+            characterDao = new CharacterAPI();
+        }catch (ApiException e){
+            characterDao = new CharacterJSON();
+        }
     }
 
     /**
@@ -29,7 +34,7 @@ public class CharacterManager {
      * @return true if the character exists, false if not
      * @throws FileNotFoundException if the JSON file can't be found
      */
-    public boolean comproveIfCharacterExistByName(String name) throws FileNotFoundException {
+    public boolean comproveIfCharacterExistByName(String name) throws FileNotFoundException, ApiException {
         boolean exist = false;
         ArrayList<String> characterNameList;
 
@@ -50,11 +55,11 @@ public class CharacterManager {
      * @return true if the character exists, false if not
      * @throws FileNotFoundException if the JSON file can't be found
      */
-    public boolean comproveIfCharacterExistById(long id) throws FileNotFoundException {
+    public boolean comproveIfCharacterExistById(long id) throws FileNotFoundException, ApiException {
         boolean exist = false;
         ArrayList<Character> characterList;
 
-        characterList = characterJson.readAll();
+        characterList = characterDao.readAll();
         for (Character character : characterList) {
             if (id == character.getId()) {
                 exist = true;
@@ -70,9 +75,9 @@ public class CharacterManager {
      * @return list of all the character names
      * @throws FileNotFoundException if the JSON file can't be found
      */
-    public ArrayList<String> getNameOfCharacters() throws FileNotFoundException {
+    public ArrayList<String> getNameOfCharacters() throws FileNotFoundException, ApiException {
         ArrayList<String> nameList = new ArrayList<>();
-        ArrayList<Character> characterList = characterJson.readAll();
+        ArrayList<Character> characterList = characterDao.readAll();
 
         for (Character character : characterList) {
             nameList.add(character.getName());
@@ -87,9 +92,9 @@ public class CharacterManager {
      * @return ID of the character
      * @throws FileNotFoundException if the JSON file can't be found.
      */
-    public long getIdByName(String name) throws FileNotFoundException {
+    public long getIdByName(String name) throws FileNotFoundException, ApiException {
         long id = 0;
-        ArrayList<Character> characterList = characterJson.readAll();
+        ArrayList<Character> characterList = characterDao.readAll();
 
         for (Character character : characterList) {
             String characterName = character.getName();
@@ -108,9 +113,9 @@ public class CharacterManager {
      * @return weight of the character
      * @throws FileNotFoundException if the JSON file can't be found
      */
-    public int getWeightByName(String name) throws FileNotFoundException {
+    public int getWeightByName(String name) throws FileNotFoundException, ApiException {
         int weight = 0;
-        ArrayList<Character> characterList = characterJson.readAll();
+        ArrayList<Character> characterList = characterDao.readAll();
 
         for (Character character : characterList) {
             String characterName = character.getName();
@@ -129,9 +134,9 @@ public class CharacterManager {
      * @return list of character names
      * @throws FileNotFoundException if the JSON file can't be found
      */
-    public ArrayList<String> getNameById(ArrayList<Long> idList) throws FileNotFoundException {
+    public ArrayList<String> getNameById(ArrayList<Long> idList) throws FileNotFoundException, ApiException {
         ArrayList<String> nameList = new ArrayList<>();
-        ArrayList<Character> characterList = characterJson.readAll();
+        ArrayList<Character> characterList = characterDao.readAll();
 
         for (Character character : characterList) {
             for (Long aLong : idList) {
@@ -149,8 +154,8 @@ public class CharacterManager {
      *
      * @return list of Characters
      */
-    public ArrayList<Character> getCharacterListByIdList(ArrayList<Long> teamMemberIdList) throws FileNotFoundException {
-        ArrayList<Character> characterList = characterJson.readAll();
+    public ArrayList<Character> getCharacterListByIdList(ArrayList<Long> teamMemberIdList) throws FileNotFoundException, ApiException {
+        ArrayList<Character> characterList = characterDao.readAll();
         ArrayList<Character> characterCombat = new ArrayList<>();
         for (Character character : characterList) {
             for (Long id : teamMemberIdList) {
@@ -170,6 +175,6 @@ public class CharacterManager {
      * @return true if the file is available, false if not
      */
     public boolean fileOK() {
-        return characterJson.fileOK();
+        return characterDao.fileOK();
     }
 }

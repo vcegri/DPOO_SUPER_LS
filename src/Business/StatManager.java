@@ -1,6 +1,8 @@
 package Business;
 
-import Persistence.StatJSON;
+import Persistence.*;
+import edu.salle.url.api.ApiHelper;
+import edu.salle.url.api.exception.ApiException;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -10,33 +12,35 @@ import java.util.ArrayList;
  */
 public class StatManager {
 
-    public static final int TEAMSIZE = 4;
-    public static final int FIRSTTEAM = 0;
-    public static final int SECONDTEAM = 1;
+    public static final int TEAM_SIZE = 4;
+    public static final int FIRST_TEAM = 0;
+    public static final int SECOND_TEAM = 1;
 
     /** Class to manage the stats.json file. */
-    private final StatJSON statJson;
+    private StatDAO statDao;
 
     /**
      * Constructs a StatManager with the StatJSON class.
-     *
-     * @param statJson class to manage the stats.json file
      */
-    public StatManager(StatJSON statJson) {
-        this.statJson = statJson;
-    }
+    public StatManager() {
+        try {
+            ApiHelper api = new ApiHelper();
+            statDao = new StatAPI();
+        }catch (ApiException e){
+            statDao = new StatJSON();
+        }    }
 
     /**
      * Creates a new Stat for a team with the given name.
      *
      * @param name name of the team
      */
-    public void createStat(String name) throws FileNotFoundException {
-        ArrayList<Stat> statList = statJson.readAll();
+    public void createStat(String name) throws FileNotFoundException, ApiException {
+        ArrayList<Stat> statList = statDao.readAll();
 
         Stat stat = new Stat(name);
         statList.add(stat);
-        statJson.saveStatList(statList);
+        statDao.saveStatList(statList);
     }
 
     /**
@@ -46,9 +50,9 @@ public class StatManager {
      * @return list of integers representing the teams stats
      * @throws FileNotFoundException if the stat data can't be read
      */
-    public ArrayList<Integer> getStatList(String name) throws FileNotFoundException {
+    public ArrayList<Integer> getStatList(String name) throws FileNotFoundException, ApiException {
         ArrayList<Integer> statInfoList = new ArrayList<>();
-        ArrayList<Stat> statList = statJson.readAll();
+        ArrayList<Stat> statList = statDao.readAll();
 
         for (Stat stat : statList) {
             if (name.equals(stat.getName())) {
@@ -76,8 +80,8 @@ public class StatManager {
      * @param teamName name of the team
      * @throws FileNotFoundException if the stat data can't be read or written
      */
-    public void updateStats(String winner, String teamName, ArrayList<Boolean> koList, int teamNum) throws FileNotFoundException {
-        ArrayList<Stat> statList = statJson.readAll();
+    public void updateStats(String winner, String teamName, ArrayList<Boolean> koList, int teamNum) throws FileNotFoundException, ApiException {
+        ArrayList<Stat> statList = statDao.readAll();
         int gamesPlayed, gamesWon, KO_done, KO_received;
 
         for (int i = 0; i < statList.size(); i++){
@@ -89,18 +93,18 @@ public class StatManager {
                 gamesWon = statList.get(i).getGamesWon();
                 if (winner.equals(teamName)) {
                     gamesWon++;
-                    KO_done = KO_done + TEAMSIZE;
+                    KO_done = KO_done + TEAM_SIZE;
 
                     int cont = 0;
-                    if (teamNum == FIRSTTEAM) {
-                        for (int j = 0; j < TEAMSIZE; j++) {
+                    if (teamNum == FIRST_TEAM) {
+                        for (int j = 0; j < TEAM_SIZE; j++) {
                             if (koList.get(j)) {
                                 cont++;
                             }
                         }
                     }
                     else {
-                        for (int j = TEAMSIZE; j < (2*TEAMSIZE); j++) {
+                        for (int j = TEAM_SIZE; j < (2* TEAM_SIZE); j++) {
                             if (koList.get(j)) {
                                 cont++;
                             }
@@ -109,18 +113,18 @@ public class StatManager {
                     KO_received = KO_received + cont;
                 }
                 else {
-                    KO_received = KO_received + TEAMSIZE;
+                    KO_received = KO_received + TEAM_SIZE;
 
                     int cont = 0;
-                    if (teamNum == SECONDTEAM) {
-                        for (int j = 0; j < TEAMSIZE; j++) {
+                    if (teamNum == SECOND_TEAM) {
+                        for (int j = 0; j < TEAM_SIZE; j++) {
                             if (koList.get(j)) {
                                 cont++;
                             }
                         }
                     }
                     else {
-                        for (int j = TEAMSIZE; j < (2*TEAMSIZE); j++) {
+                        for (int j = TEAM_SIZE; j < (2* TEAM_SIZE); j++) {
                             if (koList.get(j)) {
                                 cont++;
                             }
@@ -130,7 +134,7 @@ public class StatManager {
                 }
 
                 statList.get(i).updateStats(gamesPlayed, gamesWon, KO_done, KO_received);
-                statJson.saveStatList(statList);
+                statDao.saveStatList(statList);
             }
         }
     }
@@ -141,8 +145,8 @@ public class StatManager {
      * @param name name of the team
      * @throws FileNotFoundException if the statistics file can't be found.
      */
-    public void deleteStat(String name) throws FileNotFoundException {
-        ArrayList<Stat> statList = statJson.readAll();
+    public void deleteStat(String name) throws FileNotFoundException, ApiException {
+        ArrayList<Stat> statList = statDao.readAll();
 
         Stat statFound = null;
         for (Stat stat : statList) {
@@ -154,7 +158,7 @@ public class StatManager {
 
         if (statFound != null) {
             statList.remove(statFound);
-            statJson.saveStatList(statList);
+            statDao.saveStatList(statList);
         }
     }
 }

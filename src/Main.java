@@ -17,9 +17,9 @@ public class Main {
         ItemJSON itemJson = new ItemJSON();
         StatJSON statJson = new StatJSON();
         TeamJSON teamJson = new TeamJSON();
-        CharacterManager characterManager = new CharacterManager(characterJson);
-        ItemManager itemManager = new ItemManager(itemJson);
-        StatManager statManager = new StatManager(statJson);
+        CharacterManager characterManager = new CharacterManager();
+        ItemManager itemManager = new ItemManager();
+        StatManager statManager = new StatManager();
         TeamManager teamManager = new TeamManager();
         CombatManager combatManager = new CombatManager();
 

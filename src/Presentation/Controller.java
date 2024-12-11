@@ -215,7 +215,7 @@ public class Controller {
      * @return corresponding TeamMember.
      * @throws FileNotFoundException if the JSON file can't be found.
      */
-    private TeamMember getTeamMember(String characterName, int j) throws FileNotFoundException {
+    private TeamMember getTeamMember(String characterName, int j) throws FileNotFoundException, ApiException {
         boolean characterExist;
         boolean isLong = false;
         long id = 0;
@@ -227,6 +227,8 @@ public class Controller {
             isLong = true;
         } catch (NumberFormatException e) {
             characterExist = characterManager.comproveIfCharacterExistByName(characterName);
+        } catch (ApiException e) {
+            throw new RuntimeException(e);
         }
 
         if (characterExist){
@@ -455,7 +457,7 @@ public class Controller {
      * @param teamFight list of teams in the combat.
      * @throws FileNotFoundException if the JSON file can't be found.
      */
-    private void showTeamInfoForCombat(int numTeam, ArrayList<Team> teamFight) throws FileNotFoundException {
+    private void showTeamInfoForCombat(int numTeam, ArrayList<Team> teamFight) throws FileNotFoundException, ApiException {
         int teamSize = 4;
         ArrayList<String> teamMemberNameList = new ArrayList<>();
         ArrayList<Long> teamMemberIdList = new ArrayList<>();
@@ -484,7 +486,7 @@ public class Controller {
      *
      * @throws FileNotFoundException if the JSON file can't be found.
      */
-    private void executeCombat() throws FileNotFoundException {
+    private void executeCombat() throws FileNotFoundException, ApiException {
         int roundNum = 1;
         ArrayList<Boolean> koList = new ArrayList<>();
         ArrayList<Double> damageTakenList = new ArrayList<>();
@@ -528,7 +530,7 @@ public class Controller {
      *
      * @throws FileNotFoundException if the JSON file can't be found.
      */
-    private void roundTeamInfo() throws FileNotFoundException {
+    private void roundTeamInfo() throws FileNotFoundException, ApiException {
         int teamNumber;
         ArrayList<String> nameList;
         ArrayList<String> weaponList;
@@ -566,7 +568,7 @@ public class Controller {
      *
      * @throws FileNotFoundException if the JSON file can't be found.
      */
-    private void executeAction() throws FileNotFoundException {
+    private void executeAction() throws FileNotFoundException, ApiException {
 
         for (int i = 0; i < combatManager.getCombatMemberList().size(); i++){
             CombatMember combatMember = combatManager.getCombatMemberList().get(i);
@@ -673,7 +675,7 @@ public class Controller {
      * @param i index of the CombatMember at the list.
      * @throws FileNotFoundException if the JSON file can't be found.
      */
-    private void newWeapon(int i) throws FileNotFoundException {
+    private void newWeapon(int i) throws FileNotFoundException, ApiException {
         this.combatManager.getCombatMemberList().get(i).setWeapon(itemManager.setRandomWeapon());
         menu.println(combatManager.getCombatMemberList().get(i).getCharacter().getName() + " GOT A NEW WEAPON");
     }
@@ -733,7 +735,7 @@ public class Controller {
      * @param koList a list indicating KO variable for each character.
      * @throws FileNotFoundException if the JSON file can't be found.
      */
-    private void updateStats(String winner, ArrayList<Boolean> koList) throws FileNotFoundException {
+    private void updateStats(String winner, ArrayList<Boolean> koList) throws FileNotFoundException, ApiException {
         String teamName;
         int teamNum = 2;
 

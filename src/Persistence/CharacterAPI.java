@@ -6,7 +6,6 @@ import com.google.gson.GsonBuilder;
 import edu.salle.url.api.ApiHelper;
 import edu.salle.url.api.exception.ApiException;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class CharacterAPI implements CharacterDAO{
@@ -34,21 +33,18 @@ public class CharacterAPI implements CharacterDAO{
     public ArrayList<Character> readAll() throws ApiException {
         ArrayList<Character> resultProducts = new ArrayList<>();
         try{
-            Gson gson = new GsonBuilder().registerTypeAdapter(Character[].class, new CharacterDeserializer()).create();
-
-            //ArrayList<Product> resultProducts = new ArrayList<>();
-            //JsonArray jsonArray = JsonParser.parseString(jsonResponse).getAsJsonArray();
+            Gson gson = new GsonBuilder().registerTypeAdapter(Character.class, new CharacterDeserializer()).create();
             String getUrl = apiHelper.getFromUrl(FILE_PATH + "/" + ID + "/products");
 
             String stringJson = getUrl.substring(1,getUrl .length()-1);
             Character[] products = gson.fromJson(stringJson, Character[].class);
 
             if ( products != null){
-                for ( Character p: products){
+                for (Character p: products){
                     resultProducts.add(p);
                 }
             }
-        }catch (ApiException e ){
+        }catch (ApiException ignored){
         }
         return resultProducts;
     }

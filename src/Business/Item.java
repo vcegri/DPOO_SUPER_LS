@@ -29,7 +29,7 @@ public abstract class Item {
      * @param durability initial durability of the item
      * @param classe     type of the item
      */
-    public Item(int id, String name, int power, int durability, String classe) {
+    public Item(long id, String name, int power, int durability, String classe) {
         this.id = id;
         this.name = name;
         this.power = power;

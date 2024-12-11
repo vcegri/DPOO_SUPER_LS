@@ -154,8 +154,16 @@ public class CombatManager {
     public void checkDefenders(){
 
         for (int i = 0; i < getCombatMemberList().size(); i++) {
-            this.getCombatMemberList().get(i).setDefending(getCombatMemberList().get(i).isDefendRequest());
-            this.getCombatMemberList().get(i).setDefendingStatus(false);
+            CombatMember combatMember = this.getCombatMemberList().get(i);
+            if (combatMember instanceof CombatMemberDeffensive) {
+                ((CombatMemberDeffensive) combatMember).setDefending(((CombatMemberDeffensive) getCombatMemberList().get(i)).isDefendRequest());
+                ((CombatMemberDeffensive) combatMember).setDefendingStatus(false);
+            }
+
+            if (combatMember instanceof CombatMemberBalanced) {
+                ((CombatMemberBalanced) combatMember).setDefending(((CombatMemberBalanced) getCombatMemberList().get(i)).isDefendRequest());
+                ((CombatMemberBalanced) combatMember).setDefendingStatus(false);
+            }
         }
     }
 
@@ -192,8 +200,22 @@ public class CombatManager {
      * @param armor     armor equipped by the CombatMember
      */
     public void createCombatMember(Character character, String strategy, Item weapon, Item armor) {
-        CombatMember combatMember = new CombatMember(character, strategy, weapon, armor);
-        this.combatMemberList.add(combatMember);
+        if (strategy.equals("balanced")) {
+            CombatMember combatMember = new CombatMemberBalanced(character, strategy, weapon, armor);
+            this.combatMemberList.add(combatMember);
+        }
+        if (strategy.equals("sniper")) {
+            CombatMember combatMember = new CombatMemberSniper(character, strategy, weapon, armor);
+            this.combatMemberList.add(combatMember);
+        }
+        if (strategy.equals("defensive")) {
+            CombatMember combatMember = new CombatMemberDeffensive(character, strategy, weapon, armor);
+            this.combatMemberList.add(combatMember);
+        }
+        if (strategy.equals("offensive")) {
+            CombatMember combatMember = new CombatMemberOffensive(character, strategy, weapon, armor);
+            this.combatMemberList.add(combatMember);
+        }
     }
 
     /**

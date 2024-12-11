@@ -1,6 +1,8 @@
 package Business;
 
-import Persistence.ItemJSON;
+import Persistence.*;
+import edu.salle.url.api.ApiHelper;
+import edu.salle.url.api.exception.ApiException;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -15,15 +17,18 @@ public class ItemManager {
     public static final String ARMOR = "Armor";
 
     /** Class to manage the items.json file. */
-    private final ItemJSON itemJson;
+    private ItemDAO itemDao;
 
     /**
      * Constructs a ItemManager with the ItemJSON class.
-     *
-     * @param itemJson class to manage the items.json file
      */
-    public ItemManager(ItemJSON itemJson) {
-        this.itemJson = itemJson;
+    public ItemManager() {
+        try {
+            ApiHelper api = new ApiHelper();
+            itemDao = new ItemAPI();
+        }catch (ApiException e){
+            itemDao = new ItemAPI();
+        }
     }
 
     /**
@@ -33,9 +38,9 @@ public class ItemManager {
      * @return ID of the item
      * @throws FileNotFoundException if the item data can't be read
      */
-    public Long getIdByName(String name) throws FileNotFoundException {
+    public Long getIdByName(String name) throws FileNotFoundException, ApiException {
         long id = 0;
-        ArrayList<Item> itemList = itemJson.readAll();
+        ArrayList<Item> itemList = itemDao.readAll();
 
         for (Item item : itemList) {
             String characterName = item.getName();
@@ -54,10 +59,10 @@ public class ItemManager {
      * @return power of the item
      * @throws FileNotFoundException if the item data can't be read
      */
-    public int getPowerByName(String name) throws FileNotFoundException {
+    public int getPowerByName(String name) throws FileNotFoundException, ApiException {
         int power = 0;
 
-        ArrayList<Item> itemList = itemJson.readAll();
+        ArrayList<Item> itemList = itemDao.readAll();
 
         for (Item item : itemList) {
             String characterName = item.getName();
@@ -76,10 +81,10 @@ public class ItemManager {
      * @return durability of the item
      * @throws FileNotFoundException if the item data can't be read
      */
-    public int getDurabilityByName(String name) throws FileNotFoundException {
+    public int getDurabilityByName(String name) throws FileNotFoundException, ApiException {
         int durability = 0;
 
-        ArrayList<Item> itemList = itemJson.readAll();
+        ArrayList<Item> itemList = itemDao.readAll();
 
         for (Item item : itemList) {
             String characterName = item.getName();
@@ -98,10 +103,10 @@ public class ItemManager {
      * @return class of the item
      * @throws FileNotFoundException if the item data can't be read
      */
-    public String getClasseByName(String name) throws FileNotFoundException {
+    public String getClasseByName(String name) throws FileNotFoundException, ApiException {
         String classe = "";
 
-        ArrayList<Item> itemList = itemJson.readAll();
+        ArrayList<Item> itemList = itemDao.readAll();
 
         for (Item item : itemList) {
             String characterName = item.getName();
@@ -119,9 +124,9 @@ public class ItemManager {
      * @return list of item names
      * @throws FileNotFoundException if the item data can't be read
      */
-    public ArrayList<String> getNameOfItems() throws FileNotFoundException {
+    public ArrayList<String> getNameOfItems() throws FileNotFoundException, ApiException {
         ArrayList<String> nameList = new ArrayList<>();
-        ArrayList<Item> itemList = itemJson.readAll();
+        ArrayList<Item> itemList = itemDao.readAll();
 
         for (Item item : itemList) {
             nameList.add(item.getName());
@@ -134,9 +139,9 @@ public class ItemManager {
      *
      * @return random Item representing a weapon
      */
-    public Item setRandomWeapon() throws FileNotFoundException {
+    public Item setRandomWeapon() throws FileNotFoundException, ApiException {
         Random random = new Random();
-        ArrayList<Item> itemList = itemJson.readAll();
+        ArrayList<Item> itemList = itemDao.readAll();
         int randomWeapon = random.nextInt(itemList.size());
         do {
             if (itemList.get(randomWeapon).getClasse().equals(ARMOR)) {
@@ -152,9 +157,9 @@ public class ItemManager {
      *
      * @return random Item representing armor
      */
-    public Item setRandomArmor() throws FileNotFoundException {
+    public Item setRandomArmor() throws FileNotFoundException, ApiException {
         Random random = new Random();
-        ArrayList<Item> itemList = itemJson.readAll();
+        ArrayList<Item> itemList = itemDao.readAll();
         int randomArmor = random.nextInt(itemList.size());
         do {
             if (itemList.get(randomArmor).getClasse().equals(WEAPON)) {
@@ -171,6 +176,6 @@ public class ItemManager {
      * @return true if the file is accessible, false if not
      */
     public boolean fileOK() {
-        return itemJson.fileOK();
+        return itemDao.fileOK();
     }
 }

@@ -20,7 +20,6 @@ public class ItemAPI implements ItemDAO{
     public ItemAPI() {
         try{
             this.apiHelper = new ApiHelper();
-            //this.apiHelper.deleteFromUrl(FILE_PATH +"/"+ID+"/products");
         }catch (ApiException e){
             throw new RuntimeException(e);
         }
@@ -36,10 +35,7 @@ public class ItemAPI implements ItemDAO{
     public ArrayList<Item> readAll() throws ApiException {
         ArrayList<Item> resultProducts = new ArrayList<>();
         try{
-            Gson gson = new GsonBuilder().registerTypeAdapter(Item[].class, new ProductDeserializer()).create();
-
-            //ArrayList<Product> resultProducts = new ArrayList<>();
-            //JsonArray jsonArray = JsonParser.parseString(jsonResponse).getAsJsonArray();
+            Gson gson = new GsonBuilder().registerTypeAdapter(Item[].class, new ItemDeserializer()).create();
             String getUrl = apiHelper.getFromUrl(FILE_PATH + "/" + ID + "/products");
 
             String stringJson = getUrl.substring(1,getUrl .length()-1);
