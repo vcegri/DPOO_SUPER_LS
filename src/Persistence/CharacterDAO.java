@@ -10,5 +10,5 @@ public interface CharacterDAO {
 
     ArrayList<Character> readAll() throws FileNotFoundException, ApiException;
 
-    boolean fileOK();
+    int fileOK();
 }

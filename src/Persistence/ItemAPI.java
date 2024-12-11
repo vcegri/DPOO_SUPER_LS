@@ -35,7 +35,7 @@ public class ItemAPI implements ItemDAO{
         ArrayList<Item> resultProducts = new ArrayList<>();
         try{
             Gson gson = new GsonBuilder().registerTypeAdapter(Item[].class, new ItemDeserializer()).create();
-            String getUrl = apiHelper.getFromUrl(FILE_PATH + "/" + ID + "/products");
+            String getUrl = apiHelper.getFromUrl(FILE_PATH + "/" + ID + "/items");
 
             String stringJson = getUrl.substring(1,getUrl .length()-1);
             Item[] products = gson.fromJson(stringJson, Item[].class);
@@ -56,13 +56,13 @@ public class ItemAPI implements ItemDAO{
      * @return True si el fitxer és vàlid, false en cas contrari.
      */
     @Override
-    public boolean fileOK() {
+    public int fileOK() {
         try {
-            String response = apiHelper.getFromUrl(FILE_PATH + "/" + ID + "/products");
-            return true;
+            apiHelper.getFromUrl(FILE_PATH + "/" + ID + "/items");
+            return 1;
         } catch (ApiException e) {
             e.printStackTrace();
-            return false;
+            return 0;
         }
     }
 }

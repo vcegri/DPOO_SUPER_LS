@@ -8,5 +8,5 @@ import java.util.ArrayList;
 
 public interface ItemDAO {
     ArrayList<Item> readAll() throws FileNotFoundException, ApiException;
-    boolean fileOK();
+    int fileOK();
 }

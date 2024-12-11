@@ -175,7 +175,7 @@ public class ItemManager {
      *
      * @return true if the file is accessible, false if not
      */
-    public boolean fileOK() {
+    public int fileOK() {
         return itemDao.fileOK();
     }
 }

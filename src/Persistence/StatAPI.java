@@ -36,7 +36,7 @@ public class StatAPI implements StatDAO{
         try{
             Gson gson = new GsonBuilder().registerTypeAdapter(Stat[].class, new StatDeserializer()).create();
 
-            String getUrl = apiHelper.getFromUrl(FILE_PATH + "/" + ID + "/products");
+            String getUrl = apiHelper.getFromUrl(FILE_PATH + "/" + ID + "/stats");
 
             String stringJson = getUrl.substring(1,getUrl .length()-1);
             Stat[] products = gson.fromJson(stringJson, Stat[].class);
@@ -61,12 +61,12 @@ public class StatAPI implements StatDAO{
         Gson gson = new GsonBuilder().registerTypeAdapter(Stat[].class, new StatSerializer()).create();
         try {
             if ( statList.size() > 1) {
-                apiHelper.deleteFromUrl(FILE_PATH + "/" + ID + "/products");
+                apiHelper.deleteFromUrl(FILE_PATH + "/" + ID + "/stats");
             }
             Stat[] p = statList.toArray(new Stat[0]);
             String jsonBody = gson.toJson(p);
 
-            apiHelper.postToUrl(FILE_PATH + "/" + ID + "/products", jsonBody);
+            apiHelper.postToUrl(FILE_PATH + "/" + ID + "/stats", jsonBody);
         } catch (IOException e) {
             e.printStackTrace();
         }

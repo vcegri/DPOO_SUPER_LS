@@ -174,7 +174,7 @@ public class CharacterManager {
      *
      * @return true if the file is available, false if not
      */
-    public boolean fileOK() {
+    public int fileOK() {
         return characterDao.fileOK();
     }
 }

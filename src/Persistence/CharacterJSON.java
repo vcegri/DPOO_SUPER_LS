@@ -38,8 +38,12 @@ public class CharacterJSON implements CharacterDAO{
      *
      * @return true if all is okay
      */
-    public boolean fileOK() {
+    public int fileOK() {
         File characterFile = new File(FILE_PATH);
-        return characterFile.exists() && characterFile.isFile();
+        int fileState = 2;
+        if (characterFile.exists() && characterFile.isFile()) {
+            fileState = 3;
+        }
+        return fileState;
     }
 }

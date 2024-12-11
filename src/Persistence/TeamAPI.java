@@ -36,9 +36,7 @@ public class TeamAPI implements TeamDAO{
         try{
             Gson gson = new GsonBuilder().registerTypeAdapter(Team[].class, new TeamDeserializer()).create();
 
-            //ArrayList<Product> resultProducts = new ArrayList<>();
-            //JsonArray jsonArray = JsonParser.parseString(jsonResponse).getAsJsonArray();
-            String getUrl = apiHelper.getFromUrl(FILE_PATH + "/" + ID + "/products");
+            String getUrl = apiHelper.getFromUrl(FILE_PATH + "/" + ID + "/teams");
 
             String stringJson = getUrl.substring(1,getUrl .length()-1);
             Team[] products = gson.fromJson(stringJson, Team[].class);
@@ -66,12 +64,12 @@ public class TeamAPI implements TeamDAO{
         Gson gson = new GsonBuilder().registerTypeAdapter(Team[].class, new TeamSerializer()).create();
         try {
             if ( products.size() > 1) {
-                apiHelper.deleteFromUrl(FILE_PATH + "/" + ID + "/products");
+                apiHelper.deleteFromUrl(FILE_PATH + "/" + ID + "/teams");
             }
             Team[] p = products.toArray(new Team[0]);
             String jsonBody = gson.toJson(p);
 
-            apiHelper.postToUrl(FILE_PATH + "/" + ID + "/products", jsonBody);
+            apiHelper.postToUrl(FILE_PATH + "/" + ID + "/teams", jsonBody);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -34,7 +34,7 @@ public class CharacterAPI implements CharacterDAO{
         ArrayList<Character> resultProducts = new ArrayList<>();
         try{
             Gson gson = new GsonBuilder().registerTypeAdapter(Character.class, new CharacterDeserializer()).create();
-            String getUrl = apiHelper.getFromUrl(FILE_PATH + "/" + ID + "/products");
+            String getUrl = apiHelper.getFromUrl(FILE_PATH + "/" + ID + "/characters");
 
             String stringJson = getUrl.substring(1,getUrl .length()-1);
             Character[] products = gson.fromJson(stringJson, Character[].class);
@@ -55,13 +55,13 @@ public class CharacterAPI implements CharacterDAO{
      * @return True si el fitxer és vàlid, false en cas contrari.
      */
     @Override
-    public boolean fileOK() {
+    public int fileOK() {
         try {
-            String response = apiHelper.getFromUrl(FILE_PATH + "/" + ID + "/products");
-            return true;
+            apiHelper.getFromUrl(FILE_PATH + "/" + ID + "/characters");
+            return 1;
         } catch (ApiException e) {
             e.printStackTrace();
-            return false;
+            return 0;
         }
     }
 }

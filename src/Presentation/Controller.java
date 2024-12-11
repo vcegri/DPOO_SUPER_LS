@@ -97,27 +97,26 @@ public class Controller {
      * @return true if the program can start, false if not.
      */
     private boolean startProgram() {
-        boolean startProgram;
-        boolean characterFileOk = characterManager.fileOK();
-        boolean itemFileOk = itemManager.fileOK();
-        boolean apiOk = true;
+        boolean startProgram = false;
+        int characterFileOk = characterManager.fileOK();
+        int itemFileOk = itemManager.fileOK();
 
-        if (apiOk) {
+        if (characterFileOk == 1 && itemFileOk == 1) {
             menu.correctFile();
             startProgram = true;
         }
         else {
             menu.println("Api failed...");
-            if(characterFileOk && itemFileOk) {
+            if(characterFileOk == 3 && itemFileOk == 3) {
                 menu.correctFile();
                 startProgram = true;
             }
             else {
-                startProgram = false;
-                if (!characterFileOk && !itemFileOk) {
+
+                if (characterFileOk == 2 && itemFileOk == 2) {
                     menu.incorrectFile("charaters.json y items.json files");
                 }
-                else if (!characterFileOk) {
+                else if (characterFileOk == 2) {
                     menu.incorrectFile("characters.json file");
                 }
                 else {

@@ -40,8 +40,12 @@ public class ItemJSON implements ItemDAO{
      *
      * @return true if all is okay
      */
-    public boolean fileOK() {
+    public int fileOK() {
         File itemFile = new File(FILE_PATH);
-        return itemFile.exists() && itemFile.isFile();
+        int fileState = 2;
+        if (itemFile.exists() && itemFile.isFile()) {
+            fileState = 3;
+        }
+        return fileState;
     }
 }
