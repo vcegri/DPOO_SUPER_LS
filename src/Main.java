@@ -13,10 +13,6 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         Menu menu = new Menu();
-        CharacterJSON characterJson = new CharacterJSON();
-        ItemJSON itemJson = new ItemJSON();
-        StatJSON statJson = new StatJSON();
-        TeamJSON teamJson = new TeamJSON();
         CharacterManager characterManager = new CharacterManager();
         ItemManager itemManager = new ItemManager();
         StatManager statManager = new StatManager();
