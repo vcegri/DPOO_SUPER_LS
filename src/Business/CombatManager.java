@@ -248,11 +248,13 @@ public class CombatManager {
         double damage;
         int attackerWeight;
         double attackerDamage;
-        double weaponPower;
+        double weaponPower = 0;
 
         attackerWeight = attacker.getCharacter().getWeight();
-        weaponPower = attacker.getWeapon().getItemUtilityPower(attackerWeight);
         attackerDamage = attacker.getDamage();
+        if (attacker.getWeapon() != null){
+            weaponPower = attacker.getWeapon().getItemUtilityPower(attackerWeight);
+        }
 
         damage = attackerWeight * (1 - attackerDamage);
         damage = damage / 10;
