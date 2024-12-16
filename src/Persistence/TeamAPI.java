@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class TeamAPI implements TeamDAO{
     private static final String FILE_PATH = "https://balandrau.salle.url.edu/dpoo";
     private final ApiHelper apiHelper;
-    private final String ID = "P1-G11";
+    private final String ID = "S1-Project_11";
     /**
      * Constructor para crear un DAO para la gestión de productos.
      */

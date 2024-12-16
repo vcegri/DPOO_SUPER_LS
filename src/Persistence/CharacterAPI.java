@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public class CharacterAPI implements CharacterDAO{
     private static final String FILE_PATH = "https://balandrau.salle.url.edu/dpoo";
     private final ApiHelper apiHelper;
-    private final String ID = "P1-G11";
     /**
      * Constructor para crear un DAO para la gestión de productos.
      */
@@ -34,7 +33,7 @@ public class CharacterAPI implements CharacterDAO{
         ArrayList<Character> resultProducts = new ArrayList<>();
         try{
             Gson gson = new GsonBuilder().registerTypeAdapter(Character.class, new CharacterDeserializer()).create();
-            String getUrl = apiHelper.getFromUrl(FILE_PATH + "/" + ID + "/characters");
+            String getUrl = apiHelper.getFromUrl(FILE_PATH + "/shared/characters");
 
             String stringJson = getUrl.substring(1,getUrl .length()-1);
             Character[] products = gson.fromJson(stringJson, Character[].class);
@@ -57,7 +56,7 @@ public class CharacterAPI implements CharacterDAO{
     @Override
     public int fileOK() {
         try {
-            apiHelper.getFromUrl(FILE_PATH + "/" + ID + "/characters");
+            apiHelper.getFromUrl(FILE_PATH + "/shared/characters");
             return 1;
         } catch (ApiException e) {
             e.printStackTrace();

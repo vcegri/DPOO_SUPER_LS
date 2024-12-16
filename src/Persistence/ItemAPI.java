@@ -12,7 +12,6 @@ public class ItemAPI implements ItemDAO{
 
     private static final String FILE_PATH = "https://balandrau.salle.url.edu/dpoo";
     private final ApiHelper apiHelper;
-    private final String ID = "P1-G11";
     /**
      * Constructor para crear un DAO para la gestión de productos.
      */
@@ -35,7 +34,7 @@ public class ItemAPI implements ItemDAO{
         ArrayList<Item> resultProducts = new ArrayList<>();
         try{
             Gson gson = new GsonBuilder().registerTypeAdapter(Item[].class, new ItemDeserializer()).create();
-            String getUrl = apiHelper.getFromUrl(FILE_PATH + "/" + ID + "/items");
+            String getUrl = apiHelper.getFromUrl(FILE_PATH + "/shared/items");
 
             String stringJson = getUrl.substring(1,getUrl .length()-1);
             Item[] products = gson.fromJson(stringJson, Item[].class);
@@ -58,7 +57,7 @@ public class ItemAPI implements ItemDAO{
     @Override
     public int fileOK() {
         try {
-            apiHelper.getFromUrl(FILE_PATH + "/" + ID + "/items");
+            apiHelper.getFromUrl(FILE_PATH + "/shared/items");
             return 1;
         } catch (ApiException e) {
             e.printStackTrace();
