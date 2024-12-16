@@ -12,6 +12,8 @@ import java.util.ArrayList;
  */
 public class CharacterManager {
 
+    private static final int DEFAULT_VALUE = 0;
+
     /** Class to manage the characters.json file. */
     private CharacterDAO characterDao;
 
@@ -93,7 +95,7 @@ public class CharacterManager {
      * @throws FileNotFoundException if the JSON file can't be found.
      */
     public long getIdByName(String name) throws FileNotFoundException, ApiException {
-        long id = 0;
+        long id = DEFAULT_VALUE;
         ArrayList<Character> characterList = characterDao.readAll();
 
         for (Character character : characterList) {
@@ -114,7 +116,7 @@ public class CharacterManager {
      * @throws FileNotFoundException if the JSON file can't be found
      */
     public int getWeightByName(String name) throws FileNotFoundException, ApiException {
-        int weight = 0;
+        int weight = DEFAULT_VALUE;
         ArrayList<Character> characterList = characterDao.readAll();
 
         for (Character character : characterList) {
