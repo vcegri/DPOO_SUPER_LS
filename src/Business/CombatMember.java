@@ -5,6 +5,8 @@ package Business;
  */
 public abstract class CombatMember {
 
+    private static final int DEFAULT_VALUE = 0;
+
     /** Character associated with the CombatMember. */
     private final Character character;
 
@@ -37,7 +39,7 @@ public abstract class CombatMember {
     public CombatMember(Character character, String strategy, Item weapon, Item armor) {
         this.character = character;
         this.strategy = strategy;
-        this.damage = 0;
+        this.damage = DEFAULT_VALUE;
         this.weapon = weapon;
         this.armor = armor;
         this.ko = false;
@@ -132,7 +134,7 @@ public abstract class CombatMember {
      *
      * @param attacked true if the CombatMember has been attacked, false if not.
      */
-    public void setAtacked(boolean attacked) {
+    public void setAttacked(boolean attacked) {
         this.attacked = attacked;
     }
 

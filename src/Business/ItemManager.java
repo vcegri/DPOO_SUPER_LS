@@ -17,6 +17,7 @@ public class ItemManager {
     public static final String ARMOR = "Armor";
     public static final String SUPER_ARMOR = "Superarmor";
     public static final String SUPER_WEAPON = "Superweapon";
+    public static final int DEFAULT_VALUE = 0;
 
     /** Class to manage the items.json file. */
     private ItemDAO itemDao;
@@ -41,7 +42,7 @@ public class ItemManager {
      * @throws FileNotFoundException if the item data can't be read
      */
     public Long getIdByName(String name) throws FileNotFoundException, ApiException {
-        long id = 0;
+        long id = DEFAULT_VALUE;
         ArrayList<Item> itemList = itemDao.readAll();
 
         for (Item item : itemList) {
@@ -62,7 +63,7 @@ public class ItemManager {
      * @throws FileNotFoundException if the item data can't be read
      */
     public int getPowerByName(String name) throws FileNotFoundException, ApiException {
-        int power = 0;
+        int power = DEFAULT_VALUE;
 
         ArrayList<Item> itemList = itemDao.readAll();
 
@@ -84,7 +85,7 @@ public class ItemManager {
      * @throws FileNotFoundException if the item data can't be read
      */
     public int getDurabilityByName(String name) throws FileNotFoundException, ApiException {
-        int durability = 0;
+        int durability = DEFAULT_VALUE;
 
         ArrayList<Item> itemList = itemDao.readAll();
 

@@ -2,6 +2,9 @@ package Business;
 
 public class CombatMemberDeffensive extends CombatMember{
 
+    private static final String ATTACK = "ATTACK";
+    private static final String DEFEND = "DEFEND";
+
     /** Indicates when this CombatMember is defending */
     private boolean defending;
 
@@ -65,9 +68,9 @@ public class CombatMemberDeffensive extends CombatMember{
         if (!isKo()) {
             if (hasArmor() && hasHighDamage()) {
                 this.setDefendingStatus(true);
-                action = "DEFEND";
+                action = DEFEND;
             } else {
-                action = "ATACK";
+                action = ATTACK;
             }
         }
 

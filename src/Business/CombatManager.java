@@ -8,6 +8,14 @@ import java.util.Random;
  */
 public class CombatManager {
 
+    private static final int TEAM_SIZE = 4;
+    private static final int DEFAULT_VALUE = 0;
+    private static final String BALANCED = "balanced";
+    private static final String SNIPER = "sniper";
+    private static final String DEFENSIVE = "defensive";
+    private static final String OFFENSIVE = "offensive";
+    private static final String NULL = "null";
+
     /** List of CombatMembers that participates in the combat*/
     private final ArrayList<CombatMember> combatMemberList;
 
@@ -57,11 +65,9 @@ public class CombatManager {
      * @param armorList      list of armor available for CombatMembers
      * @param characterList  list of characters participating at the combat
      */
-    public void setCombat(ArrayList<Team> teamFight, ArrayList<Item> weaponList, ArrayList<Item> armorList, ArrayList<Character> characterList) {
-        int teamSize = 4;
-
-        for (int i = 0; i < teamSize; i++) {
-            createCombatMember(characterList.get(i), "Balanced", weaponList.get(i), armorList.get(i));
+    public void setCombat(ArrayList<Team> teamFight, ArrayList<Item> weaponList, ArrayList<Item> armorList, ArrayList<Character> characterList, ArrayList<String> strategyList) {
+        for (int i = DEFAULT_VALUE; i < TEAM_SIZE; i++) {
+            createCombatMember(characterList.get(i), strategyList.get(i), weaponList.get(i), armorList.get(i));
         }
         setTeamList(teamFight);
     }
@@ -73,20 +79,18 @@ public class CombatManager {
      */
     public ArrayList<String> getWeaponList(int k) {
         ArrayList<String> weaponNameList = new ArrayList<>();
-        int teamSize = 4;
-
-        for (int i = 0; i < teamSize; i++) {
-            if (k == 0) {
+        for (int i = DEFAULT_VALUE; i < TEAM_SIZE; i++) {
+            if (k == DEFAULT_VALUE) {
                 if (getCombatMemberList().get(i).getWeapon() == null) {
-                    weaponNameList.add("null");
+                    weaponNameList.add(NULL);
                 } else {
                     weaponNameList.add(getCombatMemberList().get(i).getWeapon().getName());
                 }
             }
             else {
-                k = i + 4;
+                k = i + TEAM_SIZE;
                 if (getCombatMemberList().get(k).getWeapon() == null) {
-                    weaponNameList.add("null");
+                    weaponNameList.add(NULL);
                 } else {
                     weaponNameList.add(getCombatMemberList().get(k).getWeapon().getName());
                 }
@@ -103,20 +107,18 @@ public class CombatManager {
      */
     public ArrayList<String> getArmorList(int k) {
         ArrayList<String> armorNameList = new ArrayList<>();
-        int teamSize = 4;
-
-        for (int i = 0; i < teamSize; i++) {
-            if (k == 0) {
+        for (int i = DEFAULT_VALUE; i < TEAM_SIZE; i++) {
+            if (k == DEFAULT_VALUE) {
                 if (getCombatMemberList().get(i).getArmor() == null) {
-                    armorNameList.add("null");
+                    armorNameList.add(NULL);
                 } else {
                     armorNameList.add(getCombatMemberList().get(i).getArmor().getName());
                 }
             }
             else {
-                k = i + 4;
+                k = i + TEAM_SIZE;
                 if (getCombatMemberList().get(k).getArmor() == null) {
-                    armorNameList.add("null");
+                    armorNameList.add(NULL);
                 } else {
                     armorNameList.add(getCombatMemberList().get(k).getArmor().getName());
                 }
@@ -133,14 +135,12 @@ public class CombatManager {
      */
     public ArrayList<Double> getDamageList(int k) {
         ArrayList<Double> damageNameList = new ArrayList<>();
-        int teamSize = 4;
-
-        for (int i = 0; i < teamSize; i++) {
-            if (k == 0) {
+        for (int i = DEFAULT_VALUE; i < TEAM_SIZE; i++) {
+            if (k == DEFAULT_VALUE) {
                 damageNameList.add(getCombatMemberList().get(i).getDamage());
             }
             else {
-                k = i + 4;
+                k = i + TEAM_SIZE;
                 damageNameList.add(getCombatMemberList().get(k).getDamage());
             }
         }
@@ -153,7 +153,7 @@ public class CombatManager {
      */
     public void checkDefenders(){
 
-        for (int i = 0; i < getCombatMemberList().size(); i++) {
+        for (int i = DEFAULT_VALUE; i < getCombatMemberList().size(); i++) {
             CombatMember combatMember = this.getCombatMemberList().get(i);
             if (combatMember instanceof CombatMemberDeffensive) {
                 ((CombatMemberDeffensive) combatMember).setDefending(((CombatMemberDeffensive) getCombatMemberList().get(i)).isDefendRequest());
@@ -185,9 +185,9 @@ public class CombatManager {
      * resets the attacked state of all combat members.
      */
     public void calculateKo() {
-        for (int i = 0; i < getCombatMemberList().size(); i++) {
+        for (int i = DEFAULT_VALUE; i < getCombatMemberList().size(); i++) {
             this.knocked(i);
-            this.combatMemberList.get(i).setAtacked(false);
+            this.combatMemberList.get(i).setAttacked(false);
         }
     }
 
@@ -200,19 +200,19 @@ public class CombatManager {
      * @param armor     armor equipped by the CombatMember
      */
     public void createCombatMember(Character character, String strategy, Item weapon, Item armor) {
-        if (strategy.equals("balanced")) {
+        if (strategy.equals(BALANCED)) {
             CombatMember combatMember = new CombatMemberBalanced(character, strategy, weapon, armor);
             this.combatMemberList.add(combatMember);
         }
-        if (strategy.equals("sniper")) {
+        if (strategy.equals(SNIPER)) {
             CombatMember combatMember = new CombatMemberSniper(character, strategy, weapon, armor);
             this.combatMemberList.add(combatMember);
         }
-        if (strategy.equals("defensive")) {
+        if (strategy.equals(DEFENSIVE)) {
             CombatMember combatMember = new CombatMemberDeffensive(character, strategy, weapon, armor);
             this.combatMemberList.add(combatMember);
         }
-        if (strategy.equals("offensive")) {
+        if (strategy.equals(OFFENSIVE)) {
             CombatMember combatMember = new CombatMemberOffensive(character, strategy, weapon, armor);
             this.combatMemberList.add(combatMember);
         }
@@ -248,7 +248,7 @@ public class CombatManager {
         double damage;
         int attackerWeight;
         double attackerDamage;
-        double weaponPower = 0;
+        double weaponPower = DEFAULT_VALUE;
 
         attackerWeight = attacker.getCharacter().getWeight();
         attackerDamage = attacker.getDamage();
@@ -282,7 +282,7 @@ public class CombatManager {
             armor = defender.getArmor().getItemUtilityPower(defenderWeight);
         }
         else {
-            armor = 0;
+            armor = DEFAULT_VALUE;
         }
 
         finalDamage = 200 * (1 - defenderDamage);
@@ -327,15 +327,15 @@ public class CombatManager {
         boolean teamOneFinish = true;
         boolean teamTwoFinish = true;
 
-        for (int i = 0; i < 4; i++){
+        for (int i = DEFAULT_VALUE; i < TEAM_SIZE; i++){
             if (!getCombatMemberList().get(i).isKo()) {
                 teamOneFinish = false;
                 break;
             }
         }
 
-        for (int i = 0; i < 4; i++){
-            int j = i + 4;
+        for (int i = 0; i < TEAM_SIZE; i++){
+            int j = i + TEAM_SIZE;
             if (!getCombatMemberList().get(j).isKo()) {
                 teamTwoFinish = false;
                 break;
@@ -357,15 +357,15 @@ public class CombatManager {
     public Integer checkWinner() {
         int winner = 2;
 
-        for (int i = 0; i < 4; i++){
+        for (int i = DEFAULT_VALUE; i < TEAM_SIZE; i++){
             if (!getCombatMemberList().get(i).isKo()) {
                 winner = 0;
                 break;
             }
         }
 
-        for (int i = 0; i < 4; i++){
-            int j = i + 4;
+        for (int i = DEFAULT_VALUE; i < TEAM_SIZE; i++){
+            int j = i + TEAM_SIZE;
             if (!getCombatMemberList().get(j).isKo()) {
                 winner = 1;
                 break;

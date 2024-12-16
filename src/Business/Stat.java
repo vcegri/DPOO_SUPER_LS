@@ -5,6 +5,8 @@ package Business;
  */
 public class Stat {
 
+    public static final int DEFAULT_VALUE = 0;
+
     /** Team name associated with the stats */
     private final String name;
 
@@ -27,10 +29,10 @@ public class Stat {
      */
     public Stat(String name) {
         this.name = name;
-        this.games_played = 0;
-        this.games_won = 0;
-        this.KO_done = 0;
-        this.KO_received = 0;
+        this.games_played = DEFAULT_VALUE;
+        this.games_won = DEFAULT_VALUE;
+        this.KO_done = DEFAULT_VALUE;
+        this.KO_received = DEFAULT_VALUE;
     }
 
     /**

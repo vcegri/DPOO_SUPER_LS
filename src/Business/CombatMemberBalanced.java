@@ -2,6 +2,12 @@ package Business;
 
 public class CombatMemberBalanced extends CombatMember {
 
+    private static final double MIN_DAMAGE = 0.5;
+    private static final double MAX_DAMAGE = 1.0;
+    private static final String ATTACK = "ATTACK";
+    private static final String DEFEND = "DEFEND";
+    private static final String NEW_WEAPON = "NEW_WEAPON";
+
     /** Indicates when this CombatMember is defending */
     private boolean defending;
 
@@ -55,7 +61,7 @@ public class CombatMemberBalanced extends CombatMember {
      * @return true if the CombatMember has high damage, false if not
      */
     public boolean hasHighDamage() {
-        return getDamage() >= 0.5 && getDamage() <= 1.0;
+        return getDamage() >= MIN_DAMAGE && getDamage() <= MAX_DAMAGE;
     }
 
     @Override
@@ -64,13 +70,13 @@ public class CombatMemberBalanced extends CombatMember {
 
         if (!isKo()) {
             if (!hasWeapon()) {
-                action = "NEW_WEAPON";
+                action = NEW_WEAPON;
             } else {
                 if (hasArmor() && hasHighDamage()) {
                     this.setDefendingStatus(true);
-                    action = "DEFEND";
+                    action = DEFEND;
                 } else {
-                    action = "ATACK";
+                    action = ATTACK;
                 }
             }
         }

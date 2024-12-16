@@ -15,6 +15,18 @@ import java.util.Random;
  */
 
 public class Controller {
+
+    private static final int TEAM_SIZE = 4;
+    private static final int DEFAULT_VALUE = 0;
+    private static final String BALANCED = "balanced";
+    private static final String SNIPER = "sniper";
+    private static final String DEFENSIVE = "defensive";
+    private static final String OFFENSIVE = "offensive";
+    private static final String ATTACK = "ATTACK";
+    private static final String DEFEND = "DEFEND";
+    private static final String NEW_WEAPON = "NEW_WEAPON";
+    private static final String NULL = "null";
+
     private final Menu menu;
     private final CharacterManager characterManager;
     private final TeamManager teamManager;
@@ -77,17 +89,17 @@ public class Controller {
      */
     private int selectOption(int min, int max) {
         int option;
-        int flag;
+        boolean flag;
         do {
             option = menu.askInt();
             if (option > max || option < min) {
                 menu.invalidOption();
-                flag = 0;
+                flag = false;
             }
             else {
-                flag = 1;
+                flag = true;
             }
-        }while (flag != 1);
+        }while (!flag);
         return (option);
     }
 
@@ -142,7 +154,7 @@ public class Controller {
         menu.print("Choose an option: ");
 
         int max = characterNameList.size();
-        int character = selectOption(0, max);
+        int character = selectOption(DEFAULT_VALUE, max);
         character--;
 
         if (character != -1) {
@@ -177,7 +189,6 @@ public class Controller {
      * @throws FileNotFoundException if the JSON file can't be found.
      */
     private void createTeam() throws FileNotFoundException, ApiException {
-        int teamSize = 4;
         ArrayList<TeamMember> teamMemberList = new ArrayList<>();
 
         menu.createTeam();
@@ -187,8 +198,8 @@ public class Controller {
             menu.println("We are sorry " + name + " is taken.");
         }
         else {
-            for (int i = 0; i < teamSize; i++) {
-                int j = i +1;
+            for (int i = DEFAULT_VALUE; i < TEAM_SIZE; i++) {
+                int j = i + 1;
                 menu.print("Please enter name or id for character #" + j + ": ");
                 String characterName = menu.askString();
                 TeamMember teamMember = getTeamMember(characterName, j);
@@ -218,7 +229,7 @@ public class Controller {
     private TeamMember getTeamMember(String characterName, int j) throws FileNotFoundException, ApiException {
         boolean characterExist;
         boolean isLong = false;
-        long id = 0;
+        long id = DEFAULT_VALUE;
         TeamMember teamMember = null;
 
         try {
@@ -254,16 +265,16 @@ public class Controller {
         String strategy = "";
 
         if (opcio == 1) {
-            strategy = "Balanced";
+            strategy = BALANCED;
         }
         if (opcio == 2) {
-            strategy = "Offensive";
+            strategy = OFFENSIVE;
         }
         if (opcio == 3) {
-            strategy = "Defensive";
+            strategy = DEFENSIVE;
         }
         if (opcio == 4) {
-            strategy = "Sniper";
+            strategy = SNIPER;
         }
 
         return strategy;
@@ -286,11 +297,11 @@ public class Controller {
         menu.printList(teamNameList);
         menu.print("Choose an option: ");
         int max = teamNameList.size();
-        int teamName = selectOption(0, max);
+        int teamName = selectOption(DEFAULT_VALUE, max);
 
-        if (teamName != 0) {
+        if (teamName != DEFAULT_VALUE) {
             teamName--;
-            for (int i = 0; i < 4; i++) {
+            for (int i = DEFAULT_VALUE; i < TEAM_SIZE; i++) {
                 strategy.add(teamList.get(teamName).getMemberList().get(i).getStrategy());
             }
             String name = teamNameList.get(teamName);
@@ -350,7 +361,7 @@ public class Controller {
         menu.print("Choose an option: ");
 
         int max = itemNameList.size();
-        int item = selectOption(0, max);
+        int item = selectOption(DEFAULT_VALUE, max);
         item--;
 
         if (item != -1) {
@@ -394,7 +405,7 @@ public class Controller {
         menu.println("Looking for available teams...");
         if (!teamNames.isEmpty()){
             teamFight = chooseTeamForCombat();
-            int numTeam = 0;
+            int numTeam = DEFAULT_VALUE;
             showTeamInfoForCombat(numTeam, teamFight);
             numTeam = 1;
             showTeamInfoForCombat(numTeam, teamFight);
@@ -458,26 +469,27 @@ public class Controller {
      * @throws FileNotFoundException if the JSON file can't be found.
      */
     private void showTeamInfoForCombat(int numTeam, ArrayList<Team> teamFight) throws FileNotFoundException, ApiException {
-        int teamSize = 4;
         ArrayList<String> teamMemberNameList = new ArrayList<>();
         ArrayList<Long> teamMemberIdList = new ArrayList<>();
         ArrayList<String> armorNameList = new ArrayList<>();
         ArrayList<String> weaponNameList = new ArrayList<>();
+        ArrayList<String> strategyList = new ArrayList<>();
         ArrayList<Item> weaponList = new ArrayList<>();
         ArrayList<Item> armorList = new ArrayList<>();
 
-        for (int i = 0; i < teamSize; i++){
+        for (int i = DEFAULT_VALUE; i < TEAM_SIZE; i++){
             teamMemberIdList.add(teamFight.get(numTeam).getMemberList().get(i).getId());
             weaponList.add(itemManager.setRandomWeapon());
             weaponNameList.add(weaponList.get(i).getName());
             armorList.add(itemManager.setRandomArmor());
             armorNameList.add(armorList.get(i).getName());
             teamMemberNameList = characterManager.getNameById(teamMemberIdList);
+            strategyList.add(teamFight.get(numTeam).getMemberList().get(i).getStrategy());
         }
         int showNumTeam = numTeam + 1;
         menu.showTeamInfoForCombat(showNumTeam, teamFight.get(numTeam).getName(), teamMemberNameList, weaponNameList, armorNameList);
 
-        this.combatManager.setCombat(teamFight, weaponList, armorList, characterManager.getCharacterListByIdList(teamMemberIdList));
+        this.combatManager.setCombat(teamFight, weaponList, armorList, characterManager.getCharacterListByIdList(teamMemberIdList), strategyList);
 
     }
 
@@ -513,7 +525,7 @@ public class Controller {
         else {
             winner = "";
         }
-        for (int i = 0; i < this.combatManager.getCombatMemberList().size(); i++) {
+        for (int i = DEFAULT_VALUE; i < this.combatManager.getCombatMemberList().size(); i++) {
             koList.add(combatManager.getCombatMemberList().get(i).isKo());
             damageTakenList.add(this.combatManager.getCombatMemberList().get(i).getDamage());
             memberNameList.add(this.combatManager.getCombatMemberList().get(i).getCharacter().getName());
@@ -540,17 +552,17 @@ public class Controller {
         ArrayList<Boolean> koList = new ArrayList<>();
         ArrayList<Team> teamList = combatManager.getTeamList();
 
-        for (int k = 0; k < teamList.size(); k++) {
-            teamNumber = k +1;
+        for (int k = DEFAULT_VALUE; k < teamList.size(); k++) {
+            teamNumber = k + 1;
             idList.clear();
             koList.clear();
-            for (int i = 0; i < teamList.get(k).getMemberList().size(); i++) {
+            for (int i = DEFAULT_VALUE; i < teamList.get(k).getMemberList().size(); i++) {
                 idList.add(teamList.get(k).getMemberList().get(i).getId());
-                if (k == 0){
+                if (k == DEFAULT_VALUE){
                     koList.add(combatManager.getCombatMemberList().get(i).isKo());
                 }
                 else {
-                    int j = i +4;
+                    int j = i + TEAM_SIZE;
                     koList.add(combatManager.getCombatMemberList().get(j).isKo());
                 }
             }
@@ -570,20 +582,20 @@ public class Controller {
      */
     private void executeAction() throws FileNotFoundException, ApiException {
 
-        for (int i = 0; i < combatManager.getCombatMemberList().size(); i++){
+        for (int i = DEFAULT_VALUE; i < combatManager.getCombatMemberList().size(); i++){
             CombatMember combatMember = combatManager.getCombatMemberList().get(i);
 
-            String action = combatManager.getCombatMemberList().get(i).chooseAction();
-            if (action.equals("ATACK")) {
-                atack(i);
+            String action = combatMember.chooseAction();
+            if (action.equals(ATTACK)) {
+                attack(i);
             }
-            if (action.equals("DEFEND") && combatMember instanceof CombatMemberBalanced){
+            if (action.equals(DEFEND) && combatMember instanceof CombatMemberBalanced){
                 ((CombatMemberBalanced) combatMember).setDefendingStatus(true);
             }
-            if (action.equals("DEFEND") && combatMember instanceof CombatMemberDeffensive){
+            if (action.equals(DEFEND) && combatMember instanceof CombatMemberDeffensive){
                 ((CombatMemberDeffensive) combatMember).setDefendingStatus(true);
             }
-            if (action.equals("NEW_WEAPON")){
+            if (action.equals(NEW_WEAPON)){
                 newWeapon(i);
             }
         }
@@ -594,7 +606,7 @@ public class Controller {
      *
      * @param i index of the attacking CombatMember at the combat list.
      */
-    private void atack(int i){
+    private void attack(int i){
 
         String  attackerName = this.combatManager.getCombatMemberList().get(i).getCharacter().getName();
 
@@ -606,7 +618,7 @@ public class Controller {
             weaponName = this.combatManager.getCombatMemberList().get(objective).getWeapon().getName();
         }
         else {
-            weaponName = "null";
+            weaponName = NULL;
         }
         double damage = combatManager.calculateDamage(this.combatManager.getCombatMemberList().get(i));
         double finalDamage = combatManager.calculateReducedDamage(damage, this.combatManager.getCombatMemberList().get(objective));
@@ -625,20 +637,20 @@ public class Controller {
         }
 
         this.combatManager.getCombatMemberList().get(objective).updateDamage(finalDamage);
-        this.combatManager.getCombatMemberList().get(objective).setAtacked(true);
+        this.combatManager.getCombatMemberList().get(objective).setAttacked(true);
         menu.combatAttack(attackerName, defenderName, weaponName, damage, finalDamage);
         combatManager.updateItemDurability(i, objective);
     }
 
     private int selectObjective(int i){
         Random random = new Random();
-        int index = 0;
-        int maxDamage = 0;
+        int index = DEFAULT_VALUE;
+        int maxDamage = DEFAULT_VALUE;
 
         if (combatManager.getCombatMemberList().get(i).getStrategy().equals("Sniper")) {
-            if (i < 4) {
+            if (i < TEAM_SIZE) {
                 do {
-                    for (int j = 0; j < 4; j++) {
+                    for (int j = DEFAULT_VALUE; j < TEAM_SIZE; j++) {
                         if (combatManager.getCombatMemberList().get(j).getDamage() > maxDamage) {
                             index = j;
                         }
@@ -646,7 +658,7 @@ public class Controller {
                 } while (combatManager.getCombatMemberList().get(index).isKo());
             } else {
                 do {
-                    for (int j = 4; j < 8; j++) {
+                    for (int j = TEAM_SIZE; j < 2*TEAM_SIZE; j++) {
                         if (combatManager.getCombatMemberList().get(j).getDamage() > maxDamage) {
                             index = j;
                         }
@@ -655,13 +667,13 @@ public class Controller {
             }
         }
         else {
-            if (i < 4) {
+            if (i < TEAM_SIZE) {
                 do {
-                    index = random.nextInt(4) + 4;
+                    index = random.nextInt(TEAM_SIZE) + TEAM_SIZE;
                 } while (combatManager.getCombatMemberList().get(index).isKo());
             } else {
                 do {
-                    index = random.nextInt(4);
+                    index = random.nextInt(TEAM_SIZE);
                 } while (combatManager.getCombatMemberList().get(index).isKo());
             }
         }
@@ -685,9 +697,9 @@ public class Controller {
      */
     private void brokenWeapon(){
         
-        for (int i = 0; i < combatManager.getCombatMemberList().size(); i++) {
+        for (int i = DEFAULT_VALUE; i < combatManager.getCombatMemberList().size(); i++) {
             if (combatManager.getCombatMemberList().get(i).getWeapon() != null) {
-                if (combatManager.getCombatMemberList().get(i).getWeapon().getDurability() == 0) {
+                if (combatManager.getCombatMemberList().get(i).getWeapon().getDurability() == DEFAULT_VALUE) {
                     String characterName = combatManager.getCombatMemberList().get(i).getCharacter().getName();
                     String weaponName = combatManager.getCombatMemberList().get(i).getWeapon().getName();
                     combatManager.getCombatMemberList().get(i).setWeapon(null);
@@ -703,9 +715,9 @@ public class Controller {
      */
     private void brokenArmor(){
 
-        for (int i = 0; i < combatManager.getCombatMemberList().size(); i++) {
+        for (int i = DEFAULT_VALUE; i < combatManager.getCombatMemberList().size(); i++) {
             if (combatManager.getCombatMemberList().get(i).getArmor() != null) {
-                if (combatManager.getCombatMemberList().get(i).getArmor().getDurability() == 0) {
+                if (combatManager.getCombatMemberList().get(i).getArmor().getDurability() == DEFAULT_VALUE) {
                     String characterName = combatManager.getCombatMemberList().get(i).getCharacter().getName();
                     String armorName = combatManager.getCombatMemberList().get(i).getArmor().getName();
                     combatManager.getCombatMemberList().get(i).setArmor(null);
@@ -720,7 +732,7 @@ public class Controller {
      */
     private void deadCombatMembers(){
 
-        for (int i = 0; i < combatManager.getCombatMemberList().size(); i++) {
+        for (int i = DEFAULT_VALUE; i < combatManager.getCombatMemberList().size(); i++) {
             if (combatManager.getCombatMemberList().get(i).isKo()) {
                 menu.charcterKO(combatManager.getCombatMemberList().get(i).getCharacter().getName());
             }
@@ -739,7 +751,7 @@ public class Controller {
         String teamName;
         int teamNum = 2;
 
-        for (int i = 0; i < teamNum; i++) {
+        for (int i = DEFAULT_VALUE; i < teamNum; i++) {
             teamName = combatManager.getTeamList().get(i).getName();
             statManager.updateStats(winner, teamName, koList, i);
         }

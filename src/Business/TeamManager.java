@@ -14,6 +14,9 @@ import java.util.ArrayList;
  */
 public class TeamManager {
 
+    public static final int DEFAULT_VALUE = 0;
+    public static final int TEAM_SIZE = 4;
+
     /** Class to manage the teams.json file. */
     private TeamDAO teamDao;
 
@@ -72,7 +75,7 @@ public class TeamManager {
         ArrayList<Team> teamList = teamDao.readAll();
 
         for (Team team : teamList) {
-            for (int j = 0; j < 4; j++) {
+            for (int j = DEFAULT_VALUE; j < TEAM_SIZE; j++) {
                 if (team.getMemberList().get(j).getId() == idCharacter) {
                     teamNameList.add(team.getName());
                     break;

@@ -15,6 +15,7 @@ public class StatManager {
     public static final int TEAM_SIZE = 4;
     public static final int FIRST_TEAM = 0;
     public static final int SECOND_TEAM = 1;
+    public static final int DEFAULT_VALUE = 0;
 
     /** Class to manage the stats.json file. */
     private StatDAO statDao;
@@ -61,8 +62,8 @@ public class StatManager {
                 statInfoList.add(stat.getKoDone());
                 statInfoList.add(stat.getKoReceived());
                 double winrate;
-                int WinRate = 0;
-                if (stat.getGamesPlayed() != 0) {
+                int WinRate = DEFAULT_VALUE;
+                if (stat.getGamesPlayed() != DEFAULT_VALUE) {
                     winrate = (((double) stat.getGamesWon() / stat.getGamesPlayed()) * 100);
                     WinRate = (int) winrate;
                 }
@@ -84,7 +85,7 @@ public class StatManager {
         ArrayList<Stat> statList = statDao.readAll();
         int gamesPlayed, gamesWon, KO_done, KO_received;
 
-        for (int i = 0; i < statList.size(); i++){
+        for (int i = DEFAULT_VALUE; i < statList.size(); i++){
             if (statList.get(i).getName().equals(teamName)){
                 KO_received = statList.get(i).getKoReceived();
                 KO_done = statList.get(i).getKoDone();
@@ -95,9 +96,9 @@ public class StatManager {
                     gamesWon++;
                     KO_done = KO_done + TEAM_SIZE;
 
-                    int cont = 0;
+                    int cont = DEFAULT_VALUE;
                     if (teamNum == FIRST_TEAM) {
-                        for (int j = 0; j < TEAM_SIZE; j++) {
+                        for (int j = DEFAULT_VALUE; j < TEAM_SIZE; j++) {
                             if (koList.get(j)) {
                                 cont++;
                             }
@@ -115,9 +116,9 @@ public class StatManager {
                 else {
                     KO_received = KO_received + TEAM_SIZE;
 
-                    int cont = 0;
+                    int cont = DEFAULT_VALUE;
                     if (teamNum == SECOND_TEAM) {
-                        for (int j = 0; j < TEAM_SIZE; j++) {
+                        for (int j = DEFAULT_VALUE; j < TEAM_SIZE; j++) {
                             if (koList.get(j)) {
                                 cont++;
                             }
