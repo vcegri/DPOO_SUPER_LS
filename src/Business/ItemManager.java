@@ -15,6 +15,8 @@ public class ItemManager {
 
     public static final String WEAPON = "Weapon";
     public static final String ARMOR = "Armor";
+    public static final String SUPER_ARMOR = "Superarmor";
+    public static final String SUPER_WEAPON = "Superweapon";
 
     /** Class to manage the items.json file. */
     private ItemDAO itemDao;
@@ -140,14 +142,20 @@ public class ItemManager {
      * @return random Item representing a weapon
      */
     public Item setRandomWeapon() throws FileNotFoundException, ApiException {
+        boolean found = true;
         Random random = new Random();
         ArrayList<Item> itemList = itemDao.readAll();
         int randomWeapon = random.nextInt(itemList.size());
         do {
             if (itemList.get(randomWeapon).getClasse().equals(ARMOR)) {
                 randomWeapon = random.nextInt(itemList.size());
+                found = false;
             }
-        } while (itemList.get(randomWeapon).getClasse().equals(ARMOR));
+            if (itemList.get(randomWeapon).getClasse().equals(SUPER_ARMOR)) {
+                randomWeapon = random.nextInt(itemList.size());
+                found = false;
+            }
+        } while (!found);
 
         return itemList.get(randomWeapon);
     }
@@ -158,14 +166,20 @@ public class ItemManager {
      * @return random Item representing armor
      */
     public Item setRandomArmor() throws FileNotFoundException, ApiException {
+        boolean found = true;
         Random random = new Random();
         ArrayList<Item> itemList = itemDao.readAll();
         int randomArmor = random.nextInt(itemList.size());
         do {
             if (itemList.get(randomArmor).getClasse().equals(WEAPON)) {
                 randomArmor = random.nextInt(itemList.size());
+                found = false;
             }
-        } while (itemList.get(randomArmor).getClasse().equals(WEAPON));
+            if (itemList.get(randomArmor).getClasse().equals(SUPER_WEAPON)) {
+                randomArmor = random.nextInt(itemList.size());
+                found = false;
+            }
+        } while (!found);
 
         return itemList.get(randomArmor);
     }
