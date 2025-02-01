@@ -56,6 +56,7 @@ public class StatManager {
         ArrayList<Stat> statList = statDao.readAll();
 
         for (Stat stat : statList) {
+
             if (name.equals(stat.getName())) {
                 statInfoList.add(stat.getGamesPlayed());
                 statInfoList.add(stat.getGamesWon());

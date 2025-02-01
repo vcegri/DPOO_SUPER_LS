@@ -294,21 +294,31 @@ public class Controller {
         ArrayList<Team> teamList = teamManager.getTeamList();
 
         teamNameList = teamManager.getNameOfTeams();
-        menu.printList(teamNameList);
-        menu.print("Choose an option: ");
-        int max = teamNameList.size();
-        int teamName = selectOption(DEFAULT_VALUE, max);
+        if (!teamNameList.isEmpty()) {
+            menu.printList(teamNameList);
+            menu.print("Choose an option: ");
+            int max = teamNameList.size();
+            int teamName = selectOption(DEFAULT_VALUE, max);
 
-        if (teamName != DEFAULT_VALUE) {
-            teamName--;
-            for (int i = DEFAULT_VALUE; i < TEAM_SIZE; i++) {
-                strategy.add(teamList.get(teamName).getMemberList().get(i).getStrategy());
+            if (teamName != DEFAULT_VALUE) {
+                teamName--;
+                for (int i = DEFAULT_VALUE; i < TEAM_SIZE; i++) {
+                    strategy.add(teamList.get(teamName).getMemberList().get(i).getStrategy());
+                    memberIdList.add(teamList.get(teamName).getMemberList().get(i).getId());
+                }
+
+                String name = teamNameList.get(teamName);
+                memberNameList = characterManager.getNameById(memberIdList);
+                statList = statManager.getStatList(name);
+                if (!memberNameList.isEmpty()) {
+                    menu.teamInfo(name, memberNameList, statList.get(0), statList.get(1), statList.get(2), statList.get(3), statList.get(4), strategy);
+                } else {
+                    menu.println("Team is empty\n");
+                }
+                pressEnter();
             }
-            String name = teamNameList.get(teamName);
-            memberNameList = characterManager.getNameById(memberIdList);
-            statList = statManager.getStatList(name);
-            menu.teamInfo(name, memberNameList, statList.get(0), statList.get(1), statList.get(2), statList.get(3), statList.get(4), strategy);
-            pressEnter();
+        } else {
+            menu.println("There is no team at the system.");
         }
     }
 
@@ -326,6 +336,7 @@ public class Controller {
         if (exist) {
             menu.print("Are you sure you want to remove \"" + name + "\"?");
             do {
+                correctConfirm = true;
                 String confirmation = menu.askString();
                 if (confirmation.equals("Yes")) {
                     teamManager.deleteTeam(name);
@@ -333,14 +344,14 @@ public class Controller {
                     menu.println("\"" + name + "\" has been removed from the system.");
                 }
                 else if (confirmation.equals("No")){
-                    menu.println("Ok, team " + name + "is not canceled");
+                    menu.println("Ok, team " + name + "is not deleted");
                     manageTeams();
                 }
                 else {
                     menu.println("You might write 'Yes' or 'No'");
                     correctConfirm = false;
                 }
-            }while (!correctConfirm);
+            } while (!correctConfirm);
         }
         else {
             menu.println("Doesn't exist " + name + " team.");
@@ -485,6 +496,7 @@ public class Controller {
             armorNameList.add(armorList.get(i).getName());
             teamMemberNameList = characterManager.getNameById(teamMemberIdList);
             strategyList.add(teamFight.get(numTeam).getMemberList().get(i).getStrategy());
+
         }
         int showNumTeam = numTeam + 1;
         menu.showTeamInfoForCombat(showNumTeam, teamFight.get(numTeam).getName(), teamMemberNameList, weaponNameList, armorNameList);

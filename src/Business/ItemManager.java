@@ -30,7 +30,7 @@ public class ItemManager {
             ApiHelper api = new ApiHelper();
             itemDao = new ItemAPI();
         }catch (ApiException e){
-            itemDao = new ItemAPI();
+            itemDao = new ItemJSON();
         }
     }
 
@@ -150,11 +150,11 @@ public class ItemManager {
         do {
             if (itemList.get(randomWeapon).getClasse().equals(ARMOR)) {
                 randomWeapon = random.nextInt(itemList.size());
-                found = false;
+                found = true;
             }
             if (itemList.get(randomWeapon).getClasse().equals(SUPER_ARMOR)) {
                 randomWeapon = random.nextInt(itemList.size());
-                found = false;
+                found = true;
             }
         } while (!found);
 
@@ -174,11 +174,11 @@ public class ItemManager {
         do {
             if (itemList.get(randomArmor).getClasse().equals(WEAPON)) {
                 randomArmor = random.nextInt(itemList.size());
-                found = false;
+                found = true;
             }
             if (itemList.get(randomArmor).getClasse().equals(SUPER_WEAPON)) {
                 randomArmor = random.nextInt(itemList.size());
-                found = false;
+                found = true;
             }
         } while (!found);
 

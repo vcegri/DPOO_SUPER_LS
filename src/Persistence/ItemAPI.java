@@ -1,11 +1,15 @@
 package Persistence;
 
+import Business.Character;
 import Business.Item;
+import Business.SuperItem;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import edu.salle.url.api.ApiHelper;
 import edu.salle.url.api.exception.ApiException;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class ItemAPI implements ItemDAO{
@@ -33,15 +37,15 @@ public class ItemAPI implements ItemDAO{
     public ArrayList<Item> readAll() throws ApiException {
         ArrayList<Item> resultProducts = new ArrayList<>();
         try{
-            Gson gson = new GsonBuilder().registerTypeAdapter(Item[].class, new ItemDeserializer()).create();
+            Gson gson = new GsonBuilder().registerTypeAdapter(Item.class, new ItemDeserializer()).create();
             String getUrl = apiHelper.getFromUrl(FILE_PATH + "/shared/items");
 
-            String stringJson = getUrl.substring(1,getUrl .length()-1);
-            Item[] products = gson.fromJson(stringJson, Item[].class);
+            Type listType = new TypeToken<ArrayList<Item>>(){}.getType();
+            ArrayList<Item> items = gson.fromJson(getUrl, listType);
 
-            if ( products != null){
-                for (Item p: products){
-                    resultProducts.add(p);
+            if ( items != null){
+                for (Item item: items){
+                    resultProducts.add(item);
                 }
             }
         }catch (ApiException ignored){

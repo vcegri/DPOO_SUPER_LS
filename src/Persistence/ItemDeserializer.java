@@ -28,18 +28,13 @@ public class ItemDeserializer implements JsonDeserializer<Item> {
         String name = jsonObject.get("name").getAsString();
         int power = jsonObject.get("power").getAsInt();
         int durability = jsonObject.get("durability").getAsInt();
-        String classe = jsonObject.get("classe").getAsString();
+        String classe = jsonObject.get("class").getAsString();
 
         switch (classe) {
-            case "Superweapon":
+            case "Superarmor", "Superweapon":
                 return new SuperItem(id, name, power, durability, classe);
-            case "Superarmor":
-                return new SuperItem(id, name, power, durability, classe);
-            case "Weapon":
+            case "Weapon", "Armor":
                 return new StandardItem(id, name, power, durability, classe);
-            case "Armor":
-                return new StandardItem(id, name, power, durability, classe);
-
             default:
                 throw new JsonParseException("Unknown item type: " + classe);
         }

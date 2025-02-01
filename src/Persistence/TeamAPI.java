@@ -1,18 +1,22 @@
 package Persistence;
 
+import Business.Character;
+import Business.Stat;
 import Business.Team;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import edu.salle.url.api.ApiHelper;
 import edu.salle.url.api.exception.ApiException;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class TeamAPI implements TeamDAO{
     private static final String FILE_PATH = "https://balandrau.salle.url.edu/dpoo";
     private final ApiHelper apiHelper;
-    private final String ID = "S1-Project_11";
+    private final String ID = "P1-G11";
     /**
      * Constructor para crear un DAO para la gestión de productos.
      */
@@ -34,16 +38,16 @@ public class TeamAPI implements TeamDAO{
     public ArrayList<Team> readAll() throws ApiException {
         ArrayList<Team> resultProducts = new ArrayList<>();
         try{
-            Gson gson = new GsonBuilder().registerTypeAdapter(Team[].class, new TeamDeserializer()).create();
+            Gson gson = new GsonBuilder().registerTypeAdapter(Team.class, new TeamDeserializer()).create();
 
             String getUrl = apiHelper.getFromUrl(FILE_PATH + "/" + ID + "/teams");
 
-            String stringJson = getUrl.substring(1,getUrl .length()-1);
-            Team[] products = gson.fromJson(stringJson, Team[].class);
+            Type listType = new TypeToken<ArrayList<Team>>(){}.getType();
+            ArrayList<Team> teams = gson.fromJson(getUrl, listType);
 
-            if ( products != null){
-                for ( Team p: products){
-                    resultProducts.add(p);
+            if ( teams != null){
+                for ( Team team: teams){
+                    resultProducts.add(team);
                 }
             }
         }catch (ApiException ignored){
@@ -57,19 +61,21 @@ public class TeamAPI implements TeamDAO{
     /**
      * Guarda una llista de productes en un fitxer JSON.
      *
-     * @param products Llista de productes a guardar.
+     * @param teamList Llista de productes a guardar.
      */
     @Override
-    public void saveTeams(ArrayList<Team> products) {
-        Gson gson = new GsonBuilder().registerTypeAdapter(Team[].class, new TeamSerializer()).create();
+    public void saveTeams(ArrayList<Team> teamList) {
+        Gson gson = new GsonBuilder().registerTypeAdapter(Team.class, new TeamSerializer()).create();
         try {
-            if ( products.size() > 1) {
+            if (teamList.size() < 1) {
                 apiHelper.deleteFromUrl(FILE_PATH + "/" + ID + "/teams");
             }
-            Team[] p = products.toArray(new Team[0]);
-            String jsonBody = gson.toJson(p);
 
-            apiHelper.postToUrl(FILE_PATH + "/" + ID + "/teams", jsonBody);
+            for (Team team : teamList) {
+                String jsonBody = gson.toJson(team);
+                apiHelper.postToUrl(FILE_PATH + "/" + ID + "/teams", jsonBody);
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }

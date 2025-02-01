@@ -1,10 +1,7 @@
 package Persistence;
 
 import Business.Item;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -24,7 +21,7 @@ public class ItemJSON implements ItemDAO{
      */
     public ArrayList<Item> readAll() throws FileNotFoundException {
         FileReader reader = new FileReader(FILE_PATH);
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().registerTypeAdapter(Item.class, new ItemDeserializer()).create();
         JsonArray elements = JsonParser.parseReader(reader).getAsJsonArray();
         ArrayList<Item> resultItems = new ArrayList<>();
 

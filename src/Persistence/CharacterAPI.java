@@ -3,9 +3,11 @@ package Persistence;
 import Business.Character;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import edu.salle.url.api.ApiHelper;
 import edu.salle.url.api.exception.ApiException;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class CharacterAPI implements CharacterDAO{
@@ -32,15 +34,15 @@ public class CharacterAPI implements CharacterDAO{
     public ArrayList<Character> readAll() throws ApiException {
         ArrayList<Character> resultProducts = new ArrayList<>();
         try{
-            Gson gson = new GsonBuilder().registerTypeAdapter(Character.class, new CharacterDeserializer()).create();
+            Gson gson = new GsonBuilder().registerTypeAdapter(Character[].class, new CharacterDeserializer()).create();
             String getUrl = apiHelper.getFromUrl(FILE_PATH + "/shared/characters");
 
-            String stringJson = getUrl.substring(1,getUrl .length()-1);
-            Character[] products = gson.fromJson(stringJson, Character[].class);
+            Type listType = new TypeToken<ArrayList<Character>>(){}.getType();
+            ArrayList<Character> characters = gson.fromJson(getUrl, listType);
 
-            if ( products != null){
-                for (Character p: products){
-                    resultProducts.add(p);
+            if ( characters != null){
+                for (Character character: characters){
+                    resultProducts.add(character);
                 }
             }
         }catch (ApiException ignored){
