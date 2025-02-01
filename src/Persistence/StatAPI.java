@@ -67,7 +67,7 @@ public class StatAPI implements StatDAO{
     public void saveStatList(ArrayList<Stat> statList) {
         Gson gson = new GsonBuilder().registerTypeAdapter(Stat.class, new StatSerializer()).create();
         try {
-            if ( statList.size() < 1) {
+            if (statList.size() < 1) {
                 apiHelper.deleteFromUrl(FILE_PATH + "/" + ID + "/stats");
             }
             for (Stat stat : statList) {
