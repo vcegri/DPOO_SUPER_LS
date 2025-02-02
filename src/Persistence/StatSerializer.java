@@ -13,12 +13,12 @@ import java.lang.reflect.Type;
 public class StatSerializer implements JsonSerializer<Stat> {
 
     /**
-     * Serializa un objeto Stat en un JsonElement.
+     * Serializes a Stat object into a JsonElement.
      *
-     * @param stat    Objeto Stat a serializar.
-     * @param type    Tipo del objeto a serializar.
-     * @param context Contexto de serialización.
-     * @return Objeto JsonElement que representa el Stat serializado.
+     * @param stat    Stat object to serialize.
+     * @param type    Type of the object to serialize.
+     * @param context Serialization context.
+     * @return JsonElement representing the serialized Team.
      */
     @Override
     public JsonElement serialize(Stat stat, Type type, JsonSerializationContext context) {

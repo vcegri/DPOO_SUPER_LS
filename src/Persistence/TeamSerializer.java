@@ -10,12 +10,20 @@ import com.google.gson.JsonSerializer;
 import java.lang.reflect.Type;
 
 /**
- * Serializer personalizado para convertir un objeto Team en un JsonElement.
+ * Custom serializer to convert a Team object into a JsonElement.
  */
 public class TeamSerializer implements JsonSerializer<Team> {
 
+    /**
+     * Serializes a Team object into a JsonElement.
+     *
+     * @param team    Team object to serialize.
+     * @param type    Type of the object to serialize.
+     * @param context Serialization context.
+     * @return JsonElement representing the serialized Team.
+     */
     @Override
-    public JsonElement serialize(Team team, Type typeOfSrc, JsonSerializationContext context) {
+    public JsonElement serialize(Team team, Type type, JsonSerializationContext context) {
         JsonObject jsonObject = new JsonObject();
 
         jsonObject.addProperty("name", team.getName());

@@ -5,18 +5,19 @@ import com.google.gson.*;
 import java.lang.reflect.Type;
 
 /**
- * Deserializador personalizado para convertir un JsonElement en un objeto Character.
+ * Custom deserializer to convert a JsonElement into a Character object.
  */
 
 public class CharacterDeserializer implements JsonDeserializer<Character> {
+
     /**
-     * Deserializa un JsonElement en un objeto Character.
+     * Deserializes a JsonElement into a Character object.
      *
-     * @param json       Elemento JSON a deserializar.
-     * @param typeOfT    Tipo de destino de la deserialización.
-     * @param context    Contexto de deserialización.
-     * @return Objeto Character deserializado.
-     * @throws JsonParseException Si hay un error durante la deserialización.
+     * @param json       JSON element to deserialize.
+     * @param typeOfT    Target type of the deserialization.
+     * @param context    Deserialization context.
+     * @return Deserialized Character object.
+     * @throws JsonParseException If there is an error during deserialization.
      */
     @Override
     public Character deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {

@@ -14,7 +14,7 @@ public class CharacterAPI implements CharacterDAO{
     private static final String FILE_PATH = "https://balandrau.salle.url.edu/dpoo";
     private final ApiHelper apiHelper;
     /**
-     * Constructor para crear un DAO para la gestión de productos.
+     * Constructor to create a DAO for managing characters.
      */
     public CharacterAPI() {
         try{
@@ -25,9 +25,9 @@ public class CharacterAPI implements CharacterDAO{
     }
 
     /**
-     * Llegeix tots els productes des d'un fitxer JSON.
+     * Reads all characters from an API.
      *
-     * @return Una llista de productes llegits des del fitxer.
+     * @return A list of characters read from the API.
      */
 
     @Override
@@ -51,9 +51,9 @@ public class CharacterAPI implements CharacterDAO{
     }
 
     /**
-     * Comprova si el fitxer de productes existeix i és un fitxer vàlid.
+     * Checks if the character file exists and is valid.
      *
-     * @return True si el fitxer és vàlid, false en cas contrari.
+     * @return True if the file is valid, false otherwise.
      */
     @Override
     public int fileOK() {

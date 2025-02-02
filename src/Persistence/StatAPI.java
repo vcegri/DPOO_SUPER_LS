@@ -18,8 +18,9 @@ public class StatAPI implements StatDAO{
     private static final String FILE_PATH = "https://balandrau.salle.url.edu/dpoo";
     private final ApiHelper apiHelper;
     private final String ID = "P1-G11";
+
     /**
-     * Constructor para crear un DAO para la gestión de productos.
+     * Constructor to create a DAO for managing stats.
      */
     public StatAPI() {
         try{
@@ -30,9 +31,9 @@ public class StatAPI implements StatDAO{
     }
 
     /**
-     * Llegeix tots els productes des d'un fitxer JSON.
+     * Reads all stats from an API.
      *
-     * @return Una llista de productes llegits des del fitxer.
+     * @return A list of characters read from the API.
      */
 
     @Override
@@ -59,9 +60,9 @@ public class StatAPI implements StatDAO{
     }
 
     /**
-     * Guarda una llista de productes en un fitxer JSON.
+     * Saves a list of stats to an API.
      *
-     * @param statList Llista de productes a guardar.
+     * @param statList List of stats to save.
      */
     @Override
     public void saveStatList(ArrayList<Stat> statList) {

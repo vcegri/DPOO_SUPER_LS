@@ -16,8 +16,9 @@ public class ItemAPI implements ItemDAO{
 
     private static final String FILE_PATH = "https://balandrau.salle.url.edu/dpoo";
     private final ApiHelper apiHelper;
+
     /**
-     * Constructor para crear un DAO para la gestión de productos.
+     * Constructor to create a DAO for managing items.
      */
     public ItemAPI() {
         try{
@@ -28,9 +29,9 @@ public class ItemAPI implements ItemDAO{
     }
 
     /**
-     * Llegeix tots els productes des d'un fitxer JSON.
+     * Reads all items from an API.
      *
-     * @return Una llista de productes llegits des del fitxer.
+     * @return A list of characters read from the API.
      */
 
     @Override
@@ -54,9 +55,9 @@ public class ItemAPI implements ItemDAO{
     }
 
     /**
-     * Comprova si el fitxer de productes existeix i és un fitxer vàlid.
+     * Checks if the item file exists and is valid.
      *
-     * @return True si el fitxer és vàlid, false en cas contrari.
+     * @return True if the file is valid, false otherwise.
      */
     @Override
     public int fileOK() {

@@ -1,5 +1,7 @@
 package Business;
-
+/**
+ * Represents a CombatMember with defensive strategy.
+ */
 public class CombatMemberDeffensive extends CombatMember{
 
     private static final String ATTACK = "ATTACK";
@@ -10,7 +12,14 @@ public class CombatMemberDeffensive extends CombatMember{
 
     /** Indicates when this CombatMember is going to defend */
     private boolean defendRequest;
-
+    /**
+     * Constructs a new CombatMemberDeffensive object with the specified parameters.
+     *
+     * @param character  character assigned to the member.
+     * @param strategy strategy assigned.
+     * @param weapon weapon assigned.
+     * @param armor armor assigned.
+     */
     public CombatMemberDeffensive(Character character, String strategy, Item weapon, Item armor) {
         super(character, strategy, weapon, armor);
     }
@@ -54,13 +63,17 @@ public class CombatMemberDeffensive extends CombatMember{
     /**
      * Checks if a CombatMember has high damage based on their damage stat and need to defend.
      *
-     * @param i index of the CombatMember to check
      * @return true if the CombatMember has high damage, false if not
      */
     public boolean hasHighDamage() {
         return getDamage() <= 1.0;
     }
 
+    /**
+     * Determinate the action that the member make.
+     *
+     * @return A string representing the chosen action.
+     */
     @Override
     public String chooseAction(){
         String action = "";

@@ -6,17 +6,18 @@ import com.google.gson.*;
 import java.lang.reflect.Type;
 
 /**
- * Deserializador personalizado para convertir un JsonElement en un objeto Stat.
+ * Custom deserializer to convert a JsonElement into a Stat object.
  */
 public class StatDeserializer implements JsonDeserializer<Stat> {
+
     /**
-     * Deserializa un JsonElement en un objeto Stat.
+     * Deserializes a JsonElement into a Stat object.
      *
-     * @param json    Elemento JSON a deserializar.
-     * @param typeOfT Tipo de destino de la deserialización.
-     * @param context Contexto de deserialización.
-     * @return Objeto Stat deserializado.
-     * @throws JsonParseException Si hay un error durante la deserialización.
+     * @param json       JSON element to deserialize.
+     * @param typeOfT    Target type of the deserialization.
+     * @param context    Deserialization context.
+     * @return Deserialized Character object.
+     * @throws JsonParseException If there is an error during deserialization.
      */
     @Override
     public Stat deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
