@@ -180,6 +180,7 @@ public class Menu {
      * @param koDone           the number of KOs done
      * @param koReceived       the number of KOs received
      * @param winRate          the team win rate
+     * @param strategy         the team members strategy
      */
     public void teamInfo(String teamName, ArrayList<String> characterNameList, int combatPlayed, int combatWon, int koDone, int koReceived, int winRate, ArrayList<String> strategy) {
         println("\tTeam name: " + teamName + "\n");
@@ -316,6 +317,7 @@ public class Menu {
      * Show the final round information of a team.
      * @param teamMemberNameList  the list of team member names
      * @param damageTakenList     the list of damage received by each team member
+     * @param koList              the list of ko's
      */
     public void finalRound(ArrayList<String> teamMemberNameList, ArrayList<Double> damageTakenList, ArrayList<Boolean> koList) {
 

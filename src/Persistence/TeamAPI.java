@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+/**
+ * Is used to read and write team data at the teams API.
+ */
 public class TeamAPI implements TeamDAO{
     private static final String FILE_PATH = "https://balandrau.salle.url.edu/dpoo";
     private final ApiHelper apiHelper;

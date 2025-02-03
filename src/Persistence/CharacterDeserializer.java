@@ -7,7 +7,6 @@ import java.lang.reflect.Type;
 /**
  * Custom deserializer to convert a JsonElement into a Character object.
  */
-
 public class CharacterDeserializer implements JsonDeserializer<Character> {
 
     /**

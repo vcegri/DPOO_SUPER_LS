@@ -35,6 +35,7 @@ public class CharacterManager {
      * @param name name to check
      * @return true if the character exists, false if not
      * @throws FileNotFoundException if the JSON file can't be found
+     * @throws ApiException if there is an error with the API
      */
     public boolean comproveIfCharacterExistByName(String name) throws FileNotFoundException, ApiException {
         boolean exist = false;
@@ -56,6 +57,7 @@ public class CharacterManager {
      * @param id ID to check
      * @return true if the character exists, false if not
      * @throws FileNotFoundException if the JSON file can't be found
+     * @throws ApiException if there is an error with the API
      */
     public boolean comproveIfCharacterExistById(long id) throws FileNotFoundException, ApiException {
         boolean exist = false;
@@ -76,6 +78,7 @@ public class CharacterManager {
      *
      * @return list of all the character names
      * @throws FileNotFoundException if the JSON file can't be found
+     * @throws ApiException if there is an error with the API
      */
     public ArrayList<String> getNameOfCharacters() throws FileNotFoundException, ApiException {
         ArrayList<String> nameList = new ArrayList<>();
@@ -92,7 +95,8 @@ public class CharacterManager {
      *
      * @param name name of the character
      * @return ID of the character
-     * @throws FileNotFoundException if the JSON file can't be found.
+     * @throws FileNotFoundException if the JSON file can't be found
+     * @throws ApiException if there is an error with the API
      */
     public long getIdByName(String name) throws FileNotFoundException, ApiException {
         long id = DEFAULT_VALUE;
@@ -114,6 +118,7 @@ public class CharacterManager {
      * @param name name of the character
      * @return weight of the character
      * @throws FileNotFoundException if the JSON file can't be found
+     * @throws ApiException if there is an error with the API
      */
     public int getWeightByName(String name) throws FileNotFoundException, ApiException {
         int weight = DEFAULT_VALUE;
@@ -135,6 +140,7 @@ public class CharacterManager {
      * @param idList list of character IDs
      * @return list of character names
      * @throws FileNotFoundException if the JSON file can't be found
+     * @throws ApiException if there is an error with the API
      */
     public ArrayList<String> getNameById(ArrayList<Long> idList) throws FileNotFoundException, ApiException {
         ArrayList<String> nameList = new ArrayList<>();
@@ -153,8 +159,10 @@ public class CharacterManager {
 
     /**
      * Get a list of Characters by their IDs.
-     *
+     * @param teamMemberIdList id list
      * @return list of Characters
+     * @throws FileNotFoundException if the JSON file can't be found
+     * @throws ApiException if there is an error with the API
      */
     public ArrayList<Character> getCharacterListByIdList(ArrayList<Long> teamMemberIdList) throws FileNotFoundException, ApiException {
         ArrayList<Character> characterList = characterDao.readAll();

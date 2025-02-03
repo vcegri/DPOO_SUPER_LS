@@ -46,6 +46,11 @@ public abstract class CombatMember {
         this.attacked = false;
     }
 
+    /**
+     * Returns the strategy of the CombatMember.
+     *
+     * @return strategy of the CombatMember
+     */
     public String getStrategy() {
         return strategy;
     }
@@ -150,7 +155,6 @@ public abstract class CombatMember {
     /**
      * Checks if a CombatMember has a weapon assigned.
      *
-     * @param i index of the CombatMember to check
      * @return true if the CombatMember has a weapon, false if not
      */
     public boolean hasWeapon() {
@@ -160,12 +164,16 @@ public abstract class CombatMember {
     /**
      * Checks if a CombatMember has armor assigned.
      *
-     * @param i index of the CombatMember to check
      * @return true if the CombatMember has armor, false if not
      */
     public boolean hasArmor() {
         return getArmor() != null;
     }
 
+    /**
+     * Determinate the action that the member make.
+     *
+     * @return A string representing the chosen action.
+     */
     public abstract String chooseAction();
 }

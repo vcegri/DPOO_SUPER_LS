@@ -89,5 +89,11 @@ public abstract class Item {
         this.durability--;
     }
 
+    /**
+     * Returns the power of the item.
+     *
+     * @param weight weight of the character.
+     * @return power of the item.
+     */
     public abstract double getItemUtilityPower(int weight);
 }

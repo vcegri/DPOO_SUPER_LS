@@ -10,6 +10,9 @@ import edu.salle.url.api.exception.ApiException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+/**
+ * Is used to read and write character data at the characters API.
+ */
 public class CharacterAPI implements CharacterDAO{
     private static final String FILE_PATH = "https://balandrau.salle.url.edu/dpoo";
     private final ApiHelper apiHelper;

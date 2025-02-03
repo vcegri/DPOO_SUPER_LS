@@ -35,6 +35,8 @@ public class StatManager {
      * Creates a new Stat for a team with the given name.
      *
      * @param name name of the team
+     * @throws FileNotFoundException if the JSON file can't be found
+     * @throws ApiException if there is an error with the API
      */
     public void createStat(String name) throws FileNotFoundException, ApiException {
         ArrayList<Stat> statList = statDao.readAll();
@@ -49,7 +51,8 @@ public class StatManager {
      *
      * @param name name of the team
      * @return list of integers representing the teams stats
-     * @throws FileNotFoundException if the stat data can't be read
+     * @throws FileNotFoundException if the JSON file can't be found
+     * @throws ApiException if there is an error with the API
      */
     public ArrayList<Integer> getStatList(String name) throws FileNotFoundException, ApiException {
         ArrayList<Integer> statInfoList = new ArrayList<>();
@@ -80,7 +83,9 @@ public class StatManager {
      *
      * @param winner  boolean indicating if the team won
      * @param teamName name of the team
-     * @throws FileNotFoundException if the stat data can't be read or written
+     * @param teamNum  number of the team
+     * @throws FileNotFoundException if the JSON file can't be found
+     * @throws ApiException if there is an error with the API
      */
     public void updateStats(String winner, String teamName, ArrayList<Boolean> koList, int teamNum) throws FileNotFoundException, ApiException {
         ArrayList<Stat> statList = statDao.readAll();
@@ -145,7 +150,8 @@ public class StatManager {
      * Deletes the stats of a team by its name.
      *
      * @param name name of the team
-     * @throws FileNotFoundException if the statistics file can't be found.
+     * @throws FileNotFoundException if the JSON file can't be found
+     * @throws ApiException if there is an error with the API
      */
     public void deleteStat(String name) throws FileNotFoundException, ApiException {
         ArrayList<Stat> statList = statDao.readAll();

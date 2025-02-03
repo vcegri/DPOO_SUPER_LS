@@ -64,6 +64,7 @@ public class CombatManager {
      * @param weaponList     list of weapons available for CombatMembers
      * @param armorList      list of armor available for CombatMembers
      * @param characterList  list of characters participating at the combat
+     * @param strategyList   list of strategy of the CombatMembers
      */
     public void setCombat(ArrayList<Team> teamFight, ArrayList<Item> weaponList, ArrayList<Item> armorList, ArrayList<Character> characterList, ArrayList<String> strategyList) {
         for (int i = DEFAULT_VALUE; i < TEAM_SIZE; i++) {
@@ -74,6 +75,7 @@ public class CombatManager {
 
     /**
      * Returns the list of weapon names assigned to each CombatMember.
+     * @param k team number
      *
      * @return list of weapon names
      */
@@ -102,6 +104,7 @@ public class CombatManager {
 
     /**
      * Returns the list of armor names assigned to each CombatMember.
+     * @param k team number
      *
      * @return list of armor names
      */
@@ -130,6 +133,7 @@ public class CombatManager {
 
     /**
      * Returns the list of damage for all CombatMembers.
+     * @param k team number
      *
      * @return list of damage
      */

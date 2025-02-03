@@ -38,7 +38,8 @@ public class TeamManager {
      *
      * @param name name of the new team
      * @param teamMemberList list of team members
-     * @throws FileNotFoundException if the team data can't be written
+     * @throws FileNotFoundException if the JSON file can't be found
+     * @throws ApiException if there is an error with the API
      */
     public void createTeam(String name, ArrayList<TeamMember> teamMemberList) throws FileNotFoundException, ApiException {
         ArrayList<Team> teamList = teamDao.readAll();
@@ -51,7 +52,8 @@ public class TeamManager {
      * Get a list of all team names.
      *
      * @return list of names of all the teams
-     * @throws FileNotFoundException if the team data can't be read
+     * @throws FileNotFoundException if the JSON file can't be found
+     * @throws ApiException if there is an error with the API
      */
     public ArrayList<String> getNameOfTeams() throws FileNotFoundException, ApiException {
         ArrayList<String> nameList = new ArrayList<>();
@@ -68,7 +70,8 @@ public class TeamManager {
      *
      * @param idCharacter ID of the character
      * @return list of team names the character is a part of
-     * @throws FileNotFoundException if the team data can't be read
+     * @throws FileNotFoundException if the JSON file can't be found
+     * @throws ApiException if there is an error with the API
      */
     public ArrayList<String> searchTeamsOfCharacter(long idCharacter) throws FileNotFoundException, ApiException {
         ArrayList<String> teamNameList = new ArrayList<>();
@@ -91,7 +94,8 @@ public class TeamManager {
      *
      * @param newName name of the team
      * @return true if the team exists, false if not
-     * @throws FileNotFoundException if the team data can't be read
+     * @throws FileNotFoundException if the JSON file can't be found
+     * @throws ApiException if there is an error with the API
      */
     public boolean comproveIfTeamExist(String newName) throws FileNotFoundException, ApiException {
         boolean exist = false;
@@ -110,7 +114,8 @@ public class TeamManager {
      * Deletes a team based on the team name.
      *
      * @param name name of the team
-     * @throws FileNotFoundException if the team data can't be read or written
+     * @throws FileNotFoundException if the JSON file can't be found
+     * @throws ApiException if there is an error with the API
      */
     public void deleteTeam(String name) throws FileNotFoundException, ApiException {
         ArrayList<Team> teamList = teamDao.readAll();
@@ -134,7 +139,8 @@ public class TeamManager {
      *
      * @param name name of the team
      * @return Team with the specified name
-     * @throws FileNotFoundException if the team data can't be read
+     * @throws FileNotFoundException if the JSON file can't be found
+     * @throws ApiException if there is an error with the API
      */
     public Team getTeamByName(String name) throws FileNotFoundException, ApiException {
         ArrayList<Team> teamList = teamDao.readAll();
@@ -150,6 +156,13 @@ public class TeamManager {
         return teamFound;
     }
 
+    /**
+     * Get all the teams.
+     *
+     * @return list of all the teams
+     * @throws FileNotFoundException if the JSON file can't be found
+     * @throws ApiException if there is an error with the API
+     */
     public ArrayList<Team> getTeamList() throws FileNotFoundException, ApiException {
         return teamDao.readAll();
     }

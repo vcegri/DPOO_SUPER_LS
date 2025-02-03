@@ -39,7 +39,8 @@ public class ItemManager {
      *
      * @param name name of the item
      * @return ID of the item
-     * @throws FileNotFoundException if the item data can't be read
+     * @throws FileNotFoundException if the JSON file can't be found
+     * @throws ApiException if there is an error with the API
      */
     public Long getIdByName(String name) throws FileNotFoundException, ApiException {
         long id = DEFAULT_VALUE;
@@ -60,7 +61,8 @@ public class ItemManager {
      *
      * @param name name of the item
      * @return power of the item
-     * @throws FileNotFoundException if the item data can't be read
+     * @throws FileNotFoundException if the JSON file can't be found
+     * @throws ApiException if there is an error with the API
      */
     public int getPowerByName(String name) throws FileNotFoundException, ApiException {
         int power = DEFAULT_VALUE;
@@ -82,7 +84,8 @@ public class ItemManager {
      *
      * @param name name of the item
      * @return durability of the item
-     * @throws FileNotFoundException if the item data can't be read
+     * @throws FileNotFoundException if the JSON file can't be found
+     * @throws ApiException if there is an error with the API
      */
     public int getDurabilityByName(String name) throws FileNotFoundException, ApiException {
         int durability = DEFAULT_VALUE;
@@ -104,7 +107,8 @@ public class ItemManager {
      *
      * @param name name of the item
      * @return class of the item
-     * @throws FileNotFoundException if the item data can't be read
+     * @throws FileNotFoundException if the JSON file can't be found
+     * @throws ApiException if there is an error with the API
      */
     public String getClasseByName(String name) throws FileNotFoundException, ApiException {
         String classe = "";
@@ -125,7 +129,8 @@ public class ItemManager {
      * Get the names of all items.
      *
      * @return list of item names
-     * @throws FileNotFoundException if the item data can't be read
+     * @throws FileNotFoundException if the JSON file can't be found
+     * @throws ApiException if there is an error with the API
      */
     public ArrayList<String> getNameOfItems() throws FileNotFoundException, ApiException {
         ArrayList<String> nameList = new ArrayList<>();
@@ -141,6 +146,8 @@ public class ItemManager {
      * Sets a random weapon for a CombatMember.
      *
      * @return random Item representing a weapon
+     * @throws FileNotFoundException if the JSON file can't be found
+     * @throws ApiException if there is an error with the API
      */
     public Item setRandomWeapon() throws FileNotFoundException, ApiException {
         boolean found = true;
@@ -165,6 +172,8 @@ public class ItemManager {
      * Sets a random armor for a CombatMember.
      *
      * @return random Item representing armor
+     * @throws FileNotFoundException if the JSON file can't be found
+     * @throws ApiException if there is an error with the API
      */
     public Item setRandomArmor() throws FileNotFoundException, ApiException {
         boolean found = true;

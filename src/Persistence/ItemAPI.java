@@ -12,6 +12,9 @@ import edu.salle.url.api.exception.ApiException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+/**
+ * Is used to read and write item data at the items API.
+ */
 public class ItemAPI implements ItemDAO{
 
     private static final String FILE_PATH = "https://balandrau.salle.url.edu/dpoo";
