@@ -68,7 +68,6 @@ public class ItemAPI implements ItemDAO{
             apiHelper.getFromUrl(FILE_PATH + "/shared/items");
             return 1;
         } catch (ApiException e) {
-            e.printStackTrace();
             return 0;
         }
     }

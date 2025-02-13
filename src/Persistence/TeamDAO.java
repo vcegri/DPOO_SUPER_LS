@@ -4,6 +4,7 @@ import Business.Team;
 import edu.salle.url.api.exception.ApiException;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -17,6 +18,6 @@ public interface TeamDAO {
      * @return A list of teams read.
      */
     ArrayList<Team> readAll() throws FileNotFoundException, ApiException;
-    void saveTeams(ArrayList<Team> teamList) throws ApiException;
+    void saveTeams(ArrayList<Team> teamList) throws IOException;
 
 }

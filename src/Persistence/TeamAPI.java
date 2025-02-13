@@ -73,13 +73,10 @@ public class TeamAPI implements TeamDAO{
         if (!readAll().isEmpty()) {
             apiHelper.deleteFromUrl(FILE_PATH + "/" + ID + "/teams");
         }
-        try {
-            for (Team team : teamList) {
-                String jsonBody = gson.toJson(team);
-                apiHelper.postToUrl(FILE_PATH + "/" + ID + "/teams", jsonBody);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        for (Team team : teamList) {
+            String jsonBody = gson.toJson(team);
+            apiHelper.postToUrl(FILE_PATH + "/" + ID + "/teams", jsonBody);
         }
     }
 

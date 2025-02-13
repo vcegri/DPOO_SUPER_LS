@@ -64,7 +64,6 @@ public class CharacterAPI implements CharacterDAO{
             apiHelper.getFromUrl(FILE_PATH + "/shared/characters");
             return 1;
         } catch (ApiException e) {
-            e.printStackTrace();
             return 0;
         }
     }

@@ -172,7 +172,7 @@ public class Controller {
      *
      * @throws FileNotFoundException if the JSON file can't be found.
      */
-    private void manageTeams() throws FileNotFoundException, ApiException {
+    private void manageTeams() throws IOException {
         menu.manageTeamsMenu();
         int option = selectOption(1, 4);
         switch (option) {
@@ -188,7 +188,7 @@ public class Controller {
      *
      * @throws FileNotFoundException if the JSON file can't be found.
      */
-    private void createTeam() throws FileNotFoundException, ApiException {
+    private void createTeam() throws IOException {
         ArrayList<TeamMember> teamMemberList = new ArrayList<>();
 
         menu.createTeam();
@@ -327,7 +327,7 @@ public class Controller {
      *
      * @throws FileNotFoundException if the JSON file can't be found.
      */
-    private void deleteTeam() throws FileNotFoundException, ApiException {
+    private void deleteTeam() throws IOException {
         boolean correctConfirm = true;
 
         menu.deleteTeam();
@@ -391,7 +391,7 @@ public class Controller {
      *
      * @throws FileNotFoundException if the JSON file can't be found.
      */
-    private void simulateCombat() throws FileNotFoundException, ApiException {
+    private void simulateCombat() throws IOException {
         boolean existTeam;
 
         menu.println("Starting simulation...");
@@ -510,7 +510,7 @@ public class Controller {
      *
      * @throws FileNotFoundException if the JSON file can't be found.
      */
-    private void executeCombat() throws FileNotFoundException, ApiException {
+    private void executeCombat() throws IOException {
         int roundNum = 1;
         ArrayList<Boolean> koList = new ArrayList<>();
         ArrayList<Double> damageTakenList = new ArrayList<>();
@@ -652,8 +652,6 @@ public class Controller {
 
         if (finalDamage < 0) {
             finalDamage = 0;
-        }
-        if (damage < 0) {
             damage = 0;
         }
 
@@ -768,7 +766,7 @@ public class Controller {
      * @param koList a list indicating KO variable for each character.
      * @throws FileNotFoundException if the JSON file can't be found.
      */
-    private void updateStats(String winner, ArrayList<Boolean> koList) throws FileNotFoundException, ApiException {
+    private void updateStats(String winner, ArrayList<Boolean> koList) throws IOException {
         String teamName;
         int teamNum = 2;
 

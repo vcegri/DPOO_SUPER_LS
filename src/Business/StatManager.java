@@ -5,6 +5,7 @@ import edu.salle.url.api.ApiHelper;
 import edu.salle.url.api.exception.ApiException;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -38,7 +39,7 @@ public class StatManager {
      * @throws FileNotFoundException if the JSON file can't be found
      * @throws ApiException if there is an error with the API
      */
-    public void createStat(String name) throws FileNotFoundException, ApiException {
+    public void createStat(String name) throws IOException {
         ArrayList<Stat> statList = statDao.readAll();
 
         Stat stat = new Stat(name);
@@ -88,7 +89,7 @@ public class StatManager {
      * @throws FileNotFoundException if the JSON file can't be found
      * @throws ApiException if there is an error with the API
      */
-    public void updateStats(String winner, String teamName, ArrayList<Boolean> koList, int teamNum) throws FileNotFoundException, ApiException {
+    public void updateStats(String winner, String teamName, ArrayList<Boolean> koList, int teamNum) throws IOException {
         ArrayList<Stat> statList = statDao.readAll();
         int gamesPlayed, gamesWon, KO_done, KO_received;
 
@@ -155,7 +156,7 @@ public class StatManager {
      * @throws FileNotFoundException if the JSON file can't be found
      * @throws ApiException if there is an error with the API
      */
-    public void deleteStat(String name) throws FileNotFoundException, ApiException {
+    public void deleteStat(String name) throws IOException {
         ArrayList<Stat> statList = statDao.readAll();
 
         Stat statFound = null;
@@ -167,7 +168,6 @@ public class StatManager {
         }
 
         if (statFound != null) {
-            //statDao.deleteStats();
             statList.remove(statFound);
             statDao.saveStatList(statList);
         }

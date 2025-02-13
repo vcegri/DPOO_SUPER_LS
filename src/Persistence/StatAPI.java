@@ -73,14 +73,10 @@ public class StatAPI implements StatDAO{
         if (!readAll().isEmpty()) {
             apiHelper.deleteFromUrl(FILE_PATH + "/" + ID + "/stats");
         }
-        try {
-            for (Stat stat : statList) {
-                String jsonBody = gson.toJson(stat);
-                apiHelper.postToUrl(FILE_PATH + "/" + ID + "/stats", jsonBody);
-            }
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        for (Stat stat : statList) {
+            String jsonBody = gson.toJson(stat);
+            apiHelper.postToUrl(FILE_PATH + "/" + ID + "/stats", jsonBody);
         }
     }
 

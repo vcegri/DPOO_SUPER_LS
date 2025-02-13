@@ -44,13 +44,11 @@ public class StatJSON implements StatDAO {
      *
      * @param statList the list of Stats to update
      */
-    public void saveStatList(ArrayList<Stat> statList) {
-        try (FileWriter writer = new FileWriter(FILE_PATH)) {
-            Gson gson = new Gson();
-            gson.toJson(statList.toArray(), writer);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void saveStatList(ArrayList<Stat> statList) throws IOException {
+        FileWriter writer = new FileWriter(FILE_PATH);
+        Gson gson = new Gson();
+        gson.toJson(statList.toArray(), writer);
+
     }
 
 

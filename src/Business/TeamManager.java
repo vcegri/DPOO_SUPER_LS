@@ -7,6 +7,7 @@ import edu.salle.url.api.ApiHelper;
 import edu.salle.url.api.exception.ApiException;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -41,7 +42,7 @@ public class TeamManager {
      * @throws FileNotFoundException if the JSON file can't be found
      * @throws ApiException if there is an error with the API
      */
-    public void createTeam(String name, ArrayList<TeamMember> teamMemberList) throws FileNotFoundException, ApiException {
+    public void createTeam(String name, ArrayList<TeamMember> teamMemberList) throws IOException {
         ArrayList<Team> teamList = teamDao.readAll();
         Team team = new Team(name, teamMemberList);
         //teamDao.deleteTeams();
@@ -118,7 +119,7 @@ public class TeamManager {
      * @throws FileNotFoundException if the JSON file can't be found
      * @throws ApiException if there is an error with the API
      */
-    public void deleteTeam(String name) throws FileNotFoundException, ApiException {
+    public void deleteTeam(String name) throws IOException {
         ArrayList<Team> teamList = teamDao.readAll();
 
         Team teamFound = null;

@@ -42,13 +42,11 @@ public class TeamJSON implements TeamDAO{
      *
      * @param teamList the list of Teams to update
      */
-    public void saveTeams(ArrayList<Team> teamList) {
-        try (FileWriter writer = new FileWriter(FILE_PATH)) {
-            Gson gson = new Gson();
-            gson.toJson(teamList, writer);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void saveTeams(ArrayList<Team> teamList) throws IOException {
+        FileWriter writer = new FileWriter(FILE_PATH);
+        Gson gson = new Gson();
+        gson.toJson(teamList, writer);
+
     }
 
 }
