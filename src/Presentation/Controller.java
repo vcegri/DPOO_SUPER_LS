@@ -170,7 +170,7 @@ public class Controller {
     /**
      * Manages team operations such as creation, listing, and deletion.
      *
-     * @throws FileNotFoundException if the JSON file can't be found.
+     * @throws IOException to manage output and input errors.
      */
     private void manageTeams() throws IOException {
         menu.manageTeamsMenu();
@@ -186,7 +186,7 @@ public class Controller {
     /**
      * Creates a new team asking the user.
      *
-     * @throws FileNotFoundException if the JSON file can't be found.
+     * @throws IOException to manage output and input errors.
      */
     private void createTeam() throws IOException {
         ArrayList<TeamMember> teamMemberList = new ArrayList<>();
@@ -225,6 +225,7 @@ public class Controller {
      * @param j             index of the character in the team.
      * @return corresponding TeamMember.
      * @throws FileNotFoundException if the JSON file can't be found.
+     * @throws ApiException if there is an error with the API
      */
     private TeamMember getTeamMember(String characterName, int j) throws FileNotFoundException, ApiException {
         boolean characterExist;
@@ -261,6 +262,12 @@ public class Controller {
         return teamMember;
     }
 
+    /**
+     * Determines the strategy based on the given option.
+     *
+     * @param opcio The selected option representing a strategy.
+     * @return The strategy as a string.
+     */
     private String whichStrategy(int opcio) {
         String strategy = "";
 
@@ -284,6 +291,7 @@ public class Controller {
      * Show a list of teams and their details.
      *
      * @throws FileNotFoundException if the JSON file can't be found.
+     * @throws ApiException if there is an error with the API
      */
     private void listTeams() throws FileNotFoundException, ApiException {
         ArrayList<String> teamNameList;
@@ -325,7 +333,7 @@ public class Controller {
     /**
      * Deletes a team asking the user.
      *
-     * @throws FileNotFoundException if the JSON file can't be found.
+     * @throws IOException to manage output and input errors.
      */
     private void deleteTeam() throws IOException {
         boolean correctConfirm = true;
@@ -389,7 +397,7 @@ public class Controller {
     /**
      * Simulates a combat between two teams.
      *
-     * @throws FileNotFoundException if the JSON file can't be found.
+     * @throws IOException to manage output and input errors.
      */
     private void simulateCombat() throws IOException {
         boolean existTeam;
@@ -406,6 +414,7 @@ public class Controller {
      *
      * @return true if teams are available for combat, false if not.
      * @throws FileNotFoundException if the JSON file can't be found.
+     * @throws ApiException if there is an error with the API
      */
     private boolean chooseTeam() throws FileNotFoundException, ApiException {
         ArrayList<Team> teamFight;
@@ -437,6 +446,7 @@ public class Controller {
      *
      * @return list of the two selected teams.
      * @throws FileNotFoundException if the JSON file can't be found.
+     * @throws ApiException if there is an error with the API
      */
     private ArrayList<Team> chooseTeamForCombat() throws FileNotFoundException, ApiException {
         ArrayList<String> teamNameList;
@@ -458,6 +468,7 @@ public class Controller {
      * @param numTeam team number being selected (1 or 2).
      * @return selected team.
      * @throws FileNotFoundException if the JSON file can't be found.
+     * @throws ApiException if there is an error with the API
      */
     private Team chooseSingleTeam(ArrayList<String> teamNameList, int numTeam) throws FileNotFoundException, ApiException {
         String teamName;
@@ -478,6 +489,7 @@ public class Controller {
      * @param numTeam  team number in the combat.
      * @param teamFight list of teams in the combat.
      * @throws FileNotFoundException if the JSON file can't be found.
+     * @throws ApiException if there is an error with the API
      */
     private void showTeamInfoForCombat(int numTeam, ArrayList<Team> teamFight) throws FileNotFoundException, ApiException {
         ArrayList<String> teamMemberNameList = new ArrayList<>();
@@ -508,7 +520,7 @@ public class Controller {
     /**
      * Executes all rounds of a combat by simulating each CombatMember action.
      *
-     * @throws FileNotFoundException if the JSON file can't be found.
+     * @throws IOException to manage output and input errors.
      */
     private void executeCombat() throws IOException {
         int roundNum = 1;
@@ -555,6 +567,7 @@ public class Controller {
      * Show the state of teams after each combat round, including CombatMember details.
      *
      * @throws FileNotFoundException if the JSON file can't be found.
+     * @throws ApiException if there is an error with the API
      */
     private void roundTeamInfo() throws FileNotFoundException, ApiException {
         int teamNumber;
@@ -593,6 +606,7 @@ public class Controller {
      * Executes actions of all CombatMembers.
      *
      * @throws FileNotFoundException if the JSON file can't be found.
+     * @throws ApiException if there is an error with the API
      */
     private void executeAction() throws FileNotFoundException, ApiException {
 
@@ -661,6 +675,12 @@ public class Controller {
         combatManager.updateItemDurability(i, objective);
     }
 
+    /**
+     * Selects a combat objective based on the member's strategy.
+     *
+     * @param i Index of the combat member.
+     * @return Index of the selected target.
+     */
     private int selectObjective(int i){
         Random random = new Random();
         int index = DEFAULT_VALUE;
@@ -705,6 +725,7 @@ public class Controller {
      *
      * @param i index of the CombatMember at the list.
      * @throws FileNotFoundException if the JSON file can't be found.
+     * @throws ApiException if there is an error with the API
      */
     private void newWeapon(int i) throws FileNotFoundException, ApiException {
         this.combatManager.getCombatMemberList().get(i).setWeapon(itemManager.setRandomWeapon());
@@ -764,7 +785,7 @@ public class Controller {
      *
      * @param winner name of the winning team.
      * @param koList a list indicating KO variable for each character.
-     * @throws FileNotFoundException if the JSON file can't be found.
+     * @throws IOException to manage output and input errors.
      */
     private void updateStats(String winner, ArrayList<Boolean> koList) throws IOException {
         String teamName;

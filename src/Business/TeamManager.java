@@ -39,8 +39,7 @@ public class TeamManager {
      *
      * @param name name of the new team
      * @param teamMemberList list of team members
-     * @throws FileNotFoundException if the JSON file can't be found
-     * @throws ApiException if there is an error with the API
+     * @throws IOException to manage output and input errors.
      */
     public void createTeam(String name, ArrayList<TeamMember> teamMemberList) throws IOException {
         ArrayList<Team> teamList = teamDao.readAll();
@@ -116,8 +115,7 @@ public class TeamManager {
      * Deletes a team based on the team name.
      *
      * @param name name of the team
-     * @throws FileNotFoundException if the JSON file can't be found
-     * @throws ApiException if there is an error with the API
+     * @throws IOException to manage output and input errors.
      */
     public void deleteTeam(String name) throws IOException {
         ArrayList<Team> teamList = teamDao.readAll();

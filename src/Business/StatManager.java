@@ -36,8 +36,7 @@ public class StatManager {
      * Creates a new Stat for a team with the given name.
      *
      * @param name name of the team
-     * @throws FileNotFoundException if the JSON file can't be found
-     * @throws ApiException if there is an error with the API
+     * @throws IOException to manage output and input errors.
      */
     public void createStat(String name) throws IOException {
         ArrayList<Stat> statList = statDao.readAll();
@@ -86,8 +85,7 @@ public class StatManager {
      * @param winner  boolean indicating if the team won
      * @param teamName name of the team
      * @param teamNum  number of the team
-     * @throws FileNotFoundException if the JSON file can't be found
-     * @throws ApiException if there is an error with the API
+     * @throws IOException to manage output and input errors.
      */
     public void updateStats(String winner, String teamName, ArrayList<Boolean> koList, int teamNum) throws IOException {
         ArrayList<Stat> statList = statDao.readAll();
@@ -153,8 +151,7 @@ public class StatManager {
      * Deletes the stats of a team by its name.
      *
      * @param name name of the team
-     * @throws FileNotFoundException if the JSON file can't be found
-     * @throws ApiException if there is an error with the API
+     * @throws IOException to manage output and input errors.
      */
     public void deleteStat(String name) throws IOException {
         ArrayList<Stat> statList = statDao.readAll();
