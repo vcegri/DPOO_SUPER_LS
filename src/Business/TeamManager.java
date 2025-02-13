@@ -44,6 +44,7 @@ public class TeamManager {
     public void createTeam(String name, ArrayList<TeamMember> teamMemberList) throws FileNotFoundException, ApiException {
         ArrayList<Team> teamList = teamDao.readAll();
         Team team = new Team(name, teamMemberList);
+        //teamDao.deleteTeams();
         teamList.add(team);
         teamDao.saveTeams(teamList);
     }
@@ -129,6 +130,7 @@ public class TeamManager {
         }
 
         if (teamFound != null) {
+            //teamDao.deleteTeams();
             teamList.remove(teamFound);
             teamDao.saveTeams(teamList);
         }

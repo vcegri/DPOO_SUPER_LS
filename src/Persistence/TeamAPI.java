@@ -68,18 +68,16 @@ public class TeamAPI implements TeamDAO{
      * @param teamList List of stats to save.
      */
     @Override
-    public void saveTeams(ArrayList<Team> teamList) {
+    public void saveTeams (ArrayList<Team> teamList) throws ApiException {
         Gson gson = new GsonBuilder().registerTypeAdapter(Team.class, new TeamSerializer()).create();
+        if (!readAll().isEmpty()) {
+            apiHelper.deleteFromUrl(FILE_PATH + "/" + ID + "/teams");
+        }
         try {
-            if (teamList.size() < 1) {
-                apiHelper.deleteFromUrl(FILE_PATH + "/" + ID + "/teams");
-            }
-
             for (Team team : teamList) {
                 String jsonBody = gson.toJson(team);
                 apiHelper.postToUrl(FILE_PATH + "/" + ID + "/teams", jsonBody);
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }

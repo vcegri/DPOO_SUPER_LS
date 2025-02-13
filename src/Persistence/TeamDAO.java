@@ -17,5 +17,6 @@ public interface TeamDAO {
      * @return A list of teams read.
      */
     ArrayList<Team> readAll() throws FileNotFoundException, ApiException;
-    void saveTeams(ArrayList<Team> teamList);
+    void saveTeams(ArrayList<Team> teamList) throws ApiException;
+
 }

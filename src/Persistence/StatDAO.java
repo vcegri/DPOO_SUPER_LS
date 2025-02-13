@@ -20,5 +20,6 @@ public interface StatDAO {
      */
     ArrayList<Stat> readAll() throws FileNotFoundException, ApiException;
 
-    void saveStatList(ArrayList<Stat> statList);
+    void saveStatList(ArrayList<Stat> statList) throws ApiException;
+
 }

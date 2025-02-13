@@ -539,6 +539,7 @@ public class Controller {
         }
         for (int i = DEFAULT_VALUE; i < this.combatManager.getCombatMemberList().size(); i++) {
             koList.add(combatManager.getCombatMemberList().get(i).isKo());
+
             damageTakenList.add(this.combatManager.getCombatMemberList().get(i).getDamage());
             memberNameList.add(this.combatManager.getCombatMemberList().get(i).getCharacter().getName());
         }
@@ -547,6 +548,7 @@ public class Controller {
         menu.finalRound(memberNameList, damageTakenList, koList);
         updateStats(winner, koList);
         this.combatManager.endCombat();
+        pressEnter();
     }
 
     /**
@@ -646,6 +648,13 @@ public class Controller {
             if (((CombatMemberBalanced) combatMember).isDefending()) {
                 finalDamage = finalDamage - combatManager.calculateDamageReduction(this.combatManager.getCombatMemberList().get(objective));
             }
+        }
+
+        if (finalDamage < 0) {
+            finalDamage = 0;
+        }
+        if (damage < 0) {
+            damage = 0;
         }
 
         this.combatManager.getCombatMemberList().get(objective).updateDamage(finalDamage);

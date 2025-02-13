@@ -178,7 +178,9 @@ public class CombatManager {
      * @param randomIndex index of the defending CombatMember.
      */
     public void updateItemDurability(int i,int randomIndex) {
-        this.getCombatMemberList().get(i).getWeapon().updateDurability();
+        if (this.getCombatMemberList().get(i).getWeapon() != null) {
+            this.getCombatMemberList().get(i).getWeapon().updateDurability();
+        }
         if (this.getCombatMemberList().get(randomIndex).getArmor() != null) {
             this.getCombatMemberList().get(randomIndex).getArmor().updateDurability();
         }

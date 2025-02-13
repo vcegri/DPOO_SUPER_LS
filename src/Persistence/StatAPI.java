@@ -68,12 +68,12 @@ public class StatAPI implements StatDAO{
      * @param statList List of stats to save.
      */
     @Override
-    public void saveStatList(ArrayList<Stat> statList) {
+    public void saveStatList(ArrayList<Stat> statList) throws ApiException {
         Gson gson = new GsonBuilder().registerTypeAdapter(Stat.class, new StatSerializer()).create();
+        if (!readAll().isEmpty()) {
+            apiHelper.deleteFromUrl(FILE_PATH + "/" + ID + "/stats");
+        }
         try {
-            if (statList.size() < 1) {
-                apiHelper.deleteFromUrl(FILE_PATH + "/" + ID + "/stats");
-            }
             for (Stat stat : statList) {
                 String jsonBody = gson.toJson(stat);
                 apiHelper.postToUrl(FILE_PATH + "/" + ID + "/stats", jsonBody);
@@ -83,6 +83,5 @@ public class StatAPI implements StatDAO{
             e.printStackTrace();
         }
     }
-
 
 }

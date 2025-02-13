@@ -42,6 +42,7 @@ public class StatManager {
         ArrayList<Stat> statList = statDao.readAll();
 
         Stat stat = new Stat(name);
+        //statDao.deleteStats();
         statList.add(stat);
         statDao.saveStatList(statList);
     }
@@ -139,11 +140,12 @@ public class StatManager {
                     }
                     KO_done = KO_done + cont;
                 }
-
                 statList.get(i).updateStats(gamesPlayed, gamesWon, KO_done, KO_received);
+                //statDao.deleteStats();
                 statDao.saveStatList(statList);
             }
         }
+
     }
 
     /**
@@ -165,6 +167,7 @@ public class StatManager {
         }
 
         if (statFound != null) {
+            //statDao.deleteStats();
             statList.remove(statFound);
             statDao.saveStatList(statList);
         }

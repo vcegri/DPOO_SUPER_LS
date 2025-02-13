@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import edu.salle.url.api.exception.ApiException;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -49,4 +50,5 @@ public class TeamJSON implements TeamDAO{
             e.printStackTrace();
         }
     }
+
 }
